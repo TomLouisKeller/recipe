@@ -1,7 +1,6 @@
 package com.tomlouiskeller.recipe.domain;
 
 import javax.persistence.*;
-import java.net.InetAddress;
 
 @Entity
 public class Rating {
@@ -10,7 +9,7 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer rating;
-    private InetAddress ip;
+    private String ip; //InetAddress
 
     // Relations
     @ManyToOne(fetch = FetchType.EAGER)
@@ -32,11 +31,11 @@ public class Rating {
         this.rating = rating;
     }
 
-    public InetAddress getIp() {
+    public String getIp() {
         return ip;
     }
 
-    public void setIp(InetAddress ip) {
+    public void setIp(String ip) {
         this.ip = ip;
     }
 
