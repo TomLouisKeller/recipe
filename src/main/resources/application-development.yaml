@@ -1,0 +1,15 @@
+spring.jpa.hibernate.ddl-auto: create-drop
+
+# Database Basics
+database:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://127.0.0.1:3306/recipe
+    username: recipe
+    password: hu#EYWGTx"9?oKNM~n17
+    schema: recipe
+    dialect: org.hibernate.dialect.MySQL5Dialect
+
+    # Database Hikari (DataSource)
+    cachePrepStmts: true
+    prepStmtCacheSize: 250
+    prepStmtCacheSqlLimit: 2048
