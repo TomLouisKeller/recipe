@@ -15,6 +15,8 @@ INSERT INTO category (name) VALUES ('Mexican');
 INSERT INTO category (name) VALUES ('Chinese');
 INSERT INTO category (name) VALUES ('Thai');
 INSERT INTO category (name) VALUES ('German');
+INSERT INTO category (name) VALUES ('Swiss');
+INSERT INTO category (name) VALUES ('American');
 
 INSERT INTO unit_of_measurement (name) VALUES ('Tablespoon');
 INSERT INTO unit_of_measurement (name) VALUES ('Teaspoon');

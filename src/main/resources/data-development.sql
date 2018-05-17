@@ -1,8 +1,5 @@
 -- data.sql will be executed after this file
 
-INSERT INTO category (name) VALUES ('Swiss');
-
-
 INSERT INTO nutritional_info
 (text)
 VALUES ('You will become obese');
