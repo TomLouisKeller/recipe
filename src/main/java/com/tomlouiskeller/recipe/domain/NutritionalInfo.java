@@ -12,7 +12,7 @@ public class NutritionalInfo {
     private String text;
 
     // Relations
-    @OneToOne
+    @OneToOne(mappedBy = "nutritionalInfo")
     private Recipe recipe;
 
     public NutritionalInfo(String text, Recipe recipe) {
