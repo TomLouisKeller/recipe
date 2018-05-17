@@ -16,12 +16,6 @@ public class Rating {
     @ManyToOne(fetch = FetchType.EAGER)
     private Recipe recipe;
 
-    public Rating(Integer rating, InetAddress ip, Recipe recipe) {
-        this.rating = rating;
-        this.ip = ip;
-        this.recipe = recipe;
-    }
-
     public Long getId() {
         return id;
     }

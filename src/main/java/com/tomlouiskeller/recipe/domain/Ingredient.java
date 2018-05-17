@@ -18,13 +18,6 @@ public class Ingredient {
     @ManyToOne(fetch = FetchType.EAGER) // TODO: Is fetch=EAGER necessary
     private Recipe recipe;
 
-    public Ingredient(BigDecimal amount, UnitOfMeasurement unitOfMeasurement, Product product, Recipe recipe) {
-        this.amount = amount;
-        this.unitOfMeasurement = unitOfMeasurement;
-        this.product = product;
-        this.recipe = recipe;
-    }
-
     public Long getId() {
         return id;
     }

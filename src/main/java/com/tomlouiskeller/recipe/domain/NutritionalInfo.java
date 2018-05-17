@@ -15,11 +15,6 @@ public class NutritionalInfo {
     @OneToOne(mappedBy = "nutritionalInfo")
     private Recipe recipe;
 
-    public NutritionalInfo(String text, Recipe recipe) {
-        this.text = text;
-        this.recipe = recipe;
-    }
-
     public Long getId() {
         return id;
     }

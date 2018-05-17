@@ -16,11 +16,6 @@ public class Instruction {
     @OneToOne(mappedBy = "instruction")
     private Recipe recipe;
 
-    public Instruction(String text, Recipe recipe) {
-        this.text = text;
-        this.recipe = recipe;
-    }
-
     public Long getId() {
         return id;
     }
