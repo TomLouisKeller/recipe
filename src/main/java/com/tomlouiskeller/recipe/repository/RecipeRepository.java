@@ -14,6 +14,8 @@ public interface RecipeRepository extends CrudRepository<Recipe, Long> {
     Optional<Recipe> findByCookingDurationIsGreaterThanEqual(Integer duration);
     Optional<Recipe> findByCookingDurationIsLessThanEqual(Integer duration);
 
+
+    // TODO: These will return a list!
     @Query("select r from Recipe r where (r.preparationDuration + r.cookingDuration) >= ?1")
     Optional<Recipe> findByPreparationDurationPlusCookingDurationIsGreaterThanEqual(Integer duration);
 
