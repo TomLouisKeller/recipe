@@ -12,6 +12,13 @@ public class Instruction {
     @Lob
     private String text;
 
+    public Instruction() {
+    }
+
+    public Instruction(String text) {
+        this.text = text;
+    }
+
     // Relations
     @OneToOne(mappedBy = "instruction")
     private Recipe recipe;

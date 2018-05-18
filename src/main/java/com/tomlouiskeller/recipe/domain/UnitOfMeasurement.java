@@ -15,6 +15,13 @@ public class UnitOfMeasurement {
     @OneToMany(mappedBy = "unitOfMeasurement", fetch = FetchType.LAZY) // Could think about cascade = CascadeType.ALL
     private Set<Ingredient> ingredients;
 
+    public UnitOfMeasurement() {
+    }
+
+    public UnitOfMeasurement(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

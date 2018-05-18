@@ -14,6 +14,13 @@ public class Category {
     @ManyToMany(fetch = FetchType.LAZY, mappedBy = "categories")
     private Set<Recipe> recipes;
 
+    public Category() {
+    }
+
+    public Category(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }

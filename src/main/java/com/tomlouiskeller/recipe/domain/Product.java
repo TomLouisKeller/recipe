@@ -15,6 +15,14 @@ public class Product {
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY) // Could think about cascade = CascadeType.ALL
     private Set<Ingredient> ingredients;
 
+
+    public Product() {
+    }
+
+    public Product(String name) {
+        this.name = name;
+    }
+
     public Long getId() {
         return id;
     }
