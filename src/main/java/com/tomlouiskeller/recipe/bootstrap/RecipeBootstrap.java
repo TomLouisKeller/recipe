@@ -4,9 +4,9 @@ import com.tomlouiskeller.recipe.domain.Difficulty;
 import com.tomlouiskeller.recipe.domain.Instruction;
 import com.tomlouiskeller.recipe.domain.NutritionalInfo;
 import com.tomlouiskeller.recipe.domain.Recipe;
-import com.tomlouiskeller.recipe.repository.RecipeRepository;
 import com.tomlouiskeller.recipe.service.CategoryService;
 import com.tomlouiskeller.recipe.service.IngredientService;
+import com.tomlouiskeller.recipe.service.RecipeService;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -20,19 +20,19 @@ import java.util.List;
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
     private final CategoryService categoryService;
-    private final RecipeRepository recipeRepository;
+    private final RecipeService recipeService;
     private final IngredientService ingredientService;
 
-    public RecipeBootstrap(CategoryService categoryService, RecipeRepository recipeRepository, IngredientService ingredientService) {
+    public RecipeBootstrap(CategoryService categoryService, RecipeService recipeService, IngredientService ingredientService) {
         this.categoryService = categoryService;
-        this.recipeRepository = recipeRepository;
+        this.recipeService = recipeService;
         this.ingredientService = ingredientService;
     }
 
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
-        recipeRepository.saveAll(getAdditionalRecipes());
+        recipeService.saveAll(getAdditionalRecipes());
         //log.debug("Loading Bootstrap Data");
     }
 
@@ -41,7 +41,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
         //Yummy Guacamole
         Recipe guacamoleRecipe = new Recipe();
-        recipeRepository.save(guacamoleRecipe); // Have to save it to reference it in the ingredients
+        recipeService.save(guacamoleRecipe); // Have to save it to reference it in the ingredients
         guacamoleRecipe.setTitle("Perfect Guacamole");
         guacamoleRecipe.setPreparationDuration(10);
         guacamoleRecipe.setCookingDuration(0);
