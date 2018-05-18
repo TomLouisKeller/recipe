@@ -6,4 +6,4 @@
 
 
 -- Spring doesn't like it if this file is empty, so we need to put something in here
-INSERT INTO category (name) VALUES ('American');
+INSERT INTO category (name) VALUES ('American'); -- id: 13

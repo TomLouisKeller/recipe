@@ -1,18 +1,22 @@
 package com.tomlouiskeller.recipe.bootstrap;
 
-import com.tomlouiskeller.recipe.domain.*;
+import com.tomlouiskeller.recipe.domain.Difficulty;
+import com.tomlouiskeller.recipe.domain.Instruction;
+import com.tomlouiskeller.recipe.domain.NutritionalInfo;
+import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.repository.RecipeRepository;
 import com.tomlouiskeller.recipe.repository.UnitOfMeasurementRepository;
 import com.tomlouiskeller.recipe.service.CategoryService;
 import com.tomlouiskeller.recipe.service.IngredientService;
 import org.springframework.context.ApplicationListener;
+import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
-
+@Profile("development")
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 
@@ -38,18 +42,18 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     private List<Recipe> getAdditionalRecipes() {
         List<Recipe> recipes = new ArrayList<>(1);
 
-        //Yummy Guac
-        Recipe guacRecipe = new Recipe();
-        recipeRepository.save(guacRecipe); // Have to save it to reference it in the ingredients
-        guacRecipe.setTitle("Perfect Guacamole");
-        guacRecipe.setPreparationDuration(10);
-        guacRecipe.setCookingDuration(0);
-        guacRecipe.setServings(4);
-        guacRecipe.setDifficulty(Difficulty.AMATEUR);
-        guacRecipe.setSource("Simply Recipes");
-        guacRecipe.setUrl("http://www.simplyrecipes.com/recipes/perfect_guacamole/");
+        //Yummy Guacamole
+        Recipe guacamoleRecipe = new Recipe();
+        recipeRepository.save(guacamoleRecipe); // Have to save it to reference it in the ingredients
+        guacamoleRecipe.setTitle("Perfect Guacamole");
+        guacamoleRecipe.setPreparationDuration(10);
+        guacamoleRecipe.setCookingDuration(0);
+        guacamoleRecipe.setServings(4);
+        guacamoleRecipe.setDifficulty(Difficulty.AMATEUR);
+        guacamoleRecipe.setSource("Simply Recipes");
+        guacamoleRecipe.setUrl("http://www.simplyrecipes.com/recipes/perfect_guacamole/");
 
-        guacRecipe.setInstruction(new Instruction("1 Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon" +
+        guacamoleRecipe.setInstruction(new Instruction("1 Cut avocado, remove flesh: Cut the avocados in half. Remove seed. Score the inside of the avocado with a blunt knife and scoop out the flesh with a spoon" +
                 "\n" +
                 "2 Mash with a fork: Using a fork, roughly mash the avocado. (Don't overdo it! The guacamole should be a little chunky.)" +
                 "\n" +
@@ -62,7 +66,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 "\n" +
                 "Read more: http://www.simplyrecipes.com/recipes/perfect_guacamole/#ixzz4jvpiV9Sd"));
 
-        guacRecipe.setNutritionalInfo(new NutritionalInfo("For a very quick guacamole just take a 1/4 cup of salsa and mix it in with your mashed avocados.\n" +
+        guacamoleRecipe.setNutritionalInfo(new NutritionalInfo("For a very quick guacamole just take a 1/4 cup of salsa and mix it in with your mashed avocados.\n" +
                 "Feel free to experiment! One classic Mexican guacamole has pomegranate seeds and chunks of peaches in it (a Diana Kennedy favorite). Try guacamole with added pineapple, mango, or strawberries.\n" +
                 "The simplest version of guacamole is just mashed avocados with salt. Don't let the lack of availability of other ingredients stop you from making guacamole.\n" +
                 "To extend a limited supply of avocados, add either sour cream or cottage cheese to your guacamole dip. Purists may be horrified, but so what? It tastes great.\n" +
@@ -70,23 +74,20 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 "\n" +
                 "Read more: http://www.simplyrecipes.com/recipes/perfect_guacamole/#ixzz4jvoun5ws"));
 
-        guacRecipe.addIngredient(ingredientService.ingredientFactory(2d, "", "ripe avocados", guacRecipe));
-        guacRecipe.addIngredient(ingredientService.ingredientFactory(0.5d, "Teaspoon", "Kosher salt", guacRecipe));
-        guacRecipe.addIngredient(ingredientService.ingredientFactory(2d, "Teaspoon", "fresh lime juice or lemon juice", guacRecipe));
-        guacRecipe.addIngredient(ingredientService.ingredientFactory(2d, "Teaspoon", "minced red onion or thinly sliced green onion", guacRecipe));
-        guacRecipe.addIngredient(ingredientService.ingredientFactory(2d, "", "serrano chiles, stems and seeds removed, minced", guacRecipe));
-        guacRecipe.addIngredient(ingredientService.ingredientFactory(2d, "Teaspoon", "Cilantro", guacRecipe));
-        guacRecipe.addIngredient(ingredientService.ingredientFactory(2d, "Dash", "freshly grated black pepper", guacRecipe));
-        guacRecipe.addIngredient(ingredientService.ingredientFactory(0.5d, "", "ripe tomato, seeds and pulp removed, chopped", guacRecipe));
+        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "", "ripe avocados", guacamoleRecipe));
+        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(0.5d, "Teaspoon", "Kosher salt", guacamoleRecipe));
+        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "Teaspoon", "fresh lime juice or lemon juice", guacamoleRecipe));
+        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "Teaspoon", "minced red onion or thinly sliced green onion", guacamoleRecipe));
+        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "", "serrano chiles, stems and seeds removed, minced", guacamoleRecipe));
+        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "Teaspoon", "Cilantro", guacamoleRecipe));
+        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "Dash", "freshly grated black pepper", guacamoleRecipe));
+        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(0.5d, "", "ripe tomato, seeds and pulp removed, chopped", guacamoleRecipe));
 
-        Category mexican = categoryService.findByNameOrCreate("Mexican");
-        Category american = categoryService.findByNameOrCreate("American");
-
-        guacRecipe.getCategories().add(mexican);
-        guacRecipe.getCategories().add(american);
+        guacamoleRecipe.getCategories().add(categoryService.findByNameOrCreate("Mexican"));
+        guacamoleRecipe.getCategories().add(categoryService.findByNameOrCreate("American"));
 
         //add to return list
-        recipes.add(guacRecipe);
+        recipes.add(guacamoleRecipe);
 
         return recipes;
     }
