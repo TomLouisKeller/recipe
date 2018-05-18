@@ -16,8 +16,8 @@ public class ProductServiceImpl implements ProductService{
     }
 
 
-    // TODO: We have this findByNameOrCreate thing in 3 classes. Find a way to sort this out.
-    public Product findByNameOrCreate(String name){
+    // TODO: We have this getByName thing in 3 classes. Find a way to sort this out.
+    public Product getByName(String name){
         Optional<Product> product = productRepository.findByName(name);
         if (product.isPresent())
             return product.get();

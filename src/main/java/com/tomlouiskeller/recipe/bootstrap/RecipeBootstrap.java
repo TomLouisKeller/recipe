@@ -41,7 +41,6 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
 
         //Yummy Guacamole
         Recipe guacamoleRecipe = new Recipe();
-        recipeService.save(guacamoleRecipe); // Have to save it to reference it in the ingredients
         guacamoleRecipe.setTitle("Perfect Guacamole");
         guacamoleRecipe.setPreparationDuration(10);
         guacamoleRecipe.setCookingDuration(0);
@@ -80,8 +79,8 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "Dash", "freshly grated black pepper"));
         guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(0.5d, "", "ripe tomato, seeds and pulp removed, chopped"));
 
-        guacamoleRecipe.getCategories().add(categoryService.findByNameOrCreate("Mexican"));
-        guacamoleRecipe.getCategories().add(categoryService.findByNameOrCreate("American"));
+        guacamoleRecipe.getCategories().add(categoryService.getByName("Mexican"));
+        guacamoleRecipe.getCategories().add(categoryService.getByName("American"));
 
         //add to return list
         recipes.add(guacamoleRecipe);

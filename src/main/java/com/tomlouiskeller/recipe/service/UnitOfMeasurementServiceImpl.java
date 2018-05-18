@@ -15,8 +15,8 @@ public class UnitOfMeasurementServiceImpl implements UnitOfMeasurementService {
         this.unitOfMeasurementRepository = unitOfMeasurementRepository;
     }
 
-    // TODO: We have this findByNameOrCreate thing in 3 classes. Find a way to sort this out.
-    public UnitOfMeasurement findByNameOrCreate(String name){
+    // TODO: We have this getByName thing in 3 classes. Find a way to sort this out.
+    public UnitOfMeasurement getByName(String name){
         Optional<UnitOfMeasurement> unitOfMeasurement = unitOfMeasurementRepository.findByName(name);
         if (unitOfMeasurement.isPresent())
             return unitOfMeasurement.get();
