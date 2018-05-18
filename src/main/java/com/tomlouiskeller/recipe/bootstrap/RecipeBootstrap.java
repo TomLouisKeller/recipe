@@ -74,14 +74,14 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
                 "\n" +
                 "Read more: http://www.simplyrecipes.com/recipes/perfect_guacamole/#ixzz4jvoun5ws"));
 
-        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "", "ripe avocados", guacamoleRecipe));
-        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(0.5d, "Teaspoon", "Kosher salt", guacamoleRecipe));
-        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "Teaspoon", "fresh lime juice or lemon juice", guacamoleRecipe));
-        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "Teaspoon", "minced red onion or thinly sliced green onion", guacamoleRecipe));
-        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "", "serrano chiles, stems and seeds removed, minced", guacamoleRecipe));
-        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "Teaspoon", "Cilantro", guacamoleRecipe));
-        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "Dash", "freshly grated black pepper", guacamoleRecipe));
-        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(0.5d, "", "ripe tomato, seeds and pulp removed, chopped", guacamoleRecipe));
+        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "", "ripe avocados"));
+        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(0.5d, "Teaspoon", "Kosher salt"));
+        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "Teaspoon", "fresh lime juice or lemon juice"));
+        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "Teaspoon", "minced red onion or thinly sliced green onion"));
+        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "", "serrano chiles, stems and seeds removed, minced"));
+        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "Teaspoon", "Cilantro"));
+        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(2d, "Dash", "freshly grated black pepper"));
+        guacamoleRecipe.addIngredient(ingredientService.ingredientFactory(0.5d, "", "ripe tomato, seeds and pulp removed, chopped"));
 
         guacamoleRecipe.getCategories().add(categoryService.findByNameOrCreate("Mexican"));
         guacamoleRecipe.getCategories().add(categoryService.findByNameOrCreate("American"));

@@ -21,11 +21,10 @@ public class Ingredient {
     public Ingredient() {
     }
 
-    public Ingredient(Double amount, UnitOfMeasurement unitOfMeasurement, Product product, Recipe recipe) {
+    public Ingredient(Double amount, UnitOfMeasurement unitOfMeasurement, Product product) {
         this.amount = amount;
         this.unitOfMeasurement = unitOfMeasurement;
         this.product = product;
-        this.recipe = recipe;
     }
 
     public Long getId() {
