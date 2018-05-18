@@ -1,14 +1,13 @@
 package com.tomlouiskeller.recipe.domain;
 
 import javax.persistence.*;
-import java.math.BigDecimal;
 
 @Entity
 public class Ingredient {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    private BigDecimal amount;
+    private Double amount;
 
     // Relations
     @ManyToOne(fetch = FetchType.EAGER) // TODO: Is fetch=EAGER necessary
@@ -18,6 +17,17 @@ public class Ingredient {
     @ManyToOne(fetch = FetchType.EAGER) // TODO: Is fetch=EAGER necessary
     private Recipe recipe;
 
+
+    public Ingredient() {
+    }
+
+    public Ingredient(Double amount, UnitOfMeasurement unitOfMeasurement, Product product, Recipe recipe) {
+        this.amount = amount;
+        this.unitOfMeasurement = unitOfMeasurement;
+        this.product = product;
+        this.recipe = recipe;
+    }
+
     public Long getId() {
         return id;
     }
@@ -26,11 +36,11 @@ public class Ingredient {
         this.id = id;
     }
 
-    public BigDecimal getAmount() {
+    public Double getAmount() {
         return amount;
     }
 
-    public void setAmount(BigDecimal amount) {
+    public void setAmount(Double amount) {
         this.amount = amount;
     }
 
