@@ -1,13 +1,13 @@
 package com.tomlouiskeller.recipe.repository;
 
 import com.tomlouiskeller.recipe.domain.Recipe;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
-import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-// TODO: Get Ingredients sorted by id or a separate field
-public interface RecipeRepository extends CrudRepository<Recipe, Long> {
+// TODO: Get Ingredients sorted by id or introduce sort attribut
+public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
     Optional<Recipe> findByTitle(String title);
 
