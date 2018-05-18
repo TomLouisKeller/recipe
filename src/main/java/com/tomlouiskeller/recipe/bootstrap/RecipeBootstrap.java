@@ -5,7 +5,6 @@ import com.tomlouiskeller.recipe.domain.Instruction;
 import com.tomlouiskeller.recipe.domain.NutritionalInfo;
 import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.repository.RecipeRepository;
-import com.tomlouiskeller.recipe.repository.UnitOfMeasurementRepository;
 import com.tomlouiskeller.recipe.service.CategoryService;
 import com.tomlouiskeller.recipe.service.IngredientService;
 import org.springframework.context.ApplicationListener;
@@ -23,13 +22,11 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     private final CategoryService categoryService;
     private final RecipeRepository recipeRepository;
     private final IngredientService ingredientService;
-    private final UnitOfMeasurementRepository unitOfMeasurementRepository;
 
-    public RecipeBootstrap(CategoryService categoryService, RecipeRepository recipeRepository, IngredientService ingredientService, UnitOfMeasurementRepository unitOfMeasurementRepository) {
+    public RecipeBootstrap(CategoryService categoryService, RecipeRepository recipeRepository, IngredientService ingredientService) {
         this.categoryService = categoryService;
         this.recipeRepository = recipeRepository;
         this.ingredientService = ingredientService;
-        this.unitOfMeasurementRepository = unitOfMeasurementRepository;
     }
 
     @Override
