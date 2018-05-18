@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" />
+    <title>Recipe Home</title>
+</head>
+<body>
+    <table border="1">
+        <tr>
+            <th>Title</th>
+            <th>Preparation Duration</th>
+            <th>Cooking Duration</th>
+            <th>Servings</th>
+            <th>Source</th>
+            <th>Url</th>
+            <th>Difficulty</th>
+            <th>Nutritional Info</th>
+            <th>Instructions</th>
+            <th>Ingredients</th>
+            <th>Categories</th>
+            <th>Ratings</th>
+        </tr>
+        <tr th:each="recipe : ${recipes}">
+            <td th:text="${recipe.getTitle()}">Title</td>
+            <td th:text="${recipe.getPreparationDuration()}">Preparation Duration</td>
+            <td th:text="${recipe.getCookingDuration()}">Cooking Duration</td>
+            <td th:text="${recipe.getServings()}">Servings</td>
+            <td th:text="${recipe.getSource()}">Source</td>
+            <td th:text="${recipe.getUrl()}">Url</td>
+            <td th:text="${recipe.getDifficulty()}">Difficulty</td>
+            <td th:text="${recipe.getNutritionalInfo().getText()}">Nutritional Info</td>
+            <td th:text="${recipe.getInstruction().getText()}">Instructions</td>
+            <td>
+                <table>
+                    <tr th:each="ingredient : ${recipe.getIngredients()}">
+                        <td th:text="${ingredient.getAmount()}">amount</td>
+                        <td th:text="${ingredient.getUnitOfMeasurement().getName()}">uom</td>
+                        <td th:text="${ingredient.getProduct().getName()}">product</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tr th:each="category : ${recipe.getCategories()}">
+                        <td th:text="${category.getName()}">category</td>
+                    </tr>
+                </table>
+            </td>
+            <td>
+                <table>
+                    <tr th:each="rating : ${recipe.getRating()}">
+                        <td th:text="${rating.getIp()}">ip</td>
+                        <td th:text="${rating.getRating()}">rating</td>
+                    </tr>
+                </table>
+            </td>
+        </tr>
+    </table>
+</body>
+</html>
