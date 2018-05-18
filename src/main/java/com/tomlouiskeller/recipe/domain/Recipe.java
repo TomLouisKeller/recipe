@@ -1,6 +1,8 @@
 package com.tomlouiskeller.recipe.domain;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -23,17 +25,27 @@ public class Recipe {
     // Relations
     @Enumerated(value = EnumType.STRING)
     private Difficulty difficulty;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private Instruction instruction;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private NutritionalInfo nutritionalInfo;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe", fetch = FetchType.EAGER)
-    private Set<Ingredient> ingredients;
+    private Set<Ingredient> ingredients = new HashSet<>();
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe", fetch = FetchType.EAGER)
-    private List<Rating> rating;
+    private List<Rating> rating = new ArrayList<>();
+
     @ManyToMany(fetch = FetchType.LAZY) // Lazy because if we set it to eager and get all recipes of a category, we load the whole database
     @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories;
+    private Set<Category> categories = new HashSet<>();
+
+
+    public void addIngredient(Ingredient ingredient){
+        this.getIngredients().add(ingredient);
+    }
 
     public Long getId() {
         return id;
