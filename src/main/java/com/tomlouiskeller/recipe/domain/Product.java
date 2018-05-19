@@ -1,8 +1,13 @@
 package com.tomlouiskeller.recipe.domain;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 import java.util.Set;
 
+@Data
+@EqualsAndHashCode(exclude="ingredients")
 @Entity
 public class Product {
 
@@ -15,7 +20,6 @@ public class Product {
     @OneToMany(mappedBy = "product", fetch = FetchType.LAZY) // Could think about cascade = CascadeType.ALL
     private Set<Ingredient> ingredients;
 
-
     public Product() {
     }
 
@@ -23,27 +27,4 @@ public class Product {
         this.name = name;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public Set<Ingredient> getIngredients() {
-        return ingredients;
-    }
-
-    public void setIngredients(Set<Ingredient> ingredients) {
-        this.ingredients = ingredients;
-    }
 }
