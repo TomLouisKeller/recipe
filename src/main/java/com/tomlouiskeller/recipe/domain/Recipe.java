@@ -52,4 +52,15 @@ public class Recipe {
         return this;
     }
 
+    public void setInstruction(Instruction instruction) {
+        this.instruction = instruction;
+        if (instruction == null) return;
+        instruction.setRecipe(this);
+    }
+
+    public void setNutritionalInfo(NutritionalInfo nutritionalInfo) {
+        this.nutritionalInfo = nutritionalInfo;
+        if (nutritionalInfo == null) return;
+        nutritionalInfo.setRecipe(this);
+    }
 }
