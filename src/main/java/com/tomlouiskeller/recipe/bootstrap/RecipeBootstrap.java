@@ -7,6 +7,7 @@ import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.service.CategoryService;
 import com.tomlouiskeller.recipe.service.IngredientService;
 import com.tomlouiskeller.recipe.service.RecipeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationListener;
 import org.springframework.context.annotation.Profile;
 import org.springframework.context.event.ContextRefreshedEvent;
@@ -15,6 +16,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+
+@Slf4j
 @Profile("development")
 @Component
 public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEvent> {
@@ -32,8 +35,8 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
     @Override
     @Transactional
     public void onApplicationEvent(ContextRefreshedEvent event) {
+        log.debug("Bootstrapping Data");
         recipeService.saveAll(getAdditionalRecipes());
-        //log.debug("Loading Bootstrap Data");
     }
 
     private List<Recipe> getAdditionalRecipes() {
