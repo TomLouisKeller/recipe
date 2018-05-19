@@ -1,7 +1,12 @@
 package com.tomlouiskeller.recipe.domain;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 
+@Data
+@EqualsAndHashCode(exclude="recipe")
 @Entity
 public class NutritionalInfo {
 
@@ -22,19 +27,4 @@ public class NutritionalInfo {
         this.text = text;
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public Recipe getRecipe() {
-        return recipe;
-    }
 }

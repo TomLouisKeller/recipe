@@ -1,8 +1,13 @@
 package com.tomlouiskeller.recipe.domain;
 
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 
+@Data
+@EqualsAndHashCode(exclude="recipe")
 @Entity
 public class Instruction {
 
@@ -12,30 +17,14 @@ public class Instruction {
     @Lob
     private String text;
 
+    // Relations
+    @OneToOne(mappedBy = "instruction")
+    private Recipe recipe;
+
     public Instruction() {
     }
 
     public Instruction(String text) {
         this.text = text;
-    }
-
-    // Relations
-    @OneToOne(mappedBy = "instruction")
-    private Recipe recipe;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getText() {
-        return text;
-    }
-
-    public Recipe getRecipe() {
-        return recipe;
     }
 }

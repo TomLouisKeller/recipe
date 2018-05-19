@@ -2,12 +2,14 @@ package com.tomlouiskeller.recipe.service;
 
 import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.repository.RecipeRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+@Slf4j
 @Service
 public class RecipeServiceImpl implements RecipeService {
 
@@ -18,6 +20,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     public Set<Recipe> findAll(){
+        log.debug("Loading all recipes");
         Set<Recipe> recipeSet = new HashSet<>();
         recipeSet.addAll(recipeRepository.findAll());
         return recipeSet;
