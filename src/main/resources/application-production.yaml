@@ -1,4 +1,5 @@
-spring.jpa.hibernate.ddl-auto: validate
+spring.jpa.hibernate.ddl-auto: validate #For real production
+#spring.jpa.hibernate.ddl-auto: create-drop #For testing
 
 # Database Basics
 database:
