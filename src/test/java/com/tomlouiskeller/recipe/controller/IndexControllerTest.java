@@ -5,9 +5,14 @@ import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.service.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.ArgumentCaptor;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
+import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 import org.springframework.validation.support.BindingAwareModelMap;
 
@@ -34,6 +39,32 @@ public class IndexControllerTest {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         indexController = new IndexController(mockRecipeService, mockGeneralConfiguration);
+    }
+
+    // --- getAllRecipes Tests --- ///
+
+    @Test
+    public void getAllRecipesMockMvcRootPath() throws Exception{
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
+        mockMvc.perform(MockMvcRequestBuilders.get(""))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("listRecipes"));
+    }
+
+    @Test
+    public void getAllRecipesMockMvcDashPath() throws Exception{
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
+        mockMvc.perform(MockMvcRequestBuilders.get("/"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("listRecipes"));
+    }
+
+    @Test
+    public void getAllRecipesMockMvcIndexPath() throws Exception{
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
+        mockMvc.perform(MockMvcRequestBuilders.get("/index"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("listRecipes"));
     }
 
     @Test
@@ -67,8 +98,28 @@ public class IndexControllerTest {
         verify(mockModel).addAttribute("recipes", allRecipes);
     }
 
+    @Test // Showing off ArgumentCaptor
+    public void getAllRecipesModelReceivesSet() {
+        // given
+        Set<Recipe> allRecipes = new HashSet<>();
+        allRecipes.add(Mockito.mock(Recipe.class));
+        allRecipes.add(Mockito.mock(Recipe.class));
+
+        when(mockRecipeService.findAll()).thenReturn(allRecipes);
+        ArgumentCaptor<Set<Recipe>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
+
+        // when
+        indexController.getAllRecipes(mockModel);
+
+        // then
+        verify(mockModel, times(1)).addAttribute(eq("recipes"), argumentCaptor.capture());
+        Set<Recipe> setInController = argumentCaptor.getValue();
+        assertEquals(2, setInController.size());
+        assertEquals(allRecipes, setInController);
+    }
+
     @Test
-    public void getAllRecipesHasModelVariableAvailable() {
+    public void getAllRecipesModelHasSet() {
         BindingAwareModelMap model = new BindingAwareModelMap();
 
         Recipe recipe = Mockito.mock(Recipe.class);
@@ -83,7 +134,7 @@ public class IndexControllerTest {
     }
 
 
-    // --- /// --- /// --- /// --- /// --- /// --- /// --- /// --- ///
+    // --- getQuickRecipes Tests --- ///
 
     @Test
     public void getQuickRecipesReturnString() {
@@ -112,15 +163,35 @@ public class IndexControllerTest {
 
     @Test // I don't like this test. This is too much of a lock into the way things are done. Prefer getAllRecipesHasModelVariableAvailable
     public void getQuickRecipesCallsAddAttribute() {
-        Recipe recipe = Mockito.mock(Recipe.class);
         Set<Recipe> allRecipes = new HashSet<>();
-        allRecipes.add(recipe);
+        allRecipes.add(Mockito.mock(Recipe.class));
 
         when(mockGeneralConfiguration.getQuickRecipesMaxDuration()).thenReturn(expectedQuickRecipesMaxDuration);
         when(mockRecipeService.findQuickRecipes(expectedQuickRecipesMaxDuration)).thenReturn(allRecipes);
 
         indexController.getQuickRecipes(mockModel);
         verify(mockModel).addAttribute("recipes", allRecipes);
+    }
+
+    @Test // Showing off ArgumentCaptor
+    public void getQuickRecipesModelReceivesSet() {
+        // given
+        Set<Recipe> allRecipes = new HashSet<>();
+        allRecipes.add(Mockito.mock(Recipe.class));
+        allRecipes.add(Mockito.mock(Recipe.class));
+
+        when(mockGeneralConfiguration.getQuickRecipesMaxDuration()).thenReturn(expectedQuickRecipesMaxDuration);
+        when(mockRecipeService.findQuickRecipes(expectedQuickRecipesMaxDuration)).thenReturn(allRecipes);
+        ArgumentCaptor<Set<Recipe>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
+
+        // when
+        indexController.getQuickRecipes(mockModel);
+
+        // then
+        verify(mockModel, times(1)).addAttribute(eq("recipes"), argumentCaptor.capture());
+        Set<Recipe> setInController = argumentCaptor.getValue();
+        assertEquals(2, setInController.size());
+        assertEquals(allRecipes, setInController);
     }
 
     @Test
@@ -138,4 +209,5 @@ public class IndexControllerTest {
 
         assertEquals(allRecipes, bindingAwareModelMap.asMap().get("recipes"));
     }
+
 }
