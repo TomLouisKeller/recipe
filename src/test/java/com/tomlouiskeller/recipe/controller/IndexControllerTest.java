@@ -20,32 +20,34 @@ public class IndexControllerTest {
 
     private IndexController indexController;
     @Mock
-    private RecipeService recipeService;
+    private RecipeService mockRecipeService;
     @Mock
-    private Model model;
+    private Model mockModel;
+
+    private final Integer expectedQuickRecipesMaxDuration = 30;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        indexController = new IndexController(recipeService);
+        indexController = new IndexController(mockRecipeService);
     }
 
     @Test
     public void getAllRecipesReturnString() {
-        String actual = indexController.getAllRecipes(model);
+        String actual = indexController.getAllRecipes(mockModel);
         assertNotNull(actual);
     }
 
     @Test // This is so pointless.
     public void getAllRecipesReturnSpecificString() {
-        String actual = indexController.getAllRecipes(model);
+        String actual = indexController.getAllRecipes(mockModel);
         assertEquals("listRecipes", actual);
     }
 
     @Test
     public void getAllRecipesCallsService() {
-        indexController.getAllRecipes(model);
-        verify(recipeService, times(1)).findAll();
+        indexController.getAllRecipes(mockModel);
+        verify(mockRecipeService, times(1)).findAll();
     }
 
     @Test // I don't like this test. This is too much of a lock into the way things are done. Prefer getAllRecipesHasModelVariableAvailable
@@ -55,9 +57,9 @@ public class IndexControllerTest {
         Set<Recipe> allRecipes = new HashSet<>();
         allRecipes.add(recipe);
 
-        when(recipeService.findAll()).thenReturn(allRecipes);
-        indexController.getAllRecipes(model);
-        verify(model).addAttribute("recipes", allRecipes);
+        when(mockRecipeService.findAll()).thenReturn(allRecipes);
+        indexController.getAllRecipes(mockModel);
+        verify(mockModel).addAttribute("recipes", allRecipes);
     }
 
     @Test
@@ -69,7 +71,7 @@ public class IndexControllerTest {
         Set<Recipe> allRecipes = new HashSet<>();
         allRecipes.add(recipe);
 
-        when(recipeService.findAll()).thenReturn(allRecipes);
+        when(mockRecipeService.findAll()).thenReturn(allRecipes);
 
         indexController.getAllRecipes(model);
 
@@ -79,23 +81,89 @@ public class IndexControllerTest {
     @Test
     public void getAllRecipesHasModelVariableAvailable2() {
 
-        BindingAwareModelMap model = new BindingAwareModelMap();
+        BindingAwareModelMap bindingAwareModelMap = new BindingAwareModelMap();
 
         Recipe recipe = Mockito.mock(Recipe.class);
         Set<Recipe> allRecipes = new HashSet<>();
         allRecipes.add(recipe);
 
-        when(recipeService.findAll()).thenReturn(allRecipes);
+        when(mockRecipeService.findAll()).thenReturn(allRecipes);
 
-        indexController.getAllRecipes(model);
+        indexController.getAllRecipes(bindingAwareModelMap);
 
-        Boolean actual = ((Set) model.asMap().get("recipes")).contains(recipe);
+        Boolean actual = ((Set) bindingAwareModelMap.asMap().get("recipes")).contains(recipe);
         assertTrue(actual);
 
     }
 
 
+    // --- /// --- /// --- /// --- /// --- /// --- /// --- /// --- ///
+
     @Test
-    public void getQuickRecipes() {
+    public void getQuickRecipesReturnString() {
+        String actual = indexController.getQuickRecipes(mockModel);
+        assertNotNull(actual);
+    }
+
+    @Test // This is so pointless.
+    public void getQuickRecipesReturnSpecificString() {
+        String actual = indexController.getQuickRecipes(mockModel);
+        assertEquals("listRecipes", actual);
+    }
+
+    // TODO: what happens if we change the 30
+    // TODO: Make tests for other duration.
+    // TODO: Fetch the 30 from somewhere
+
+    @Test
+    public void getQuickRecipesCallsService() {
+        indexController.getQuickRecipes(mockModel);
+        verify(mockRecipeService, times(1)).findQuickRecipes(expectedQuickRecipesMaxDuration);
+    }
+
+    @Test // I don't like this test. This is too much of a lock into the way things are done. Prefer getAllRecipesHasModelVariableAvailable
+    public void getQuickRecipesCallsAddAttribute() {
+
+        Recipe recipe = Mockito.mock(Recipe.class);
+        Set<Recipe> allRecipes = new HashSet<>();
+        allRecipes.add(recipe);
+
+        when(mockRecipeService.findQuickRecipes(expectedQuickRecipesMaxDuration)).thenReturn(allRecipes);
+        indexController.getQuickRecipes(mockModel);
+        verify(mockModel).addAttribute("recipes", allRecipes);
+    }
+
+    @Test
+    public void getQuickRecipesHasModelVariableAvailable() {
+
+        BindingAwareModelMap bindingAwareModelMap = new BindingAwareModelMap();
+
+        Recipe recipe = Mockito.mock(Recipe.class);
+        Set<Recipe> allRecipes = new HashSet<>();
+        allRecipes.add(recipe);
+
+        when(mockRecipeService.findQuickRecipes(expectedQuickRecipesMaxDuration)).thenReturn(allRecipes);
+
+        indexController.getQuickRecipes(bindingAwareModelMap);
+
+        assertEquals(allRecipes, bindingAwareModelMap.asMap().get("recipes"));
+    }
+
+    @Test
+    public void getQuickHasModelVariableAvailable2() {
+
+        BindingAwareModelMap bindingAwareModelMap = new BindingAwareModelMap();
+
+        Recipe recipe = Mockito.mock(Recipe.class);
+        Set<Recipe> allRecipes = new HashSet<>();
+        allRecipes.add(recipe);
+
+        when(mockRecipeService.findQuickRecipes(expectedQuickRecipesMaxDuration)).thenReturn(allRecipes);
+
+        indexController.getQuickRecipes(bindingAwareModelMap);
+
+        Boolean actual = ((Set) bindingAwareModelMap.asMap().get("recipes")).contains(recipe);
+        assertTrue(actual);
+
     }
 }
