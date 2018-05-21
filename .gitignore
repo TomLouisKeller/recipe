@@ -2,7 +2,8 @@
 !.mvn/wrapper/maven-wrapper.jar
 
 .mvn
-recipe.zip
+/src/main/resources/database-development.yaml
+/src/main/resources/database-production.yaml
 
 
 ### STS ###

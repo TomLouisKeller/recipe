@@ -1,0 +1,13 @@
+# Database Basics
+database:
+    driverClassName: com.mysql.jdbc.Driver
+    url: jdbc:mysql://8.8.8.8:3306/recipe
+    username: recipe
+    password: password
+    schema: recipe
+    dialect: org.hibernate.dialect.MySQL5Dialect
+
+    # Database Hikari (DataSource)
+    cachePrepStmts: true
+    prepStmtCacheSize: 250
+    prepStmtCacheSqlLimit: 2048
