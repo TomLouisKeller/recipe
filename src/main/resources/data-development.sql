@@ -25,6 +25,10 @@ INSERT INTO unit_of_measurement (name) VALUES ('Slice'); -- 8
 INSERT INTO unit_of_measurement (name) VALUES ('Some'); -- 9
 INSERT INTO unit_of_measurement (name) VALUES ('Pinch'); -- 10
 INSERT INTO unit_of_measurement (name) VALUES ('Can'); -- 11
+INSERT INTO unit_of_measurement (name) VALUES (''); -- 12
+INSERT INTO unit_of_measurement (name) VALUES ('Dash'); -- 13
+
+
 
 INSERT INTO nutritional_info (text)
 VALUES ('Very light. Eat all you want.'),
