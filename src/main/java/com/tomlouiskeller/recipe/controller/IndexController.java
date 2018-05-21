@@ -1,6 +1,7 @@
 package com.tomlouiskeller.recipe.controller;
 
 
+import com.tomlouiskeller.recipe.configuration.GeneralConfiguration;
 import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.service.RecipeService;
 import lombok.extern.slf4j.Slf4j;
@@ -15,13 +16,16 @@ import java.util.Set;
 public class IndexController {
 
     private RecipeService recipeService;
+    private GeneralConfiguration generalConfiguration;
 
-    public IndexController(RecipeService recipeService) {
+    public IndexController(RecipeService recipeService, GeneralConfiguration generalConfiguration) {
         this.recipeService = recipeService;
+        this.generalConfiguration = generalConfiguration;
     }
 
     @RequestMapping({"", "/", "/index"})
     public String getAllRecipes(Model model){
+
         log.debug("Controller: Get All Recipes");
         Set<Recipe> recipes = recipeService.findAll();
         model.addAttribute("recipes", recipes);
@@ -31,7 +35,7 @@ public class IndexController {
     @RequestMapping({"/quickRecipes"})
     public String getQuickRecipes(Model model){
         log.debug("Controller: Get Quick Recipes");
-        Set<Recipe> quickRecipes = recipeService.findQuickRecipes(30);
+        Set<Recipe> quickRecipes = recipeService.findQuickRecipes(generalConfiguration.getQuickRecipesMaxDuration());
         model.addAttribute("recipes", quickRecipes);
         return "listRecipes";
     }

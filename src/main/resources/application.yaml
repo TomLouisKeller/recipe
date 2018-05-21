@@ -1,5 +1,14 @@
+
+# Project Specific Properties
+
+recipes.quickRecipes.MaxDuration: 30
+
+# Spring Properties
+
 spring.profiles.active: development
 spring.datasource.platform: development
+
+# Logging Properties
 
 logging.level.root: WARN
 #logging.level.org.springframework.web: WARN

@@ -1,4 +1,4 @@
 logging.level.root: WARN
 #logging.level.org.springframework.web: WARN
 #logging.level.org.hibernate: WARN
-logging.level.com.tomlouiskeller: DEBUG
+logging.level.com.tomlouiskeller: WARN
