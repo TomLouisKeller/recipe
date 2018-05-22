@@ -156,7 +156,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <p th:text="${recipe.getInstruction()}">
+                                <p th:text="${recipe.getInstruction().getText()}">
                                     1. Grate potatoes on the raffle in a bowl.
                                     2. Add salt to grated potatoes.
                                     3. Melt margarine in a frying pan. Add potatoes, fry with occasional turning for about 5 minutes.
@@ -176,7 +176,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <p th:text="${recipe.getNutritionalInfo()}">
+                                <p th:text="${recipe.getNutritionalInfo().getText()}">
                                     Very light. Eat all you want.
                                 </p>
                             </div>
