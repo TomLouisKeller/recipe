@@ -229,13 +229,6 @@ public class IndexControllerTest {
     // --- showRecipe Tests --- ///
 
     @Test
-    public void getQuickRecipesMockMvcShowRecipePath() throws Exception{
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/show/1"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
-    }
-
-    @Test
     public void showRecipeReturnString() {
         String actual = indexController.showRecipe(1L, mockModel);
         assertNotNull(actual);
@@ -247,6 +240,13 @@ public class IndexControllerTest {
         assertEquals("recipe/show", actual);
     }
 
+    @Test
+    public void getQuickRecipesGetsStatusCode200() throws Exception{
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/show/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+    
     @Test
     public void showRecipeUsesRecipeService() {
         indexController.showRecipe(1L, mockModel);
