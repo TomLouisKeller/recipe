@@ -232,8 +232,7 @@ public class IndexControllerTest {
     public void getQuickRecipesMockMvcShowRecipePath() throws Exception{
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
         mockMvc.perform(MockMvcRequestBuilders.get("/recipe/show/1"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("recipe/show"));
+                .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
     @Test
