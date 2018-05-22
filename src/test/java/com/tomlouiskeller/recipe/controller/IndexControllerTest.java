@@ -22,6 +22,7 @@ import java.util.Set;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
 
 public class IndexControllerTest {
 
@@ -246,7 +247,7 @@ public class IndexControllerTest {
         mockMvc.perform(MockMvcRequestBuilders.get("/recipe/show/1"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
-    
+
     @Test
     public void showRecipeUsesRecipeService() {
         indexController.showRecipe(1L, mockModel);
@@ -261,7 +262,7 @@ public class IndexControllerTest {
     }
 
     @Test
-    public void showRecipeSetsModel() {
+    public void showRecipeSetsRecipeIntoModel() {
         Long id = 13456L;
         Recipe recipe = Mockito.mock(Recipe.class);
 
@@ -271,6 +272,17 @@ public class IndexControllerTest {
 
         verify(mockModel, times(1)).addAttribute("recipe", recipe);
     }
+
+    @Test
+    public void getQuickRecipesRecipeIsInModel() throws Exception{
+        Recipe recipe = Mockito.mock(Recipe.class);
+        when(mockRecipeService.findById(anyLong())).thenReturn(recipe);
+
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/show/1"))
+                .andExpect(model().attributeExists("recipe"));
+    }
+
 
     // TODO: Test for the exception and handle it!!!
 }
