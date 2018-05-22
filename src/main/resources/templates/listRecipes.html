@@ -31,9 +31,8 @@
 <body>
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
-        <div class="col-md-12 col-md-offset-07">
+        <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-primary">
-
                 <div class="panel-heading">
                     <h1 class="panel-title">My Recipes!</h1>
                 </div>
@@ -43,53 +42,12 @@
                             <thead class="thead-inverse">
                             <tr>
                                 <th>Title</th>
-                                <th>Preparation Duration</th>
-                                <th>Cooking Duration</th>
-                                <th>Servings</th>
-                                <th>Source</th>
-                                <th>Url</th>
-                                <th>Difficulty</th>
-                                <th>Nutritional Info</th>
-                                <th>Instructions</th>
-                                <th>Ingredients</th>
-                                <th>Categories</th>
-                                <th>Ratings</th>
+                                <th>View</th>
                             </tr>
                             </thead>
                             <tr th:each="recipe : ${recipes}">
                                 <td th:text="${recipe.getTitle()}">Title</td>
-                                <td th:text="${recipe.getPreparationDuration()}">Preparation Duration</td>
-                                <td th:text="${recipe.getCookingDuration()}">Cooking Duration</td>
-                                <td th:text="${recipe.getServings()}">Servings</td>
-                                <td th:text="${recipe.getSource()}">Source</td>
-                                <td th:text="${recipe.getUrl()}">Url</td>
-                                <td th:text="${recipe.getDifficulty()}">Difficulty</td>
-                                <td th:text="${recipe.getNutritionalInfo().getText()}">Nutritional Info</td>
-                                <td th:text="${recipe.getInstruction().getText()}">Instructions</td>
-                                <td>
-                                    <table>
-                                        <tr th:each="ingredient : ${recipe.getIngredients()}">
-                                            <td th:text="${ingredient.getAmount()}">amount</td>
-                                            <td th:text="${ingredient.getUnitOfMeasurement().getName()}">uom</td>
-                                            <td th:text="${ingredient.getProduct().getName()}">product</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td>
-                                    <table>
-                                        <tr th:each="category : ${recipe.getCategories()}">
-                                            <td th:text="${category.getName()}">category</td>
-                                        </tr>
-                                    </table>
-                                </td>
-                                <td>
-                                    <table>
-                                        <tr th:each="rating : ${recipe.getRating()}">
-                                            <td th:text="${rating.getIp()}">ip</td>
-                                            <td th:text="${rating.getRating()}">rating</td>
-                                        </tr>
-                                    </table>
-                                </td>
+                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/show'}">View</a></td>
                             </tr>
                         </table>
                     </div>
