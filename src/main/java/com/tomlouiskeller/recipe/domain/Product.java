@@ -2,12 +2,14 @@ package com.tomlouiskeller.recipe.domain;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Set;
 
 @Data
 @EqualsAndHashCode(exclude="ingredients")
+@ToString(exclude = "ingredients")
 @Entity
 public class Product {
 
