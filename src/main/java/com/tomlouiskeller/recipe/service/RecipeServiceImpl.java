@@ -1,12 +1,14 @@
 package com.tomlouiskeller.recipe.service;
 
 import com.tomlouiskeller.recipe.domain.Recipe;
+import com.tomlouiskeller.recipe.exception.RecipeNotFoundException;
 import com.tomlouiskeller.recipe.repository.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @Slf4j
@@ -20,10 +22,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     public Set<Recipe> findAll(){
-        log.debug("Loading all recipes");
-        Set<Recipe> recipeSet = new HashSet<>();
-        recipeSet.addAll(recipeRepository.findAll());
-        return recipeSet;
+        return new HashSet<>(recipeRepository.findAll());
     }
 
     public Set<Recipe> findQuickRecipes(Integer maxDuration){
@@ -38,12 +37,15 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     public Set<Recipe> saveAll(Iterable<Recipe> recipes){
-        Set<Recipe> recipeSet = new HashSet<>();
         List<Recipe> recipesList = recipeRepository.saveAll(recipes);
-        recipeSet.addAll(recipesList);
-        return recipeSet;
+        return new HashSet<>(recipesList);
     }
 
-
+    @Override
+    public Recipe findById(Long id) {
+        Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
+        RecipeNotFoundException recipeNotFoundException = new RecipeNotFoundException("Recipe with ID " + id + " not found.");
+        return optionalRecipe.orElseThrow(() -> recipeNotFoundException);
+    }
 
 }

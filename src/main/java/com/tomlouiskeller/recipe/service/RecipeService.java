@@ -10,4 +10,6 @@ public interface RecipeService {
     Set<Recipe> findQuickRecipes(Integer maxDuration);
     Recipe save(Recipe recipe);
     Set<Recipe> saveAll(Iterable<Recipe> recipes);
+
+    Recipe findById(Long id);
 }
