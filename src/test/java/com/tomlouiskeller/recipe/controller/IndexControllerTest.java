@@ -48,7 +48,7 @@ public class IndexControllerTest {
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
         mockMvc.perform(MockMvcRequestBuilders.get(""))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("listRecipes"));
+                .andExpect(MockMvcResultMatchers.view().name("recipe/list"));
     }
 
     @Test
@@ -56,7 +56,7 @@ public class IndexControllerTest {
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
         mockMvc.perform(MockMvcRequestBuilders.get("/"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("listRecipes"));
+                .andExpect(MockMvcResultMatchers.view().name("recipe/list"));
     }
 
     @Test
@@ -64,7 +64,15 @@ public class IndexControllerTest {
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
         mockMvc.perform(MockMvcRequestBuilders.get("/index"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("listRecipes"));
+                .andExpect(MockMvcResultMatchers.view().name("recipe/list"));
+    }
+
+    @Test
+    public void getAllRecipesMockMvcListPath() throws Exception{
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
+        mockMvc.perform(MockMvcRequestBuilders.get("/list"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("recipe/list"));
     }
 
     @Test
@@ -76,7 +84,7 @@ public class IndexControllerTest {
     @Test // This is so pointless.
     public void getAllRecipesReturnSpecificString() {
         String actual = indexController.getAllRecipes(mockModel);
-        assertEquals("listRecipes", actual);
+        assertEquals("recipe/list", actual);
     }
 
     @Test
@@ -137,6 +145,14 @@ public class IndexControllerTest {
     // --- getQuickRecipes Tests --- ///
 
     @Test
+    public void getQuickRecipesMockMvcQuickRecipesPath() throws Exception{
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
+        mockMvc.perform(MockMvcRequestBuilders.get("/quickRecipes"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("recipe/list"));
+    }
+
+    @Test
     public void getQuickRecipesReturnString() {
         String actual = indexController.getQuickRecipes(mockModel);
         assertNotNull(actual);
@@ -145,7 +161,7 @@ public class IndexControllerTest {
     @Test // This is so pointless.
     public void getQuickRecipesReturnSpecificString() {
         String actual = indexController.getQuickRecipes(mockModel);
-        assertEquals("listRecipes", actual);
+        assertEquals("recipe/list", actual);
     }
 
     @Test

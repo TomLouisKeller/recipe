@@ -23,13 +23,13 @@ public class IndexController {
         this.generalConfiguration = generalConfiguration;
     }
 
-    @RequestMapping({"", "/", "/index"})
+    @RequestMapping({"", "/", "/index", "/list"})
     public String getAllRecipes(Model model){
 
         log.debug("Controller: Get All Recipes");
         Set<Recipe> recipes = recipeService.findAll();
         model.addAttribute("recipes", recipes);
-        return "listRecipes";
+        return "recipe/list";
     }
 
     @RequestMapping({"/quickRecipes"})
@@ -37,6 +37,6 @@ public class IndexController {
         log.debug("Controller: Get Quick Recipes");
         Set<Recipe> quickRecipes = recipeService.findQuickRecipes(generalConfiguration.getQuickRecipesMaxDuration());
         model.addAttribute("recipes", quickRecipes);
-        return "listRecipes";
+        return "recipe/list";
     }
 }
