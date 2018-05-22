@@ -81,7 +81,7 @@ public class IndexControllerTest {
         assertNotNull(actual);
     }
 
-    @Test // This is so pointless.
+    @Test
     public void getAllRecipesReturnSpecificString() {
         String actual = indexController.getAllRecipes(mockModel);
         assertEquals("recipe/list", actual);
@@ -93,7 +93,7 @@ public class IndexControllerTest {
         verify(mockRecipeService, times(1)).findAll();
     }
 
-    @Test // I don't like this test. This is too much of a lock into the way things are done. Prefer getAllRecipesHasModelVariableAvailable
+    @Test
     public void getAllRecipesCallsAddAttribute() {
         Recipe recipe = Mockito.mock(Recipe.class);
         Set<Recipe> allRecipes = new HashSet<>();
@@ -158,7 +158,7 @@ public class IndexControllerTest {
         assertNotNull(actual);
     }
 
-    @Test // This is so pointless.
+    @Test
     public void getQuickRecipesReturnSpecificString() {
         String actual = indexController.getQuickRecipes(mockModel);
         assertEquals("recipe/list", actual);
@@ -177,7 +177,7 @@ public class IndexControllerTest {
         verify(mockRecipeService, times(1)).findQuickRecipes(expectedQuickRecipesMaxDuration);
     }
 
-    @Test // I don't like this test. This is too much of a lock into the way things are done. Prefer getAllRecipesHasModelVariableAvailable
+    @Test
     public void getQuickRecipesCallsAddAttribute() {
         Set<Recipe> allRecipes = new HashSet<>();
         allRecipes.add(Mockito.mock(Recipe.class));
@@ -226,4 +226,52 @@ public class IndexControllerTest {
         assertEquals(allRecipes, bindingAwareModelMap.asMap().get("recipes"));
     }
 
+    // --- showRecipe Tests --- ///
+
+    @Test
+    public void getQuickRecipesMockMvcShowRecipePath() throws Exception{
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/show/1"))
+                .andExpect(MockMvcResultMatchers.status().isOk())
+                .andExpect(MockMvcResultMatchers.view().name("recipe/show"));
+    }
+
+    @Test
+    public void showRecipeReturnString() {
+        String actual = indexController.showRecipe(1L, mockModel);
+        assertNotNull(actual);
+    }
+
+    @Test
+    public void showRecipeReturnSpecificString() {
+        String actual = indexController.showRecipe(1L, mockModel);
+        assertEquals("recipe/show", actual);
+    }
+
+    @Test
+    public void showRecipeUsesRecipeService() {
+        indexController.showRecipe(1L, mockModel);
+        verify(mockRecipeService, times(1)).findById(anyLong());
+    }
+
+    @Test
+    public void showRecipeUsesRecipeServiceWithSpecificLong() {
+        Long id = 13456L;
+        indexController.showRecipe(id, mockModel);
+        verify(mockRecipeService, times(1)).findById(id);
+    }
+
+    @Test
+    public void showRecipeSetsModel() {
+        Long id = 13456L;
+        Recipe recipe = Mockito.mock(Recipe.class);
+
+        when(mockRecipeService.findById(id)).thenReturn(recipe);
+
+        indexController.showRecipe(id, mockModel);
+
+        verify(mockModel, times(1)).addAttribute("recipe", recipe);
+    }
+
+    // TODO: Test for the exception and handle it!!!
 }

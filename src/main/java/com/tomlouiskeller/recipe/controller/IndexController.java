@@ -7,6 +7,7 @@ import com.tomlouiskeller.recipe.service.RecipeService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Set;
@@ -25,8 +26,6 @@ public class IndexController {
 
     @RequestMapping({"", "/", "/index", "/list"})
     public String getAllRecipes(Model model){
-
-        log.debug("Controller: Get All Recipes");
         Set<Recipe> recipes = recipeService.findAll();
         model.addAttribute("recipes", recipes);
         return "recipe/list";
@@ -34,9 +33,15 @@ public class IndexController {
 
     @RequestMapping({"/quickRecipes"})
     public String getQuickRecipes(Model model){
-        log.debug("Controller: Get Quick Recipes");
         Set<Recipe> quickRecipes = recipeService.findQuickRecipes(generalConfiguration.getQuickRecipesMaxDuration());
         model.addAttribute("recipes", quickRecipes);
         return "recipe/list";
+    }
+
+    @RequestMapping("/recipe/show/{id}")
+    public String showRecipe(@PathVariable Long id, Model model) {
+        Recipe recipe = recipeService.findById(id);
+        model.addAttribute("recipe", recipe);
+        return "recipe/show";
     }
 }
