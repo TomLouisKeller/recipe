@@ -1,10 +1,13 @@
 package com.tomlouiskeller.recipe.domain;
 
+import lombok.extern.slf4j.Slf4j;
 import org.junit.Before;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 
+@Slf4j
 public class CategoryTest {
 
     Category category;
@@ -22,4 +25,8 @@ public class CategoryTest {
 
     }
 
+    @Test
+    public void toStringTest() {
+        assertFalse(category.toString().contains("recipe"));
+    }
 }
