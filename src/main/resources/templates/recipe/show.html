@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Recipe Home</title>
+
+    <!--Bootstrap-->
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0/jquery.min.js"
+            integrity="sha256-JmvOoLtYsmqlsWxa7mDSLMwa6dZ9rrIdtrrVYRnDRH0="
+            crossorigin="anonymous"
+            th:src="@{/webjars/jquery/3.0.0/jquery.min.js}"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.1/umd/popper.min.js"
+            integrity="sha256-AoNQZpaRmemSTxMy9xcqXX5VLwI6IMPYugO7bFHOW+U="
+            crossorigin="anonymous"
+            th:src="@{/webjars/popper.js/1.14.1/umd/popper.min.js}"></script>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
+          rel="stylesheet"
+          integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+          crossorigin="anonymous"
+          th:href="@{/webjars/bootstrap/4.1.0/css/bootstrap.min.css}">
+
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/js/bootstrap.min.js"
+            integrity="sha384-uefMccjFJAIv6A+rW+L4AHf99KvxDjWSu1z9VI8SKNVmz4sk7buKt/6v9KI65qnm"
+            crossorigin="anonymous"
+            th:src="@{/webjars/bootstrap/4.1.0/js/bootstrap.min.js}"></script>
+
+</head>
+<body>
+<!--/*@thymesVar id="recipe" type="com.tomlouiskeller.recipe.domain.Recipe"*/-->
+<div class="container-fluid" style="margin-top: 20px">
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel-group">
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h1 class="panel-title" th:text="${recipe.getTitle()}">Rösti</h1>
+                            </div>
+
+                            <div class="col-md-1">
+                                <a class="btn btn-default" href="#"
+                                   th:href="@{'/recipe/' + ${recipe.getId()} + '/image'}" role="button">Change Image</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5>Categories:</h5>
+                            </div>
+                            <div class="col-md-3">
+                                <ul>
+                                    <li th:remove="all">Swiss</li>
+                                    <li th:each="category : ${recipe.getCategories()}"
+                                        th:text="${category.getName()}">Vegetarian
+                                    </li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <img src="../../static/image/guacamole400x400WithX.jpg"
+                                     th:src="@{'/recipe/' + ${recipe.getId()} + '/image'}"
+                                     width="200" height="200">
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5>Preparation Duration:</h5>
+                            </div>
+                            <div class="col-md-3">
+                                <p th:text="${(recipe.getPreparationDuration()) +  '  minutes'}">5 minutes</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h5>Difficulty:</h5>
+                            </div>
+                            <div class="col-md-3">
+                                <p th:text="${recipe.getDifficulty()}">Amateur</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5>Cooking Duration:</h5>
+                            </div>
+                            <div class="col-md-3">
+                                <p th:text="${(recipe.getCookingDuration()) +  '  minutes'}">30 minutes</p>
+                            </div>
+                            <div class="col-md-3">
+                                <h5>Source:</h5>
+                            </div>
+                            <div class="col-md-3">
+                                <p th:text="${recipe.getSource()}">https://www.bettybossi.ch/</p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5>Servings:</h5>
+                            </div>
+                            <div class="col-md-3">
+                                <p th:text="${recipe.getServings()}">4</p>
+                            </div>
+
+                            <div class="col-md-3">
+                                <h5>URL:</h5>
+                            </div>
+                            <div class="col-md-3">
+                                <p><a href="#" th:href="@{recipe.getUrl()}">https://www.bettybossi.ch/de/Rezept/ShowRezept/BB_CHCH090801_0107A-40-de</a></p>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-3">
+                                <h5>Rating:</h5>
+                            </div>
+                            <div class="col-md-3">
+                                <!--TODO: <p th:text="${recipe.getRating()}">4</p> -->
+                                <p>4*</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <div class="row">
+                            <div class="col-md-11 ">
+                                <h1 class="panel-title">Ingredients</h1>
+                            </div>
+                            <div class="col-md-1">
+                                <a class="btn btn-default" href="#"
+                                   th:href="@{'/recipe/' + ${recipe.getId()} + '/ingredients'}" role="button">View</a>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <ul>
+                                    <li th:remove="all">1 kg Potatoes</li>
+                                    <li th:remove="all">1 Teaspoon Salt</li>
+                                    <li th:each="ingredient : ${recipe.getIngredients()}"
+                                        th:text="${(ingredient.getAmount() +
+                                        ' ' + ingredient.getUnitOfMeasurement().getName() +
+                                        ' - ' + ingredient.getProduct().getName())}">Some Margarine
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Directions</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p th:text="${recipe.getInstruction()}">
+                                    1. Grate potatoes on the raffle in a bowl.
+                                    2. Add salt to grated potatoes.
+                                    3. Melt margarine in a frying pan. Add potatoes, fry with occasional turning for about 5 minutes.
+                                    Use a scoop to form the rösti into a cake, don''t move any further.
+                                    Roast on medium heat for about 15 minutes.
+                                    Put a flat plate on the pan and top with the rösti.
+                                    Put a little bit of butter in the pan, let the rösti slide back into the pan, open fry for about 15 minutes.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel panel-primary">
+                    <div class="panel-heading">
+                        <h1 class="panel-title">Notes</h1>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <p th:text="${recipe.getNutritionalInfo()}">
+                                    Very light. Eat all you want.
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
