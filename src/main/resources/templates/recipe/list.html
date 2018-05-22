@@ -43,8 +43,7 @@
                         <table class="table table-hover ">
                             <thead class="thead-inverse">
                             <tr>
-                                <th>Title</th>
-                                <th>View</th>
+                                <th colspan="2">Title</th>
                             </tr>
                             </thead>
                             <tr th:remove="all">
@@ -57,7 +56,7 @@
                             </tr>
                             <tr th:each="recipe : ${recipes}">
                                 <td th:text="${recipe.getTitle()}">And a third one</td>
-                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/show'}">View</a></td>
+                                <td><a href="#" th:href="@{'/recipe/show/' + ${recipe.getId()}}">View</a></td>
                             </tr>
                         </table>
                     </div>
