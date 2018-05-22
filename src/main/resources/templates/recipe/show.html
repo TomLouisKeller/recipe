@@ -139,10 +139,10 @@
                                 <ul>
                                     <li th:remove="all">1 kg Potatoes</li>
                                     <li th:remove="all">1 Teaspoon Salt</li>
-                                    <li th:each="ingredient : ${recipe.getIngredients()}"
-                                        th:text="${(ingredient.getAmount() +
-                                        ' ' + ingredient.getUnitOfMeasurement().getName() +
-                                        ' - ' + ingredient.getProduct().getName())}">Some Margarine
+                                    <li th:each="ingredient : ${recipe.getIngredients()}">
+                                        <span th:if="${ingredient.getAmount() != null}" th:text="${ingredient.getAmount()}"> </span>
+                                        <span th:text="${ingredient.getUnitOfMeasurement().getName()}"> Some </span>
+                                        <span th:text="${ingredient.getProduct().getName()}"> Margarine </span>
                                     </li>
                                 </ul>
                             </div>
