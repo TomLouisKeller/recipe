@@ -62,6 +62,7 @@
                             </div>
                             <div class="col-md-6">
                                 <img src="../../static/image/guacamole400x400WithX.jpg"
+                                     th:if="${recipe.getImage() != null}"
                                      th:src="@{'/recipe/' + ${recipe.getId()} + '/image'}"
                                      width="200" height="200">
                             </div>
@@ -126,10 +127,12 @@
                             <div class="col-md-11 ">
                                 <h1 class="panel-title">Ingredients</h1>
                             </div>
+
                             <div class="col-md-1">
                                 <a class="btn btn-default" href="#"
                                    th:href="@{'/recipe/' + ${recipe.getId()} + '/ingredients'}" role="button">View</a>
                             </div>
+
                         </div>
                     </div>
                     <div class="panel-body">
