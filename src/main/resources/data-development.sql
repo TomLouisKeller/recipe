@@ -44,7 +44,7 @@ VALUES (30, 'AMATEUR', null, 5, 4, 'https://www.bettybossi.ch/', 'Rösti', 'http
 
 INSERT INTO recipe_category (recipe_id, category_id)
 VALUES (1 , 2), (1,12),
-       (2, 1), (1,7);
+       (2, 1), (2,7);
 
 INSERT INTO product (name)
 VALUES ('Potatoes'), ('Salt'), ('Margarine'),
