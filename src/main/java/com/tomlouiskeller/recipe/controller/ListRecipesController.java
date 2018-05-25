@@ -23,14 +23,14 @@ public class ListRecipesController {
         this.generalConfiguration = generalConfiguration;
     }
 
-    @RequestMapping({"/list"})
+    @RequestMapping({"/recipe/list/all"})
     public String getAllRecipes(Model model){
         Set<Recipe> recipes = recipeService.findAll();
         model.addAttribute("recipes", recipes);
         return "recipe/list";
     }
 
-    @RequestMapping({"/quickRecipes"})
+    @RequestMapping({"/recipe/list/quick"})
     public String getQuickRecipes(Model model){
         Set<Recipe> quickRecipes = recipeService.findQuickRecipes(generalConfiguration.getQuickRecipesMaxDuration());
         model.addAttribute("recipes", quickRecipes);

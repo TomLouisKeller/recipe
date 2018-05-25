@@ -11,7 +11,7 @@ public class IndexController {
 
     @RequestMapping({"", "/", "/index"})
     public String index(){
-        return "redirect:/list";
+        return "redirect:/recipe/list/all";
     }
 
 }

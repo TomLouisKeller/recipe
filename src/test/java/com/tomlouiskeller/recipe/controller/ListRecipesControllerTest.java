@@ -46,7 +46,7 @@ public class ListRecipesControllerTest {
     @Test
     public void getAllRecipesMockMvcListPath() throws Exception{
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(listRecipesController).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/list"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/list/all"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("recipe/list"));
     }
@@ -123,7 +123,7 @@ public class ListRecipesControllerTest {
     @Test
     public void getQuickRecipesMockMvcQuickRecipesPath() throws Exception{
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(listRecipesController).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/quickRecipes"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/list/quick"))
                 .andExpect(MockMvcResultMatchers.status().isOk())
                 .andExpect(MockMvcResultMatchers.view().name("recipe/list"));
     }

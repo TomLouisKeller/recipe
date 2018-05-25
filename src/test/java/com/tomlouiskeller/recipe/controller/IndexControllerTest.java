@@ -21,7 +21,7 @@ public class IndexControllerTest {
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
         mockMvc.perform(MockMvcRequestBuilders.get(""))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.view().name("redirect:/list"));
+                .andExpect(MockMvcResultMatchers.view().name("redirect:/recipe/list/all"));
     }
 
     @Test
@@ -29,7 +29,7 @@ public class IndexControllerTest {
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
         mockMvc.perform(MockMvcRequestBuilders.get("/"))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.view().name("redirect:/list"));
+                .andExpect(MockMvcResultMatchers.view().name("redirect:/recipe/list/all"));
     }
 
     @Test
@@ -37,6 +37,6 @@ public class IndexControllerTest {
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(indexController).build();
         mockMvc.perform(MockMvcRequestBuilders.get("/index"))
                 .andExpect(MockMvcResultMatchers.status().is3xxRedirection())
-                .andExpect(MockMvcResultMatchers.view().name("redirect:/list"));
+                .andExpect(MockMvcResultMatchers.view().name("redirect:/recipe/list/all"));
     }
 }
