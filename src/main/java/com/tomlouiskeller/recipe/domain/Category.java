@@ -5,13 +5,14 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.Comparator;
 import java.util.Set;
 
 @Data
 @EqualsAndHashCode(exclude="recipes")
 @ToString(exclude = "recipes")
 @Entity
-public class Category {
+public class Category implements Comparable<Category> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -28,4 +29,9 @@ public class Category {
         this.name = name;
     }
 
+    @Override
+    public int compareTo(Category category) {
+        Comparator<Category> lambdaNameComparator = Comparator.comparing(Category::getName);
+        return lambdaNameComparator.compare(this, category);
+    }
 }

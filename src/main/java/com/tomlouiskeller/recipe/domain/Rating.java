@@ -16,7 +16,7 @@ public class Rating {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private Integer rating;
-    private String ip; //InetAddress
+    private String ip; // TODO: InetAddress
 
     // Relations
     @ManyToOne(fetch = FetchType.EAGER)

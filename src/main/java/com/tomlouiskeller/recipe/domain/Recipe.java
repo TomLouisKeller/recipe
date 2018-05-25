@@ -3,18 +3,16 @@ package com.tomlouiskeller.recipe.domain;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
+import org.hibernate.annotations.SortComparator;
 
 import javax.persistence.*;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 @Data
 @EqualsAndHashCode(exclude="ingredients")
 @ToString(exclude = "ingredients")
 @Entity
-public class Recipe {
+public class Recipe implements Comparable<Recipe> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -39,14 +37,15 @@ public class Recipe {
     private NutritionalInfo nutritionalInfo;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe", fetch = FetchType.EAGER)
-    private Set<Ingredient> ingredients = new HashSet<>();
+    @SortComparator(value = Ingredient.class)
+    private SortedSet<Ingredient> ingredients = new TreeSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe", fetch = FetchType.EAGER)
     private List<Rating> rating = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY) // Lazy because if we set it to eager and get all recipes of a category, we load the whole database
     @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories = new HashSet<>();
+    private Set<Category> categories = new TreeSet<>();
 
     public Recipe addIngredient(Ingredient ingredient){
         ingredient.setRecipe(this);
@@ -65,4 +64,53 @@ public class Recipe {
         if (nutritionalInfo == null) return;
         nutritionalInfo.setRecipe(this);
     }
+
+    @Override
+    public int compareTo(Recipe recipe) {
+        return LambdaTitleComparator.compare(this, recipe);
+    }
+
+    // Comparators
+
+    public static Comparator<Recipe> IdComparator = (Recipe r1, Recipe r2) -> {
+        // This is so stupid
+        if (r1 == null && r2 == null){
+            return 0;
+        } else if (r1 == null){
+            return 1;
+        } else if (r2 == null){
+            return -1;
+        } else if (r1.getId() == null && r2.getId() == null){
+            return 0;
+        } else if (r1.getId() == null){
+            return 1;
+        } else if (r2.getId() == null){
+            return -1;
+        } else {
+            return (int) (r1.getId() - r2.getId());
+        }
+    };
+
+    public static Comparator<Recipe> LambdaIdComparator = Comparator.comparing(Recipe::getId);
+
+    public static Comparator<Recipe> TitleComparator = (Recipe r1, Recipe r2) -> {
+        // This is so stupid
+        if (r1 == null && r2 == null){
+            return 0;
+        } else if (r1 == null){
+            return 1;
+        } else if (r2 == null){
+            return -1;
+        } else if (r1.getTitle() == null && r2.getTitle() == null){
+            return 0;
+        } else if (r1.getTitle() == null){
+            return 1;
+        } else if (r2.getTitle() == null){
+            return -1;
+        } else {
+            return r1.getTitle().compareTo(r2.getTitle());
+        }
+    };
+
+    public static Comparator<Recipe> LambdaTitleComparator = Comparator.comparing(Recipe::getTitle);
 }

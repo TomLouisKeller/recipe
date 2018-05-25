@@ -6,10 +6,7 @@ import com.tomlouiskeller.recipe.repository.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @Slf4j
 @Service
@@ -22,7 +19,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     public Set<Recipe> findAll(){
-        return new HashSet<>(recipeRepository.findAll());
+        return new TreeSet<Recipe>(recipeRepository.findAllByOrderByTitle());
     }
 
     public Set<Recipe> findQuickRecipes(Integer maxDuration){

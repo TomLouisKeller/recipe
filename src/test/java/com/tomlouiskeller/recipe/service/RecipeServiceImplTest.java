@@ -35,7 +35,7 @@ public class RecipeServiceImplTest {
     public void findAllWithEmptyDatabase() {
         Set<Recipe> actual = recipeService.findAll();
         assertEquals(0, actual.size());
-        verify(mockRecipeRepository, times(1)).findAll();
+        verify(mockRecipeRepository, times(1)).findAllByOrderByTitle();
     }
 
     @Test
@@ -45,12 +45,12 @@ public class RecipeServiceImplTest {
         List<Recipe> allRecipes = new ArrayList<>();
         allRecipes.add(recipe);
 
-        when(mockRecipeRepository.findAll()).thenReturn(allRecipes);
+        when(mockRecipeRepository.findAllByOrderByTitle()).thenReturn(allRecipes);
 
         Set<Recipe> actual = recipeService.findAll();
         assertEquals(1, actual.size());
         assertEquals(true, actual.contains(recipe));
-        verify(mockRecipeRepository, times(1)).findAll();
+        verify(mockRecipeRepository, times(1)).findAllByOrderByTitle();
     }
 
     @Test
@@ -63,26 +63,44 @@ public class RecipeServiceImplTest {
             allRecipes.add(recipe);
         }
 
-        when(mockRecipeRepository.findAll()).thenReturn(allRecipes);
+        when(mockRecipeRepository.findAllByOrderByTitle()).thenReturn(allRecipes);
         Set<Recipe> actual = recipeService.findAll();
         assertEquals(expected, actual.size());
         assertEquals(true, actual.contains(allRecipes.get(3)));
-        verify(mockRecipeRepository, times(1)).findAll();
+        verify(mockRecipeRepository, times(1)).findAllByOrderByTitle();
     }
 
+//    @Test
+//    public void findAllIsSortedByTitle() {
+//
+//        int expected = 10;
+//        List<Recipe> allRecipes = new ArrayList<>();
+//        for (int i = 0; i < expected; i++) {
+//            Recipe recipe = Mockito.mock(Recipe.class, "" + i);
+//            allRecipes.add(recipe);
+//        }
+//
+//        when(mockRecipeRepository.findAllByOrderByTitle()).thenReturn(allRecipes);
+//        Set<Recipe> actual = recipeService.findAll();
+//        assertEquals(expected, actual.size());
+//        assertEquals(true, actual.contains(allRecipes.get(3)));
+//        verify(mockRecipeRepository, times(1)).findAllByOrderByTitle();
+//    }
 
 
-    @Test
-    public void findQuickRecipes() {
-    }
 
-    @Test
-    public void save() {
-    }
-
-    @Test
-    public void saveAll() {
-    }
+// TODO:
+//    @Test
+//    public void findQuickRecipes() {
+//    }
+//
+//    @Test
+//    public void save() {
+//    }
+//
+//    @Test
+//    public void saveAll() {
+//    }
 
     @Test
     public void getByIdCallsRepository(){
