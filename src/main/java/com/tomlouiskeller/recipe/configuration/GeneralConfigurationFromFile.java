@@ -6,7 +6,7 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-public class GeneralConfigurationFromYaml implements GeneralConfiguration {
+public class GeneralConfigurationFromFile implements GeneralConfiguration {
 
     @Value("${recipes.quickRecipes.MaxDuration}")
     private Integer quickRecipesMaxDuration;

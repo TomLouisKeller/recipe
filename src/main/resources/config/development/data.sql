@@ -12,6 +12,7 @@ INSERT INTO category (name) VALUES ('Chinese'); -- id: 9
 INSERT INTO category (name) VALUES ('Thai'); -- id: 10
 INSERT INTO category (name) VALUES ('German'); -- id: 11
 INSERT INTO category (name) VALUES ('Swiss'); -- id: 12
+INSERT INTO category (name) VALUES ('American'); -- id: 13
 
 
 INSERT INTO unit_of_measurement (name) VALUES ('Tablespoon'); -- 1

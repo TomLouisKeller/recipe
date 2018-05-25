@@ -2,8 +2,7 @@
 !.mvn/wrapper/maven-wrapper.jar
 
 .mvn
-/src/main/resources/database-development.yaml
-/src/main/resources/database-production.yaml
+/src/main/resources/config/*/database.yml
 
 
 ### STS ###
