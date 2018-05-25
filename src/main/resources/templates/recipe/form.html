@@ -70,19 +70,21 @@
                             </div>
                             <div class="row">
                                 <div class="col-md-3 form-group">
-                                    <label>Prep Time:</label>
+                                    <label>Preparation Duration:</label>
                                     <input type="text" class="form-control" th:field="*{recipePreparationDuration}"/>
                                 </div>
                                 <div class="col-md-3 form-group">
-                                    <label>Cooktime:</label>
+                                    <label>Cooking Duration:</label>
                                     <input type="text" class="form-control" th:field="*{recipeCookingDuration}"/>
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>Difficulty:</label>
                                     <select class="form-control">
-                                        <option>Easy</option>
+                                        <option>Beginner</option>
+                                        <option>Amateur</option>
                                         <option>Medium</option>
                                         <option>Hard</option>
+                                        <option>Bossmode</option>
                                     </select>
                                 </div>
                             </div>
@@ -145,7 +147,7 @@
                     </div>
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h1 class="panel-title">Notes</h1>
+                            <h1 class="panel-title">Nutritional Info</h1>
                         </div>
                         <div class="panel-body">
                             <div class="row">
