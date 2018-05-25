@@ -12,6 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Set;
 
+// TODO: Remap getAllRecipes getQuickRecipes and to /recipes/all and /recipes/quick
+// TODO: Make "", "/" to redirect to /recipes/all
+// TODO: Add exception handling
+// TODO: Change mapping to /recipe/${id}/show
+
 @Slf4j
 @Controller
 public class IndexController {

@@ -25,6 +25,8 @@ public class RecipeControllerTest {
         recipeController = new RecipeController();
     }
 
+    // --- GET Tests --- ///
+
     @Test
     public void getRecipeFormReturnsString() {
 
@@ -53,5 +55,9 @@ public class RecipeControllerTest {
         recipeController.getRecipeForm(bindingAwareModelMap);
         assertEquals(new RecipeForm(), bindingAwareModelMap.asMap().get("recipeForm"));
     }
+
+
+    // --- POST Tests --- ///
+
 
 }
