@@ -50,7 +50,7 @@ public class ShowRecipeControllerTest {
     @Test
     public void getQuickRecipesGetsStatusCode200() throws Exception{
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(showRecipeController).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/show/1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/show"))
                 .andExpect(MockMvcResultMatchers.status().isOk());
     }
 
@@ -73,7 +73,7 @@ public class ShowRecipeControllerTest {
         when(mockRecipeService.findById(anyLong())).thenReturn(recipe);
 
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(showRecipeController).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/show/1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/show"))
                 .andExpect(model().attributeExists("recipe"));
     }
 
