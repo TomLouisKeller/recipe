@@ -18,8 +18,6 @@ public class RecipeFormTest {
         recipeForm = new RecipeForm();
     }
 
-
-
     @Test // There needs to be a constructor without arguments
     public void noArgsConstructorTest() {
         assertNotNull(recipeForm);

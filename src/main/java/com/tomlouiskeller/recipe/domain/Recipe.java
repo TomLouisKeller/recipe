@@ -1,5 +1,6 @@
 package com.tomlouiskeller.recipe.domain;
 
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -46,6 +47,30 @@ public class Recipe implements Comparable<Recipe> {
     @ManyToMany(fetch = FetchType.LAZY) // Lazy because if we set it to eager and get all recipes of a category, we load the whole database
     @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
     private Set<Category> categories = new TreeSet<>();
+
+    public Recipe() {
+    }
+
+    @Builder
+    public Recipe(Long id, String title, Integer preparationDuration, Integer cookingDuration, Integer servings, String source, String url, Byte[] image, Difficulty difficulty, Instruction instruction, NutritionalInfo nutritionalInfo, SortedSet<Ingredient> ingredients, List<Rating> rating, Set<Category> categories) {
+        this.id = id;
+        this.title = title;
+        this.preparationDuration = preparationDuration;
+        this.cookingDuration = cookingDuration;
+        this.servings = servings;
+        this.source = source;
+        this.url = url;
+        this.image = image;
+        this.difficulty = difficulty;
+        this.instruction = instruction;
+        this.nutritionalInfo = nutritionalInfo;
+        this.ingredients = ingredients;
+        this.rating = rating;
+        this.categories = categories;
+    }
+
+
+
 
     public Recipe addIngredient(Ingredient ingredient){
         ingredient.setRecipe(this);

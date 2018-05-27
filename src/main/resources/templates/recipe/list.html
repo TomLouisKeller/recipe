@@ -58,6 +58,10 @@
                                 <td th:text="${recipe.getTitle()}">And a third one</td>
                                 <td><a href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/show/'}">View</a></td>
                             </tr>
+                            <tr>
+                                <td></td>
+                                <td><a href="#" th:href="@{'/recipe/new/'}">Create</a></td>
+                            </tr>
                         </table>
                     </div>
                 </div>

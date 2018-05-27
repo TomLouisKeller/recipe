@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Set;
 
-// TODO: Remap getAllRecipes getQuickRecipes and to /recipe/all and /recipe/quick
+// TODO: Add , "/recipe/list", "/recipe" as mapping to /list/all
 
 @Controller
 public class ListRecipesController {
