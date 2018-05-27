@@ -48,7 +48,7 @@ public class RecipeBootstrap implements ApplicationListener<ContextRefreshedEven
         guacamoleRecipe.setPreparationDuration(10);
         guacamoleRecipe.setCookingDuration(0);
         guacamoleRecipe.setServings(4);
-        guacamoleRecipe.setDifficulty(Difficulty.AMATEUR);
+        guacamoleRecipe.setDifficulty(Difficulty.EASY);
         guacamoleRecipe.setSource("Simply Recipes");
         guacamoleRecipe.setUrl("http://www.simplyrecipes.com/recipes/perfect_guacamole/");
 

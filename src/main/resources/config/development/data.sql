@@ -40,8 +40,8 @@ VALUES ('1. Grate potatoes on the raffle in a bowl. 2. Add salt to grated potato
        ('1. Bring water to a boil. 2. Add Spaghetti. 3. Cook for 11 minutes. 4. Add tomato sauce. 5. Heat up until everything is warm.');
 
 INSERT INTO recipe (cooking_duration, difficulty, image, preparation_duration, servings, source, title, url, instruction_id, nutritional_info_id)
-VALUES (30, 'AMATEUR', null, 5, 4, 'https://www.bettybossi.ch/', 'Rösti', 'https://www.bettybossi.ch/de/Rezept/ShowRezept/BB_CHCH090801_0107A-40-de', 1, 1),
-       (11, 'BEGINNER', null, 5, 4, 'Common Sense', 'Spaghetti with Tomato Sauce', null, 2, 2);
+VALUES (30, 'EASY', null, 5, 4, 'https://www.bettybossi.ch/', 'Rösti', 'https://www.bettybossi.ch/de/Rezept/ShowRezept/BB_CHCH090801_0107A-40-de', 1, 1),
+       (11, 'EASY', null, 5, 4, 'Common Sense', 'Spaghetti with Tomato Sauce', null, 2, 2);
 
 INSERT INTO recipe_category (recipe_id, category_id)
 VALUES (1 , 2), (1,12),
