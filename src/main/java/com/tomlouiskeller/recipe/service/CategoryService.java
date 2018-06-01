@@ -2,6 +2,8 @@ package com.tomlouiskeller.recipe.service;
 
 import com.tomlouiskeller.recipe.domain.Category;
 
+import java.util.SortedSet;
+
 public interface CategoryService {
     /**
      * Returns category based on name.
@@ -10,4 +12,6 @@ public interface CategoryService {
      * @return Category, Category that was either found in persistence layer(db) or created therein
      */
     Category getByName(String name);
+
+    SortedSet<Category> findAll();
 }

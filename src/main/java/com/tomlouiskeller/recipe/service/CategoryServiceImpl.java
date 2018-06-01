@@ -5,6 +5,8 @@ import com.tomlouiskeller.recipe.repository.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
 @Service
 public class CategoryServiceImpl implements CategoryService {
@@ -18,17 +20,19 @@ public class CategoryServiceImpl implements CategoryService {
     // TODO: We have this getByName thing in 3 classes. Find a way to sort this out.
     // categoryRepository.findByName(name).orElse(create(name)) doesn't work because it evaluates it.
     public Category getByName(String name){
-        Optional<Category> category = categoryRepository.findByName(name);
-        if (category.isPresent())
-            return category.get();
-        else
-            return create(name);
+        Optional<Category> optionalCategory = categoryRepository.findByName(name);
+        if (optionalCategory.isPresent())
+            return optionalCategory.get();
+        else {
+            Category category;
+            category = new Category(name);
+            categoryRepository.save(category);
+            return category;
+        }
     }
 
-    private Category create(String name) {
-        Category category;
-        category = new Category(name);
-        categoryRepository.save(category);
-        return category;
+    @Override
+    public SortedSet<Category> findAll() {
+        return new TreeSet<>(categoryRepository.findAllByOrderByName());
     }
 }

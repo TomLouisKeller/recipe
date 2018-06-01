@@ -22,9 +22,8 @@ public class RecipeFormServiceImpl implements RecipeFormService{
                 .url(rF.getRecipeUrl())
                 .image(rF.getRecipeImage()) // TODO: Have to examine this
                 .difficulty(rF.getRecipeDifficulty())
+                .categories(rF.getRecipeCategories())
                 .build();
-
-        //TODO: convert ingredients categories
 
         Instruction instruction = new Instruction();
         instruction.setId(rF.getInstructionId());
@@ -37,6 +36,8 @@ public class RecipeFormServiceImpl implements RecipeFormService{
         nutritionalInfo.setText(rF.getNutritionalInfoText());
         nutritionalInfo.setRecipe(recipe);
         recipe.setNutritionalInfo(nutritionalInfo);
+
+        // TODO: convert ingredients
 
         return recipe;
     }

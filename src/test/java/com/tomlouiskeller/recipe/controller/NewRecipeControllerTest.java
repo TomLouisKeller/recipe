@@ -3,6 +3,7 @@ package com.tomlouiskeller.recipe.controller;
 
 import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.form.RecipeForm;
+import com.tomlouiskeller.recipe.service.CategoryService;
 import com.tomlouiskeller.recipe.service.RecipeFormService;
 import com.tomlouiskeller.recipe.service.RecipeService;
 import org.junit.Before;
@@ -15,6 +16,8 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.support.BindingAwareModelMap;
+
+import java.util.TreeSet;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -32,11 +35,13 @@ public class NewRecipeControllerTest {
     private RecipeService recipeService;
     @Mock
     private RecipeFormService recipeFormService;
+    @Mock
+    private CategoryService categoryService;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        newRecipeController = new NewRecipeController(recipeService, recipeFormService);
+        newRecipeController = new NewRecipeController(recipeService, recipeFormService, categoryService);
     }
 
     private MockMvc getMockMvc() {
@@ -72,7 +77,9 @@ public class NewRecipeControllerTest {
     public void getRecipeFormIsRecipeFormSet() {
         BindingAwareModelMap bindingAwareModelMap = new BindingAwareModelMap();
         newRecipeController.initCreationForm(bindingAwareModelMap);
-        assertEquals(new RecipeForm(), bindingAwareModelMap.asMap().get("recipeForm"));
+        RecipeForm expected = new RecipeForm();
+        expected.setAvailableCategories(new TreeSet<>());
+        assertEquals(expected, bindingAwareModelMap.asMap().get("recipeForm"));
     }
 
     // --- POST Tests --- ///

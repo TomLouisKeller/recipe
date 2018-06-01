@@ -1,10 +1,15 @@
 package com.tomlouiskeller.recipe.service;
 
+import com.tomlouiskeller.recipe.domain.Category;
 import com.tomlouiskeller.recipe.domain.Difficulty;
 import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.form.RecipeForm;
 import org.junit.Before;
 import org.junit.Test;
+
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.Set;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
@@ -13,6 +18,7 @@ import static org.mockito.Mockito.mock;
 public class RecipeFormServiceImplTest {
 
     private RecipeFormServiceImpl recipeFormService;
+
 
     @Before
     public void setUp() throws Exception {
@@ -27,7 +33,7 @@ public class RecipeFormServiceImplTest {
     }
 
     @Test
-    public void convertFormToEntityIsSame() {
+    public void convertStandardFields() {
         String recipeTitle = "Pizza";
         Integer recipePreparationDuration = 30;
         Integer recipeCookingDuration = 60;
@@ -61,4 +67,20 @@ public class RecipeFormServiceImplTest {
         assertEquals(instructionText, recipe.getInstruction().getText());
         assertEquals(nutritionalInfoText, recipe.getNutritionalInfo().getText());
     }
+
+    @Test
+    public void convertCategories() {
+
+        Category american = new Category("American");
+        Category swiss = new Category("Swiss");
+        Set<Category> recipeCategories = new HashSet<>(Arrays.asList(american, swiss));
+        RecipeForm recipeForm = RecipeForm.builder()
+                .recipeCategories(recipeCategories)
+                .build();
+        Recipe recipe = recipeFormService.convert(recipeForm);
+        assertEquals(recipeCategories, recipe.getCategories());
+
+    }
+
+    // TODO: Check if categories are set.
 }

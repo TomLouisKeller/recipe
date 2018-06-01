@@ -12,6 +12,7 @@ import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
 import java.util.HashSet;
 import java.util.Set;
+import java.util.SortedSet;
 
 // TODO: Create tests for all the validation
 
@@ -56,18 +57,19 @@ public class RecipeForm {
     private String nutritionalInfoText;
 
     // TODO: Do these afterwards.
-    private Set<Ingredient> ingredients = new HashSet<Ingredient>();
-    private Set<Category> categories = new HashSet<Category>();
+    private Set<Ingredient> ingredients = new HashSet<>();
 
+    private SortedSet<Category> availableCategories;
+    private Set<Category> recipeCategories = new HashSet<>();
 
     public RecipeForm() {
     }
 
-
     // This constructor is only used through the builder. Annotating the class with @Builder doesn't work
     // Otherwise NoArgsConstructor is private
     @Builder
-    public RecipeForm(Long recipeId, @NotBlank @Size(min = 3, max = 255) String recipeTitle, @Positive Integer recipePreparationDuration, @PositiveOrZero Integer recipeCookingDuration, @Positive Integer recipeServings, @Size(max = 255) String recipeSource, @Size(max = 255) String recipeUrl, Byte[] recipeImage, Difficulty recipeDifficulty, @NotBlank String instructionText, @NotBlank String nutritionalInfoText) {
+
+    public RecipeForm(Long recipeId, @NotBlank @Size(min = 3, max = 255) String recipeTitle, @Positive Integer recipePreparationDuration, @PositiveOrZero Integer recipeCookingDuration, @Positive Integer recipeServings, @Size(max = 255) String recipeSource, @Size(max = 255) String recipeUrl, Byte[] recipeImage, Difficulty recipeDifficulty, Long instructionId, @NotBlank String instructionText, Long nutritionalInfoId, @NotBlank String nutritionalInfoText, Set<Ingredient> ingredients, SortedSet<Category> availableCategories, Set<Category> recipeCategories) {
         this.recipeId = recipeId;
         this.recipeTitle = recipeTitle;
         this.recipePreparationDuration = recipePreparationDuration;
@@ -77,7 +79,12 @@ public class RecipeForm {
         this.recipeUrl = recipeUrl;
         this.recipeImage = recipeImage;
         this.recipeDifficulty = recipeDifficulty;
+        this.instructionId = instructionId;
         this.instructionText = instructionText;
+        this.nutritionalInfoId = nutritionalInfoId;
         this.nutritionalInfoText = nutritionalInfoText;
+        this.ingredients = ingredients;
+        this.availableCategories = availableCategories;
+        this.recipeCategories = recipeCategories;
     }
 }
