@@ -1,10 +1,13 @@
 package com.tomlouiskeller.recipe.service;
 
+import com.tomlouiskeller.recipe.domain.Category;
 import com.tomlouiskeller.recipe.domain.Instruction;
 import com.tomlouiskeller.recipe.domain.NutritionalInfo;
 import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.form.RecipeForm;
 import org.springframework.stereotype.Service;
+
+import java.util.SortedSet;
 
 @Service
 public class RecipeFormServiceImpl implements RecipeFormService{
@@ -40,5 +43,37 @@ public class RecipeFormServiceImpl implements RecipeFormService{
         // TODO: convert ingredients
 
         return recipe;
+    }
+
+    @Override
+    public RecipeForm convert(Recipe recipe, SortedSet<Category> availableCategories) {
+
+        RecipeForm recipeForm = RecipeForm.builder()
+                .recipeId(recipe.getId())
+                .recipeTitle(recipe.getTitle())
+                .recipePreparationDuration(recipe.getPreparationDuration())
+                .recipeCookingDuration(recipe.getCookingDuration())
+                .recipeServings(recipe.getServings())
+                .recipeSource(recipe.getSource())
+                .recipeUrl(recipe.getUrl())
+                .recipeImage(recipe.getImage())
+                .recipeDifficulty(recipe.getDifficulty())
+                .recipeCategories(recipe.getCategories())
+                .availableCategories(availableCategories)
+                .build();
+
+        Instruction instruction = recipe.getInstruction();
+        if(instruction != null){
+            recipeForm.setInstructionId(instruction.getId());
+            recipeForm.setInstructionText(instruction.getText());
+        }
+
+        NutritionalInfo nutritionalInfo = recipe.getNutritionalInfo();
+        if(nutritionalInfo != null){
+            recipeForm.setNutritionalInfoId(nutritionalInfo.getId());
+            recipeForm.setNutritionalInfoText(nutritionalInfo.getText());
+        }
+
+        return recipeForm;
     }
 }
