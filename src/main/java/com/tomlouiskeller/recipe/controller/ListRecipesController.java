@@ -10,8 +10,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.util.Set;
 
-// TODO: Add , "/recipe/list", "/recipe" as mapping to /list/all
-
 @Controller
 public class ListRecipesController {
 
