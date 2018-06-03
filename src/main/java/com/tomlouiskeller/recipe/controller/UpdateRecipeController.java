@@ -32,13 +32,12 @@ public class UpdateRecipeController {
     }
 
     @GetMapping
-    public String getUpdateForm(@PathVariable Long id, Model model) {
+    public String initUpdateForm(@PathVariable Long id, Model model) {
         Recipe recipe = recipeService.findById(id);
         RecipeForm recipeForm = recipeFormService.convert(recipe, null);
         model.addAttribute("recipeForm", recipeForm);
         return "recipe/form";
     }
-
 
     @PostMapping
     public String processUpdateForm(@PathVariable Long id, @Valid RecipeForm recipeForm, BindingResult result) {

@@ -18,7 +18,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.support.BindingAwareModelMap;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -49,33 +48,27 @@ public class UpdateRecipeControllerTest {
     // --- GET --- //
 
     @Test
-    public void getUpdateFormReturnsString() {
-        String actual = updateRecipeController.getUpdateForm(id, model);
-        assertNotNull(actual);
-    }
-
-    @Test
-    public void getUpdateFormSpecificString() {
-        String actual = updateRecipeController.getUpdateForm(id, model);
+    public void initUpdateFormSpecificString() {
+        String actual = updateRecipeController.initUpdateForm(id, model);
         assertEquals("recipe/form", actual);
     }
 
     @Test
-    public void getUpdateFormResultsIn200() throws Exception {
+    public void initUpdateFormReturns200() throws Exception {
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(updateRecipeController).build();
         mockMvc.perform(get("/recipe/1/edit"))
                 .andExpect(status().isOk());
     }
 
     @Test
-    public void getUpdateFormCallsService() {
+    public void initUpdateFormCallsService() {
         id = 456L;
-        updateRecipeController.getUpdateForm(id, model); // recipeService
+        updateRecipeController.initUpdateForm(id, model); // recipeService
         verify(recipeService, times(1)).findById(id);
     }
 
     @Test
-    public void getRecipeFormIsRecipeFormSet() {
+    public void initUpdateFormIsRecipeFormSet() {
         id = 555L;
         Recipe recipe = Recipe.builder().id(id).build();
         RecipeForm recipeForm = RecipeForm.builder().recipeId(id).build();
@@ -84,7 +77,7 @@ public class UpdateRecipeControllerTest {
         when(recipeService.findById(id)).thenReturn(recipe);
         when(recipeFormService.convert(recipe, null)).thenReturn(recipeForm);
 
-        updateRecipeController.getUpdateForm(id, bindingAwareModelMap);
+        updateRecipeController.initUpdateForm(id, bindingAwareModelMap);
 
         RecipeForm actual = (RecipeForm) bindingAwareModelMap.asMap().get("recipeForm");
         assertEquals(recipeForm, actual);
@@ -94,9 +87,25 @@ public class UpdateRecipeControllerTest {
 
     // --- POST --- //
 
+    @Test // This should fail with errors, no?
+    public void processUpdateFormReturnSpecificString() {
+        BindingResult result = mock(BindingResult.class);
+
+        Long id = 623L;
+        RecipeForm recipeForm = new RecipeForm();
+        Recipe recipe = new Recipe();
+        recipe.setId(id);
+
+        when(recipeFormService.convert(recipeForm)).thenReturn(recipe);
+        when(recipeService.save(recipe)).thenReturn(recipe);
+
+        String actual = updateRecipeController.processUpdateForm(id, recipeForm, result);
+        assertEquals("redirect:/recipe/" + id + "/show/", actual);
+    }
+
     @Test
     @Ignore // TODO: Add validation and error handling
-    public void testProcessCreationFormHasErrors() throws Exception {
+    public void processUpdateFormHasErrors() throws Exception {
         Long id = 445L;
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(updateRecipeController).build();
         mockMvc.perform(post("/owners/{id}/edit", id)
@@ -114,23 +123,5 @@ public class UpdateRecipeControllerTest {
                 .andExpect(model().attributeHasFieldErrors("recipeForm", "recipeSource"))
                 .andExpect(view().name("recipe/form"));
     }
-
-    @Test // This should fail with errors, no?
-    public void testProcessCreationFormReturnSpecificString() {
-        BindingResult result = mock(BindingResult.class);
-
-        Long id = 623L;
-        RecipeForm recipeForm = new RecipeForm();
-        Recipe recipe = new Recipe();
-        recipe.setId(id);
-
-        when(recipeFormService.convert(recipeForm)).thenReturn(recipe);
-        when(recipeService.save(recipe)).thenReturn(recipe);
-
-        String actual = updateRecipeController.processUpdateForm(id, recipeForm, result);
-        assertEquals("redirect:/recipe/" + id + "/show/", actual);
-    }
-
-
 
 }

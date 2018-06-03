@@ -20,7 +20,6 @@ import org.springframework.validation.support.BindingAwareModelMap;
 import java.util.TreeSet;
 
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -48,33 +47,24 @@ public class NewRecipeControllerTest {
         return MockMvcBuilders.standaloneSetup(newRecipeController).build();
     }
 
-    // --- GET Tests --- ///
+    // --- GET --- //
 
     @Test
-    public void testInitCreationForm() throws Exception {
-        MockMvc mockMvc = getMockMvc();
-        mockMvc.perform(get("/recipe/new"))
-                .andExpect(status().isOk())
-                .andExpect(model().attributeExists("recipeForm"))
-                .andExpect(view().name("recipe/form"));
-    }
-
-    @Test
-    public void getRecipeFormReturnsString() {
-        Model model = mock(Model.class);
-        String actual = newRecipeController.initCreationForm(model);
-        assertNotNull(actual);
-    }
-
-    @Test
-    public void getRecipeFormReturnSpecificString() {
+    public void initCreationFormReturnSpecificString() {
         Model model = mock(Model.class);
         String actual = newRecipeController.initCreationForm(model);
         assertEquals("recipe/form", actual);
     }
 
     @Test
-    public void getRecipeFormIsRecipeFormSet() {
+    public void initCreationFormReturns200() throws Exception {
+        MockMvc mockMvc = getMockMvc();
+        mockMvc.perform(get("/recipe/new"))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    public void initCreationFormRecipeForm() {
         BindingAwareModelMap bindingAwareModelMap = new BindingAwareModelMap();
         newRecipeController.initCreationForm(bindingAwareModelMap);
         RecipeForm expected = new RecipeForm();
@@ -82,11 +72,28 @@ public class NewRecipeControllerTest {
         assertEquals(expected, bindingAwareModelMap.asMap().get("recipeForm"));
     }
 
-    // --- POST Tests --- ///
+    // --- POST --- //
+
+    @Test
+    public void processUpdateFormReturnSpecificString() {
+        BindingResult result = mock(BindingResult.class);
+
+        Long id = 666L;
+        RecipeForm recipeForm = new RecipeForm();
+        Recipe recipe = new Recipe();
+        recipe.setId(id);
+
+        when(recipeFormService.convert(recipeForm)).thenReturn(recipe);
+        when(recipeService.save(recipe)).thenReturn(recipe);
+
+        String actual = newRecipeController.processCreationForm(recipeForm, result);
+        assertEquals("redirect:/recipe/" + id + "/show/", actual);
+    }
+
 
     @Test
     @Ignore // TODO: Add validation and error handling
-    public void testProcessCreationFormHasErrors() throws Exception {
+    public void processUpdateFormHasErrors() throws Exception {
         MockMvc mockMvc = getMockMvc();
         mockMvc.perform(post("/recipe/new")
                 .param("recipeTitle", "Pizza")
@@ -103,21 +110,4 @@ public class NewRecipeControllerTest {
                 .andExpect(model().attributeHasFieldErrors("recipeForm", "recipeSource"))
                 .andExpect(view().name("recipe/form"));
     }
-
-    @Test // This should fail with errors, no?
-    public void testProcessCreationFormReturnSpecificString() {
-        BindingResult result = mock(BindingResult.class);
-
-        Long id = 666L;
-        RecipeForm recipeForm = new RecipeForm();
-        Recipe recipe = new Recipe();
-        recipe.setId(id);
-
-        when(recipeFormService.convert(recipeForm)).thenReturn(recipe);
-        when(recipeService.save(recipe)).thenReturn(recipe);
-
-        String actual = newRecipeController.processCreationForm(recipeForm, result);
-        assertEquals("redirect:/recipe/" + id + "/show/", actual);
-    }
-
 }
