@@ -35,8 +35,7 @@
 <div class="container-fluid" style="margin-top: 20px">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <form th:object="${recipeForm}" th:action="@{/recipe/new}" method="post">
-                <input type="hidden" th:field="*{recipeId}"/>
+            <form th:object="${recipeForm}" method="post">
                 <div class="panel-group">
                     <div class="panel panel-primary">
                         <div class="panel-heading">
