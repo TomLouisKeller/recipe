@@ -41,6 +41,7 @@
                                 <h1 class="panel-title" th:text="${recipe.getTitle()}">Rösti</h1>
                             </div>
                             <div class="col-md-1">
+                                <a class="btn btn-default" href="#" th:href="@{'/recipe/list/all'}" role="button">List</a>
                                 <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/edit'}" role="button">Edit</a>
                                 <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/delete'}" role="button">Delete</a>
                             </div>
