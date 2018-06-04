@@ -14,6 +14,8 @@ public interface RecipeRepository extends JpaRepository<Recipe, Long> {
 
     List<Recipe> findAllByOrderByTitle();
 
+    void deleteById(Long id);
+
     @Query("select r from Recipe r where (r.preparationDuration + r.cookingDuration) <= ?1")
     Iterable<Recipe> findByPreparationDurationPlusCookingDurationIsLessThanEqual(Integer duration);
 

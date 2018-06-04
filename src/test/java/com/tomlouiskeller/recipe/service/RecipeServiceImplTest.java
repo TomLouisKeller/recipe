@@ -140,5 +140,13 @@ public class RecipeServiceImplTest {
         recipeService.findById(1L);
     }
 
+    // -- Delete -- //
 
+
+    @Test
+    public void deleteById() {
+        Long id = 432L;
+        recipeService.deleteById(id);
+        verify(mockRecipeRepository, times(1)).deleteById(id);
+    }
 }
