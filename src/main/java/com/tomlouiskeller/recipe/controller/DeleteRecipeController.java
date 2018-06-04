@@ -4,10 +4,8 @@ import com.tomlouiskeller.recipe.service.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/recipe/{id}/delete")
 public class DeleteRecipeController {
 
     private RecipeService recipeService;
@@ -16,7 +14,7 @@ public class DeleteRecipeController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping
+    @GetMapping("/recipe/{id}/delete")
     public String deleteRecipe(@PathVariable Long id) {
         recipeService.deleteById(id);
         return "redirect:/recipe/list/all";

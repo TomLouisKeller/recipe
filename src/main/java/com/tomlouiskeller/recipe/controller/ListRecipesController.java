@@ -6,7 +6,7 @@ import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.service.RecipeService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.Set;
 
@@ -21,14 +21,14 @@ public class ListRecipesController {
         this.generalConfiguration = generalConfiguration;
     }
 
-    @RequestMapping({"/recipe/list/all"})
+    @GetMapping({"/recipe/list/all"})
     public String getAllRecipes(Model model){
         Set<Recipe> recipes = recipeService.findAll();
         model.addAttribute("recipes", recipes);
         return "recipe/list";
     }
 
-    @RequestMapping({"/recipe/list/quick"})
+    @GetMapping({"/recipe/list/quick"})
     public String getQuickRecipes(Model model){
         Set<Recipe> quickRecipes = recipeService.findQuickRecipes(generalConfiguration.getQuickRecipesMaxDuration());
         model.addAttribute("recipes", quickRecipes);
