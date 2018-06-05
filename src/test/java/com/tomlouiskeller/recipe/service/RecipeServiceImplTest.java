@@ -23,19 +23,19 @@ public class RecipeServiceImplTest {
 
     private RecipeServiceImpl recipeService;
     @Mock
-    private RecipeRepository mockRecipeRepository;
+    private RecipeRepository recipeRepository;
 
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        recipeService = new RecipeServiceImpl(mockRecipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository);
     }
 
     @Test
     public void findAllWithEmptyDatabase() {
         Set<Recipe> actual = recipeService.findAll();
         assertEquals(0, actual.size());
-        verify(mockRecipeRepository, times(1)).findAllByOrderByTitle();
+        verify(recipeRepository, times(1)).findAllByOrderByTitle();
     }
 
     @Test
@@ -45,12 +45,12 @@ public class RecipeServiceImplTest {
         List<Recipe> allRecipes = new ArrayList<>();
         allRecipes.add(recipe);
 
-        when(mockRecipeRepository.findAllByOrderByTitle()).thenReturn(allRecipes);
+        when(recipeRepository.findAllByOrderByTitle()).thenReturn(allRecipes);
 
         Set<Recipe> actual = recipeService.findAll();
         assertEquals(1, actual.size());
         assertEquals(true, actual.contains(recipe));
-        verify(mockRecipeRepository, times(1)).findAllByOrderByTitle();
+        verify(recipeRepository, times(1)).findAllByOrderByTitle();
     }
 
     @Test
@@ -63,11 +63,11 @@ public class RecipeServiceImplTest {
             allRecipes.add(recipe);
         }
 
-        when(mockRecipeRepository.findAllByOrderByTitle()).thenReturn(allRecipes);
+        when(recipeRepository.findAllByOrderByTitle()).thenReturn(allRecipes);
         Set<Recipe> actual = recipeService.findAll();
         assertEquals(expected, actual.size());
         assertEquals(true, actual.contains(allRecipes.get(3)));
-        verify(mockRecipeRepository, times(1)).findAllByOrderByTitle();
+        verify(recipeRepository, times(1)).findAllByOrderByTitle();
     }
 
 //    @Test
@@ -80,11 +80,11 @@ public class RecipeServiceImplTest {
 //            allRecipes.add(recipe);
 //        }
 //
-//        when(mockRecipeRepository.findAllByOrderByTitle()).thenReturn(allRecipes);
+//        when(recipeRepository.findAllByOrderByTitle()).thenReturn(allRecipes);
 //        Set<Recipe> actual = recipeService.findAll();
 //        assertEquals(expected, actual.size());
 //        assertEquals(true, actual.contains(allRecipes.get(3)));
-//        verify(mockRecipeRepository, times(1)).findAllByOrderByTitle();
+//        verify(recipeRepository, times(1)).findAllByOrderByTitle();
 //    }
 
 
@@ -105,18 +105,16 @@ public class RecipeServiceImplTest {
     @Test
     public void getByIdCallsRepository(){
         // given
-        Long id = 1L;
+        Long id = 564L;
+        Recipe recipe = mock(Recipe.class);
+        Optional<Recipe> optionalRecipe = Optional.of(recipe);
+        when(recipeRepository.findById(id)).thenReturn(optionalRecipe);
 
         // when
-        try {
-            recipeService.findById(id);
-        } catch (Exception e){
-            // In this test we only want to test if it calls the repository.
-            // Therefore we ignore the exception that is thrown.
-        }
+        recipeService.findById(id);
 
         // then
-        verify(mockRecipeRepository, times(1)).findById(id);
+        verify(recipeRepository, times(1)).findById(id);
     }
 
     @Test
@@ -126,7 +124,7 @@ public class RecipeServiceImplTest {
         Recipe recipe = Mockito.mock(Recipe.class);
         Optional<Recipe> optionalRecipe = Optional.of(recipe);
 
-        when(mockRecipeRepository.findById(id)).thenReturn(optionalRecipe);
+        when(recipeRepository.findById(id)).thenReturn(optionalRecipe);
 
         // when
         Recipe actual = recipeService.findById(id);
@@ -147,6 +145,34 @@ public class RecipeServiceImplTest {
     public void deleteById() {
         Long id = 432L;
         recipeService.deleteById(id);
-        verify(mockRecipeRepository, times(1)).deleteById(id);
+        verify(recipeRepository, times(1)).deleteById(id);
+    }
+
+    // -- saveImage -- //
+
+    @Test
+    public void saveImageCallsRepository() {
+        Long id = 134L;
+        byte[] bytes = "saveImageCallsRepository".getBytes();
+        Recipe recipe = mock(Recipe.class);
+        Optional<Recipe> optionalRecipe = Optional.of(recipe);
+        when(recipeRepository.findById(id)).thenReturn(optionalRecipe);
+
+        recipeService.saveImage(id, bytes);
+
+        verify(recipeRepository).save(recipe);
+    }
+
+    @Test
+    public void saveImageStoresImageInRecipe() {
+        Long id = 133L;
+        byte[] bytes = "saveImageStoresImageInRecipe".getBytes();
+        Recipe recipe = new Recipe();
+        Optional<Recipe> optionalRecipe = Optional.of(recipe);
+        when(recipeRepository.findById(id)).thenReturn(optionalRecipe);
+
+        recipeService.saveImage(id, bytes);
+
+        assertEquals(bytes, recipe.getImage());
     }
 }

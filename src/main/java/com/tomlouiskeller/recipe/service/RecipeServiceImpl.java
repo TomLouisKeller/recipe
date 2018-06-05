@@ -49,4 +49,11 @@ public class RecipeServiceImpl implements RecipeService {
         recipeRepository.deleteById(id);
     }
 
+    @Override
+    public void saveImage(Long id, byte[] bytes) {
+        Recipe recipe = this.findById(id);
+        recipe.setImage(bytes);
+        this.save(recipe);
+    }
+
 }

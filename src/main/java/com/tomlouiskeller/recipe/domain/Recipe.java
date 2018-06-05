@@ -25,7 +25,7 @@ public class Recipe implements Comparable<Recipe> {
     private String source;
     private String url;
     @Lob
-    private Byte[] image;
+    private byte[] image;
 
     // Relations
     @Enumerated(value = EnumType.STRING)
@@ -52,7 +52,7 @@ public class Recipe implements Comparable<Recipe> {
     }
 
     @Builder
-    public Recipe(Long id, String title, Integer preparationDuration, Integer cookingDuration, Integer servings, String source, String url, Byte[] image, Difficulty difficulty, Instruction instruction, NutritionalInfo nutritionalInfo, SortedSet<Ingredient> ingredients, List<Rating> rating, Set<Category> categories) {
+    public Recipe(Long id, String title, Integer preparationDuration, Integer cookingDuration, Integer servings, String source, String url, byte[] image, Difficulty difficulty, Instruction instruction, NutritionalInfo nutritionalInfo, SortedSet<Ingredient> ingredients, List<Rating> rating, Set<Category> categories) {
         this.id = id;
         this.title = title;
         this.preparationDuration = preparationDuration;

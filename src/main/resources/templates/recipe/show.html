@@ -27,6 +27,8 @@
             crossorigin="anonymous"
             th:src="@{/webjars/bootstrap/4.1.0/js/bootstrap.min.js}"></script>
 
+    <script src="/script/imageUpload.js" th:src="@{/script/imageUpload.js}"></script>
+
 </head>
 <body>
 <!--/*@thymesVar id="recipe" type="com.tomlouiskeller.recipe.domain.Recipe"*/-->
@@ -51,7 +53,8 @@
                         <div class="row">
                             <div class="col-md-6">
                                 <div class="col-md-1">
-                                    <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/image'}" role="button">Change Image</a>
+                                    <!--<a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/image'}" role="button">Change Image</a>-->
+                                    <a class="btn btn-default" href="javascript:prepareUploadImage();" role="button">Change Image</a>
                                 </div>
                             </div>
                         </div>
@@ -195,5 +198,25 @@
         </div>
     </div>
 </div>
+<div style="display: none;">
+    <form id="uploadImageForm" method="post" th:action="@{'/recipe/' + ${recipe.getId()} + '/image'}" enctype="multipart/form-data">
+        <input id="uploadImageInput" type="file" name="image" onchange="doUploadImage();" />
+    </form>
+</div>
+
+<script>
+    // This is triggered by the link
+    function prepareUploadImage () {
+        var uploadField = document.getElementById("uploadImageInput");
+        uploadField.click();
+
+    }
+
+    // Automatically triggered after a file has been selected
+    function doUploadImage() {
+        document.getElementById("uploadImageForm").submit();
+    }
+</script>
+
 </body>
 </html>
