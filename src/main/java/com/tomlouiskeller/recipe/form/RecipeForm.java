@@ -42,7 +42,7 @@ public class RecipeForm {
     private String recipeUrl;
 
     // TODO: Find validation so byte is not to big! Maybe we just block the upload
-    private byte[] recipeImage;
+    private Byte[] recipeImage;
 
     private Difficulty recipeDifficulty;
 
@@ -69,7 +69,7 @@ public class RecipeForm {
     // Otherwise NoArgsConstructor is private
     @Builder
 
-    public RecipeForm(Long recipeId, @NotBlank @Size(min = 3, max = 255) String recipeTitle, @Positive Integer recipePreparationDuration, @PositiveOrZero Integer recipeCookingDuration, @Positive Integer recipeServings, @Size(max = 255) String recipeSource, @Size(max = 255) String recipeUrl, byte[] recipeImage, Difficulty recipeDifficulty, Long instructionId, @NotBlank String instructionText, Long nutritionalInfoId, @NotBlank String nutritionalInfoText, Set<Ingredient> ingredients, SortedSet<Category> availableCategories, Set<Category> recipeCategories) {
+    public RecipeForm(Long recipeId, @NotBlank @Size(min = 3, max = 255) String recipeTitle, @Positive Integer recipePreparationDuration, @PositiveOrZero Integer recipeCookingDuration, @Positive Integer recipeServings, @Size(max = 255) String recipeSource, @Size(max = 255) String recipeUrl, Byte[] recipeImage, Difficulty recipeDifficulty, Long instructionId, @NotBlank String instructionText, Long nutritionalInfoId, @NotBlank String nutritionalInfoText, Set<Ingredient> ingredients, SortedSet<Category> availableCategories, Set<Category> recipeCategories) {
         this.recipeId = recipeId;
         this.recipeTitle = recipeTitle;
         this.recipePreparationDuration = recipePreparationDuration;

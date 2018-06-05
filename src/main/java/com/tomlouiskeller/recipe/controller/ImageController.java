@@ -4,6 +4,7 @@ package com.tomlouiskeller.recipe.controller;
 import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.service.RecipeService;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
@@ -30,7 +31,9 @@ public class ImageController {
         Recipe recipe = recipeService.findById(id);
         if (recipe.getImage() != null) {
             response.setContentType("image/jpeg");
-            InputStream is = new ByteArrayInputStream(recipe.getImage());
+            Byte[] image = recipe.getImage();
+            byte[] bytes = ArrayUtils.toPrimitive(image);
+            InputStream is = new ByteArrayInputStream(bytes);
             IOUtils.copy(is, response.getOutputStream());
         }
     }
@@ -38,7 +41,9 @@ public class ImageController {
     @PostMapping // TODO: ErrorHandling // TODO: Log exceptions // TODO: Reject non-image files
     public String uploadImage(@PathVariable Long id, @RequestParam("image") MultipartFile image) throws IOException {
         log.info("uploadImage");
-        recipeService.saveImage(id, image.getBytes());
+        byte[] bytes = image.getBytes();
+        Byte[] bytesAsObject = ArrayUtils.toObject(bytes);
+        recipeService.saveImage(id, bytesAsObject);
         return "redirect:/recipe/" + id + "/show/";
     }
 }

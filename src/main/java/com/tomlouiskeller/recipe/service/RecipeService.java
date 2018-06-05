@@ -15,5 +15,5 @@ public interface RecipeService {
 
     void deleteById(Long recipe);
 
-    void saveImage(Long id, byte[] bytes);
+    void saveImage(Long id, Byte[] bytes);
 }

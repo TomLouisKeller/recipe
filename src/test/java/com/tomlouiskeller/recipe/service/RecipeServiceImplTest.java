@@ -3,6 +3,7 @@ package com.tomlouiskeller.recipe.service;
 import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.exception.RecipeNotFoundException;
 import com.tomlouiskeller.recipe.repository.RecipeRepository;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -158,7 +159,8 @@ public class RecipeServiceImplTest {
         Optional<Recipe> optionalRecipe = Optional.of(recipe);
         when(recipeRepository.findById(id)).thenReturn(optionalRecipe);
 
-        recipeService.saveImage(id, bytes);
+        Byte[] bytesAsObject = ArrayUtils.toObject(bytes);
+        recipeService.saveImage(id, bytesAsObject);
 
         verify(recipeRepository).save(recipe);
     }
@@ -171,8 +173,8 @@ public class RecipeServiceImplTest {
         Optional<Recipe> optionalRecipe = Optional.of(recipe);
         when(recipeRepository.findById(id)).thenReturn(optionalRecipe);
 
-        recipeService.saveImage(id, bytes);
-
-        assertEquals(bytes, recipe.getImage());
+        Byte[] bytesAsObject = ArrayUtils.toObject(bytes);
+        recipeService.saveImage(id, bytesAsObject);
+        assertEquals(bytesAsObject, recipe.getImage());
     }
 }

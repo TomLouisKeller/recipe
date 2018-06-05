@@ -1,6 +1,7 @@
 package com.tomlouiskeller.recipe.controller;
 
 import com.tomlouiskeller.recipe.service.RecipeService;
+import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
@@ -61,6 +62,7 @@ public class ImageControllerTest {
                 .andExpect(view().name("redirect:/recipe/" + id + "/show/")) // TODO: take out either header() or view()
                 .andExpect(header().string("Location", "/recipe/" + id + "/show/"));
 
-        verify(recipeService, times(1)).saveImage(id, bytes);
+        Byte[] bytesAsObject = ArrayUtils.toObject(bytes);
+        verify(recipeService, times(1)).saveImage(id, bytesAsObject);
     }
 }

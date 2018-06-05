@@ -50,7 +50,7 @@ public class RecipeServiceImpl implements RecipeService {
     }
 
     @Override
-    public void saveImage(Long id, byte[] bytes) {
+    public void saveImage(Long id, Byte[] bytes) {
         Recipe recipe = this.findById(id);
         recipe.setImage(bytes);
         this.save(recipe);
