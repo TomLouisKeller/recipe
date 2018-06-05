@@ -16,9 +16,7 @@ public class CategoryServiceImpl implements CategoryService {
     public CategoryServiceImpl(CategoryRepository categoryRepository) {
         this.categoryRepository = categoryRepository;
     }
-
-    // TODO: We have this getByName thing in 3 classes. Find a way to sort this out.
-    // categoryRepository.findByName(name).orElse(create(name)) doesn't work because it evaluates it.
+    
     public Category getByName(String name){
         Optional<Category> optionalCategory = categoryRepository.findByName(name);
         if (optionalCategory.isPresent())

@@ -3,7 +3,6 @@ package com.tomlouiskeller.recipe.service;
 import com.tomlouiskeller.recipe.domain.Category;
 import com.tomlouiskeller.recipe.repository.CategoryRepository;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -30,9 +29,14 @@ public class CategoryServiceImplTest {
     }
 
     @Test
-    @Ignore // TODO: Implement this
-    public void getByName() {
+    public void getByNameReturnsUnitOfMeasurement() {
+        String find = "Swiss";
+        Category actual = categoryService.getByName(find);
+        assertNotNull(actual);
+        assertEquals(Category.class, actual.getClass());
     }
+
+    // TODO: More getByName tests
 
     @Test
     public void findAllResultNotNull() {
