@@ -26,7 +26,7 @@ public class ImageController {
         this.recipeService = recipeService;
     }
 
-    @GetMapping // TODO: Write tests for this // TODO: ErrorHandling // TODO: Log exceptions
+    @GetMapping // TODO: ErrorHandling // TODO: Log exceptions
     public void showImage(@PathVariable Long id, HttpServletResponse response) throws IOException {
         Recipe recipe = recipeService.findById(id);
         if (recipe.getImage() != null) {
@@ -40,7 +40,6 @@ public class ImageController {
 
     @PostMapping // TODO: ErrorHandling // TODO: Log exceptions // TODO: Reject non-image files
     public String uploadImage(@PathVariable Long id, @RequestParam("image") MultipartFile image) throws IOException {
-        log.info("uploadImage");
         byte[] bytes = image.getBytes();
         Byte[] bytesAsObject = ArrayUtils.toObject(bytes);
         recipeService.saveImage(id, bytesAsObject);

@@ -1,17 +1,22 @@
 package com.tomlouiskeller.recipe.controller;
 
+import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.service.RecipeService;
 import org.apache.commons.lang3.ArrayUtils;
 import org.junit.Before;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.mock.web.MockHttpServletResponse;
 import org.springframework.mock.web.MockMultipartFile;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
+import static org.junit.Assert.assertArrayEquals;
+import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.multipart;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
@@ -28,18 +33,45 @@ public class ImageControllerTest {
         imageController = new ImageController(recipeService);
     }
 
-//    @Test
-//    public void showImageReturnsByteArray() {
-//        Long id = 123L;
-//    }
-//
-//    @Test
-//    public void initCreationFormReturns200() throws Exception {
-//        Long id = 482L;
-//        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(imageController).build();
-//        mockMvc.perform(get("/recipe/" + id + "/image"))
-//                .andExpect(status().isOk());
-//    }
+    // -- showImage -- //
+
+    @Test
+    public void showImageReturns200() throws Exception{
+        Long id = 123L;
+        Recipe recipe = mock(Recipe.class);
+        when(recipeService.findById(id)).thenReturn(recipe);
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(imageController).build();
+        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/" + id + "/image"))
+                .andExpect(MockMvcResultMatchers.status().isOk());
+    }
+
+    @Test
+    public void showImageReturnsBytes() throws Exception {
+        Long id = 3L;
+        Recipe recipe = new Recipe();
+        recipe.setId(id);
+
+        Byte[] bytesAsObject = ArrayUtils.toObject("showImage".getBytes());
+        recipe.setImage(bytesAsObject);
+
+        when(recipeService.findById(id)).thenReturn(recipe);
+
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(imageController)
+//                .setControllerAdvice(new ControllerExceptionHandler()) //TODO: Add this
+                .build();
+
+        MockHttpServletResponse response = mockMvc.perform(
+                get("/recipe/" + id + "/image"))
+                .andExpect(status().isOk())
+                .andReturn().getResponse();
+
+        byte[] responseBytes = response.getContentAsByteArray();
+        Byte[] actual = ArrayUtils.toObject(responseBytes);
+        assertArrayEquals(bytesAsObject, actual);
+    }
+
+    // TODO: Test for IOException
+
 
     // -- uploadImage -- //
 
@@ -65,4 +97,6 @@ public class ImageControllerTest {
         Byte[] bytesAsObject = ArrayUtils.toObject(bytes);
         verify(recipeService, times(1)).saveImage(id, bytesAsObject);
     }
+
+    // TODO: Test for IOException
 }

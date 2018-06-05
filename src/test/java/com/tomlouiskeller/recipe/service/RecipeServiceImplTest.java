@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
 
@@ -175,6 +176,6 @@ public class RecipeServiceImplTest {
 
         Byte[] bytesAsObject = ArrayUtils.toObject(bytes);
         recipeService.saveImage(id, bytesAsObject);
-        assertEquals(bytesAsObject, recipe.getImage());
+        assertArrayEquals(bytesAsObject, recipe.getImage());
     }
 }
