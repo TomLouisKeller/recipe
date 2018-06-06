@@ -11,4 +11,7 @@ public class GeneralConfigurationFromFile implements GeneralConfiguration {
     @Value("${recipes.quickRecipes.MaxDuration}")
     private Integer quickRecipesMaxDuration;
 
+    @Value("${spring.profiles.active}")
+    private String springProfile;
+
 }
