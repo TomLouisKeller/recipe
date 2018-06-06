@@ -1,7 +1,6 @@
 package com.tomlouiskeller.recipe.controller;
 
 import com.tomlouiskeller.recipe.domain.Recipe;
-import com.tomlouiskeller.recipe.exception.RecipeNotFoundException;
 import com.tomlouiskeller.recipe.service.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +16,8 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ShowRecipeControllerTest {
 
@@ -48,7 +48,7 @@ public class ShowRecipeControllerTest {
     }
 
     @Test
-    public void getQuickRecipesGetsStatusCode200() throws Exception{
+    public void getQuickRecipesGetsStatusCode200() throws Exception {
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(showRecipeController).build();
         mockMvc.perform(get("/recipe/1/show"))
                 .andExpect(status().isOk());
@@ -68,7 +68,7 @@ public class ShowRecipeControllerTest {
     }
 
     @Test
-    public void getQuickRecipesRecipeIsInModel() throws Exception{
+    public void getQuickRecipesRecipeIsInModel() throws Exception {
         Recipe recipe = Mockito.mock(Recipe.class);
         when(mockRecipeService.findById(anyLong())).thenReturn(recipe);
 
@@ -87,17 +87,5 @@ public class ShowRecipeControllerTest {
         showRecipeController.showRecipe(id, mockModel);
 
         verify(mockModel, times(1)).addAttribute("recipe", recipe);
-    }
-
-    @Test
-    public void showRecipeNotFound() throws Exception {
-        when(mockRecipeService.findById(anyLong())).thenThrow(RecipeNotFoundException.class);
-
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(showRecipeController)
-                .build();
-
-        mockMvc.perform(get("/recipe/789/show"))
-                .andExpect(status().isNotFound())
-                .andExpect(view().name("error/object_not_found"));
     }
 }
