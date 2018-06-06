@@ -1,6 +1,7 @@
 package com.tomlouiskeller.recipe.controller;
 
 import com.tomlouiskeller.recipe.domain.Recipe;
+import com.tomlouiskeller.recipe.exception.RecipeNotFoundException;
 import com.tomlouiskeller.recipe.service.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,8 +9,6 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
 
@@ -17,7 +16,9 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 public class ShowRecipeControllerTest {
 
@@ -50,8 +51,8 @@ public class ShowRecipeControllerTest {
     @Test
     public void getQuickRecipesGetsStatusCode200() throws Exception{
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(showRecipeController).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/show"))
-                .andExpect(MockMvcResultMatchers.status().isOk());
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isOk());
     }
 
     @Test
@@ -73,7 +74,7 @@ public class ShowRecipeControllerTest {
         when(mockRecipeService.findById(anyLong())).thenReturn(recipe);
 
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(showRecipeController).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/1/show"))
+        mockMvc.perform(get("/recipe/1/show"))
                 .andExpect(model().attributeExists("recipe"));
     }
 
@@ -90,4 +91,19 @@ public class ShowRecipeControllerTest {
     }
 
     // TODO: Test for the exception and handle it!!!
+
+    @Test
+    public void testGetRecipeNotFound() throws Exception {
+        when(mockRecipeService.findById(anyLong())).thenThrow(RecipeNotFoundException.class);
+
+        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(showRecipeController)
+//                .setControllerAdvice(new ControllerExceptionHandler()) // TODO: Implement this controller
+                .build();
+
+        mockMvc.perform(get("/recipe/789/show"))
+                .andExpect(status().isNotFound());
+//                .andExpect(view().name("404error")); // TODO: Uncomment once ControllerExceptionHandler is implemented
+    }
+
+
 }
