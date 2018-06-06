@@ -17,8 +17,7 @@ import static org.junit.Assert.assertNotNull;
 import static org.mockito.ArgumentMatchers.anyLong;
 import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.model;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class ShowRecipeControllerTest {
 
@@ -90,20 +89,15 @@ public class ShowRecipeControllerTest {
         verify(mockModel, times(1)).addAttribute("recipe", recipe);
     }
 
-    // TODO: Test for the exception and handle it!!!
-
     @Test
-    public void testGetRecipeNotFound() throws Exception {
+    public void showRecipeNotFound() throws Exception {
         when(mockRecipeService.findById(anyLong())).thenThrow(RecipeNotFoundException.class);
 
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(showRecipeController)
-//                .setControllerAdvice(new ControllerExceptionHandler()) // TODO: Implement this controller
                 .build();
 
         mockMvc.perform(get("/recipe/789/show"))
-                .andExpect(status().isNotFound());
-//                .andExpect(view().name("404error")); // TODO: Uncomment once ControllerExceptionHandler is implemented
+                .andExpect(status().isNotFound())
+                .andExpect(view().name("error/object_not_found"));
     }
-
-
 }
