@@ -1,12 +1,12 @@
 package com.tomlouiskeller.recipe.controller;
 
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.http.MediaType;
 import org.springframework.test.context.junit4.SpringRunner;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -57,21 +57,22 @@ public class NewRecipeControllerIT {
     }
 
     @Test
-    @Ignore // TODO: Add validation and error handling
     public void testProcessCreationFormHasErrors() throws Exception {
         mockMvc.perform(post("/recipe/new")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("recipeTitle", "Pizza")
                 .param("recipePreparationDuration", "30")
-                .param("recipeCookingDuration", "60")
+                .param("recipeCookingDuration", "asdf")
                 .param("recipeServings", "4")
                 .param("recipeUrl", "yaaa")
                 .param("recipeDifficulty", "EASY")
                 .param("instructionText", "instructionText")
         )
                 .andExpect(status().isOk())
+                .andExpect(model().attributeExists("recipeForm"))
                 .andExpect(model().attributeHasErrors("recipeForm"))
                 .andExpect(model().attributeHasFieldErrors("recipeForm", "nutritionalInfoText"))
-                .andExpect(model().attributeHasFieldErrors("recipeForm", "recipeSource"))
+                .andExpect(model().attributeHasFieldErrors("recipeForm", "recipeCookingDuration"))
                 .andExpect(view().name("recipe/form"));
     }
 }

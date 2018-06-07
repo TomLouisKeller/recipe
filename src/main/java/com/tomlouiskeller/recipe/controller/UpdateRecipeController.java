@@ -36,7 +36,7 @@ public class UpdateRecipeController {
         Recipe recipe = recipeService.findById(id);
         RecipeForm recipeForm = recipeFormService.convert(recipe, null);
         model.addAttribute("recipeForm", recipeForm);
-        return "recipe/form";
+        return VIEWS_RECIPE_FORM;
     }
 
     @PostMapping

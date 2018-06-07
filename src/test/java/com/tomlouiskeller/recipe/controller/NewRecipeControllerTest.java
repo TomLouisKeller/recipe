@@ -7,10 +7,10 @@ import com.tomlouiskeller.recipe.service.CategoryService;
 import com.tomlouiskeller.recipe.service.RecipeFormService;
 import com.tomlouiskeller.recipe.service.RecipeService;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.ui.Model;
@@ -92,22 +92,23 @@ public class NewRecipeControllerTest {
 
 
     @Test
-    @Ignore // TODO: Add validation and error handling
     public void processUpdateFormHasErrors() throws Exception {
         MockMvc mockMvc = getMockMvc();
         mockMvc.perform(post("/recipe/new")
+                .contentType(MediaType.APPLICATION_FORM_URLENCODED)
                 .param("recipeTitle", "Pizza")
                 .param("recipePreparationDuration", "30")
-                .param("recipeCookingDuration", "60")
+                .param("recipeCookingDuration", "-2")
                 .param("recipeServings", "4")
                 .param("recipeUrl", "yaaa")
                 .param("recipeDifficulty", "EASY")
                 .param("instructionText", "instructionText")
         )
                 .andExpect(status().isOk())
+                .andExpect(model().attributeExists("recipeForm"))
                 .andExpect(model().attributeHasErrors("recipeForm"))
                 .andExpect(model().attributeHasFieldErrors("recipeForm", "nutritionalInfoText"))
-                .andExpect(model().attributeHasFieldErrors("recipeForm", "recipeSource"))
+                .andExpect(model().attributeHasFieldErrors("recipeForm", "recipeCookingDuration"))
                 .andExpect(view().name("recipe/form"));
     }
 }
