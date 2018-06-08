@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Recipe Home</title>
+    <title th:text="${recipe.getTitle()}">Rösti</title>
 
     <!--Bootstrap-->
 
@@ -47,9 +47,9 @@
                                 <h1 class="panel-title" th:text="${recipe.getTitle()}">Rösti</h1>
                             </div>
                             <div class="col-md-1">
-                                <a class="btn btn-default" href="#" th:href="@{'/recipe/list/all'}" role="button">List</a>
-                                <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/edit'}" role="button">Edit</a>
-                                <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/delete'}" role="button">Delete</a>
+                                <a class="btn btn-default" href="#" th:href="@{'/recipe/list/all'}" role="button" th:text="#{showView.list}">List</a>
+                                <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/edit'}" role="button" th:text="#{showView.edit}">Edit</a>
+                                <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/delete'}" role="button" th:text="#{showView.delete}">Delete</a>
                             </div>
                         </div>
                     </div>
@@ -58,13 +58,13 @@
                             <div class="col-md-6">
                                 <div class="col-md-1">
                                     <!--<a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/image'}" role="button">Change Image</a>-->
-                                    <a class="btn btn-default" href="javascript:prepareUploadImage();" role="button">Change Image</a>
+                                    <a class="btn btn-default" href="javascript:prepareUploadImage();" role="button" th:text="#{showView.changeImage}">Change Image</a>
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-3">
-                                <h5>Categories:</h5>
+                                <h5 th:text="#{recipeForm.recipeCategories}">Categories:</h5>
                             </div>
                             <div class="col-md-3">
                                 <ul>
@@ -84,13 +84,13 @@
                         </div>
                         <div class="row">
                             <div class="col-md-3">
-                                <h5>Preparation Duration:</h5>
+                                <h5 th:text="#{recipeForm.recipePreparationDuration}">Preparation Duration:</h5>
                             </div>
                             <div class="col-md-3">
                                 <p th:text="${(recipe.getPreparationDuration()) +  '  minutes'}">5 minutes</p>
                             </div>
                             <div class="col-md-3">
-                                <h5>Difficulty:</h5>
+                                <h5 th:text="#{recipeForm.recipeDifficulty}">Difficulty:</h5>
                             </div>
                             <div class="col-md-3">
                                 <p th:text="${recipe.getDifficulty().getReadable()}">Amateur</p>
@@ -98,13 +98,13 @@
                         </div>
                         <div class="row">
                             <div class="col-md-3">
-                                <h5>Cooking Duration:</h5>
+                                <h5 th:text="#{recipeForm.recipeCookingDuration}">Cooking Duration:</h5>
                             </div>
                             <div class="col-md-3">
                                 <p th:text="${(recipe.getCookingDuration()) +  '  minutes'}">30 minutes</p>
                             </div>
                             <div class="col-md-3">
-                                <h5>Source:</h5>
+                                <h5 th:text="#{recipeForm.recipeSource}">Source:</h5>
                             </div>
                             <div class="col-md-3">
                                 <p th:text="${recipe.getSource()}">https://www.bettybossi.ch/</p>
@@ -112,14 +112,14 @@
                         </div>
                         <div class="row">
                             <div class="col-md-3">
-                                <h5>Servings:</h5>
+                                <h5 th:text="#{recipeForm.recipeServings}">Servings:</h5>
                             </div>
                             <div class="col-md-3">
                                 <p th:text="${recipe.getServings()}">4</p>
                             </div>
 
                             <div class="col-md-3">
-                                <h5>URL:</h5>
+                                <h5 th:text="#{recipeForm.recipeUrl}">URL:</h5>
                             </div>
                             <div class="col-md-3">
                                 <p><a href="#" th:href="${recipe.getUrl()}" th:text="${recipe.getUrl()}">https://www.bettybossi.ch/de/Rezept/ShowRezept/BB_CHCH090801_0107A-40-de</a></p>
@@ -127,7 +127,7 @@
                         </div>
                         <div class="row">
                             <div class="col-md-3">
-                                <h5>Rating:</h5>
+                                <h5 th:text="#{recipeForm.recipeRating}">Rating:</h5>
                             </div>
                             <div class="col-md-3">
                                 <!--TODO: <p th:text="${recipe.getRating()}">4</p> -->
@@ -140,7 +140,7 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-md-11 ">
-                                <h1 class="panel-title">Ingredients</h1>
+                                <h1 class="panel-title" th:text="#{recipeForm.ingredients}">Ingredients</h1>
                             </div>
                             <!--<div class="col-md-1">-->
                                 <!--<a class="btn btn-default" href="#"-->
@@ -166,7 +166,7 @@
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h1 class="panel-title">Directions</h1>
+                        <h1 class="panel-title" th:text="#{recipeForm.instructionText}">Instructions</h1>
                     </div>
                     <div class="panel-body">
                         <div class="row">
@@ -186,7 +186,7 @@
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h1 class="panel-title">Notes</h1>
+                        <h1 class="panel-title" th:text="#{recipeForm.nutritionalInfoText}">Nutritional Info</h1>
                     </div>
                     <div class="panel-body">
                         <div class="row">

@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Recipe Form</title>
+    <title th:text="#{formView.title}">Your Recipe</title>
 
     <!--Bootstrap-->
 
@@ -50,7 +50,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-3 form-group" th:class="${#fields.hasErrors('recipeTitle')} ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-                                    <label>Recipe Description:</label>
+                                    <label th:text="#{recipeForm.recipeTitle}">Title:</label>
                                     <input type="text" class="form-control" th:field="*{recipeTitle}" th:errorclass="has-error"/>
                                     <span class="help-block" th:if="${#fields.hasErrors('recipeTitle')}">
                                         <ul>
@@ -61,7 +61,7 @@
                             </div>
 
                             <div class="col-md-12 form-group">
-                                <label>Categories:</label>
+                                <label th:text="#{recipeForm.recipeCategories}">Categories:</label>
                                 <div class="row">
                                     <div class="col-md-4 form-group" th:each="category : *{availableCategories}" >
                                         <input type="checkbox" name="recipeCategories" th:value="${category.getId()}" th:text="' ' + ${category.getName()}" />
@@ -71,7 +71,7 @@
 
                             <div class="row">
                                 <div class="col-md-3 form-group" th:class="${#fields.hasErrors('recipePreparationDuration')} ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-                                    <label>Preparation Duration:</label>
+                                    <label th:text="#{recipeForm.recipePreparationDuration}">Preparation Duration:</label>
                                     <input type="text" class="form-control" th:field="*{recipePreparationDuration}" th:errorclass="has-error"/>
                                     <span class="help-block" th:if="${#fields.hasErrors('recipePreparationDuration')}">
                                         <ul>
@@ -81,7 +81,7 @@
                                 </div>
 
                                 <div class="col-md-3 form-group" th:class="${#fields.hasErrors('recipeCookingDuration')} ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-                                    <label>Cooking Duration:</label>
+                                    <label th:text="#{recipeForm.recipeCookingDuration}">Cooking Duration:</label>
                                     <input type="text" class="form-control" th:field="*{recipeCookingDuration}" th:errorclass="has-error"/>
                                     <span class="help-block" th:if="${#fields.hasErrors('recipeCookingDuration')}">
                                         <ul>
@@ -91,7 +91,7 @@
                                 </div>
 
                                 <div class="col-md-3 form-group">
-                                    <label>Difficulty:</label>
+                                    <label th:text="#{recipeForm.recipeDifficulty}">Difficulty:</label>
                                     <select class="form-control" th:field="*{recipeDifficulty}">
                                         <option th:each="difficulty : ${T(com.tomlouiskeller.recipe.domain.Difficulty).values()}"
                                                 th:value="${difficulty.name()}"
@@ -105,7 +105,7 @@
                             <div class="row">
 
                                 <div class="col-md-3 form-group" th:class="${#fields.hasErrors('recipeServings')} ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-                                    <label>Servings:</label>
+                                    <label th:text="#{recipeForm.recipeServings}">Servings:</label>
                                     <input type="text" class="form-control" th:field="*{recipeServings}" th:errorclass="has-error"/>
                                     <span class="help-block" th:if="${#fields.hasErrors('recipeServings')}">
                                         <ul>
@@ -115,7 +115,7 @@
                                 </div>
 
                                 <div class="col-md-3 form-group" th:class="${#fields.hasErrors('recipeSource')} ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-                                    <label>Source:</label>
+                                    <label th:text="#{recipeForm.recipeSource}">Source:</label>
                                     <input type="text" class="form-control" th:field="*{recipeSource}" th:errorclass="has-error"/>
                                     <span class="help-block" th:if="${#fields.hasErrors('recipeSource')}">
                                         <ul>
@@ -125,7 +125,7 @@
                                 </div>
 
                                 <div class="col-md-3 form-group" th:class="${#fields.hasErrors('recipeUrl')} ? 'col-md-3 form-group has-error' : 'col-md-3 form-group'">
-                                    <label>URL:</label>
+                                    <label th:text="#{recipeForm.recipeUrl}">URL:</label>
                                     <input type="text" class="form-control" th:field="*{recipeUrl}" th:errorclass="has-error"/>
                                     <span class="help-block" th:if="${#fields.hasErrors('recipeUrl')}">
                                         <ul>
@@ -171,7 +171,7 @@
                     <!-- TODO: Figure out input errors with textareas -->
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h1 class="panel-title">Instructions</h1>
+                            <h1 class="panel-title" th:text="#{recipeForm.instructionText}">Instructions</h1>
                         </div>
                         <div class="panel-body" th:class="${#fields.hasErrors('instructionText')} ? 'panel-body has-error' : 'panel-body'">
                             <span class="help-block" th:if="${#fields.hasErrors('instructionText')}">
@@ -188,7 +188,7 @@
 
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h1 class="panel-title">Nutritional Info</h1>
+                            <h1 class="panel-title" th:text="#{recipeForm.nutritionalInfoText}">Nutritional Info</h1>
                         </div>
                         <div class="panel-body" th:class="${#fields.hasErrors('nutritionalInfoText')} ? 'panel-body has-error' : 'panel-body'">
                             <span class="help-block" th:if="${#fields.hasErrors('nutritionalInfoText')}">

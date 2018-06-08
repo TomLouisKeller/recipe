@@ -2,8 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8"/>
-    <title>Recipe Home</title>
-
+    <title th:text="#{listView.title}">Our recipes</title>
     <!--Bootstrap-->
 
     <!--/*TODO: Upgrade to the newest version of bootstrap and co!*/-->
@@ -34,6 +33,7 @@
 
 </head>
 <body>
+<!--<p th:text="#{messageFile}">Which message file is loaded</p>-->
 <!--/*@thymesVar id="recipes" type="java.util.List"*/-->
 <!--/*@thymesVar id="recipe" type="com.tomlouiskeller.recipe.domain.Recipe"*/-->
 <div class="container-fluid" style="margin-top: 20px">
@@ -41,7 +41,7 @@
         <div class="col-md-6 col-md-offset-3">
             <div class="panel panel-primary">
                 <div class="panel-heading">
-                    <h1 class="panel-title">My Recipes!</h1>
+                    <h1 class="panel-title" th:text="#{listView.title}">Our recipes</h1>
                 </div>
                 <div class="panel-body">
                     <div class="table-responsive">
@@ -53,24 +53,24 @@
                             <!--</thead>-->
                             <tr th:remove="all">
                                 <td>Some Recipe</td>
-                                <td><a href="#">View</a></td>
-                                <td><a href="#">Edit</a></td>
-                                <td><a href="#">Delete</a></td>
+                                <td><a href="#" th:text="#{listView.show}">Show</a></td>
+                                <td><a href="#" th:text="#{listView.edit}">Edit</a></td>
+                                <td><a href="#" th:text="#{listView.delete}">Delete</a></td>
                             </tr>
                             <tr th:remove="all">
                                 <td>Another Recipe</td>
-                                <td><a href="#">View</a></td>
-                                <td><a href="#">Edit</a></td>
-                                <td><a href="#">Delete</a></td>
+                                <td><a href="#" th:text="#{listView.show}">Show</a></td>
+                                <td><a href="#" th:text="#{listView.edit}">Edit</a></td>
+                                <td><a href="#" th:text="#{listView.delete}">Delete</a></td>
                             </tr>
                             <tr th:each="recipe : ${recipes}">
                                 <td th:text="${recipe.getTitle()}">And a third one</td>
-                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/show/'}">View</a></td>
-                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/edit'}">Edit</a></td>
-                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/delete'}">Delete</a></td>
+                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/show/'}" th:text="#{listView.show}">Show</a></td>
+                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/edit'}" th:text="#{listView.edit}">Edit</a></td>
+                                <td><a href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/delete'}" th:text="#{listView.delete}">Delete</a></td>
                             </tr>
                             <tr>
-                                <td colspan="4" align="right"><a href="#" th:href="@{'/recipe/new/'}">Create New Recipe</a></td>
+                                <td colspan="4" align="right"><a href="#" th:href="@{'/recipe/new/'}" th:text="#{listView.create}">Create New Recipe</a></td>
                             </tr>
                         </table>
                     </div>
