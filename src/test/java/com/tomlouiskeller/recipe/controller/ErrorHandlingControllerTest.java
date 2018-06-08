@@ -15,11 +15,11 @@ import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class ExceptionHandlingControllerTest {
+public class ErrorHandlingControllerTest {
 
     private ShowRecipeController showRecipeController;
 
-    private ExceptionHandlingController exceptionHandlingController;
+    private ErrorHandlingController errorHandlingController;
 
     @Mock
     private RecipeService recipeService;
@@ -34,10 +34,10 @@ public class ExceptionHandlingControllerTest {
         MockitoAnnotations.initMocks(this);
 
         showRecipeController = new ShowRecipeController(recipeService);
-        exceptionHandlingController = new ExceptionHandlingController(generalConfiguration);
+        errorHandlingController = new ErrorHandlingController(generalConfiguration);
 
         mockMvc = MockMvcBuilders.standaloneSetup(showRecipeController)
-                .setControllerAdvice(exceptionHandlingController)
+                .setControllerAdvice(errorHandlingController)
                 .build();
     }
 
@@ -66,8 +66,8 @@ public class ExceptionHandlingControllerTest {
     @Ignore // TODO: Figure out how to test this properly
     public void handleResourceNotFound() throws Exception {
 
-        mockMvc = MockMvcBuilders.standaloneSetup(exceptionHandlingController)
-                .setControllerAdvice(exceptionHandlingController)
+        mockMvc = MockMvcBuilders.standaloneSetup(errorHandlingController)
+                .setControllerAdvice(errorHandlingController)
                 .build();
 
         mockMvc.perform(

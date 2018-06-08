@@ -17,13 +17,13 @@ import javax.servlet.http.HttpServletRequest;
 @Slf4j
 @Controller
 @ControllerAdvice
-public class ExceptionHandlingController implements ErrorController {
+public class ErrorHandlingController implements ErrorController {
 
     private final String genericErrorView = "error/generic";
     private final String errorRequestMapping = "/error";
     private GeneralConfiguration generalConfiguration;
 
-    public ExceptionHandlingController(GeneralConfiguration generalConfiguration) {
+    public ErrorHandlingController(GeneralConfiguration generalConfiguration) {
         this.generalConfiguration = generalConfiguration;
     }
 
