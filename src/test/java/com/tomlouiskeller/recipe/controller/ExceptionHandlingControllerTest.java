@@ -4,6 +4,7 @@ import com.tomlouiskeller.recipe.configuration.GeneralConfiguration;
 import com.tomlouiskeller.recipe.exception.RecipeNotFoundException;
 import com.tomlouiskeller.recipe.service.RecipeService;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
@@ -12,14 +13,13 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 public class ExceptionHandlingControllerTest {
 
     private ShowRecipeController showRecipeController;
 
-    private ExceptionHandlingController controllerExceptionHandler;
+    private ExceptionHandlingController exceptionHandlingController;
 
     @Mock
     private RecipeService recipeService;
@@ -34,10 +34,10 @@ public class ExceptionHandlingControllerTest {
         MockitoAnnotations.initMocks(this);
 
         showRecipeController = new ShowRecipeController(recipeService);
-        controllerExceptionHandler = new ExceptionHandlingController(generalConfiguration);
+        exceptionHandlingController = new ExceptionHandlingController(generalConfiguration);
 
         mockMvc = MockMvcBuilders.standaloneSetup(showRecipeController)
-                .setControllerAdvice(controllerExceptionHandler)
+                .setControllerAdvice(exceptionHandlingController)
                 .build();
     }
 
@@ -49,7 +49,7 @@ public class ExceptionHandlingControllerTest {
 
         mockMvc.perform(get("/recipe/" + id + "/show"))
                 .andExpect(status().isNotFound())
-                .andExpect(view().name("error/generic_exception"));
+                .andExpect(view().name("error/generic"));
     }
 
     @Test
@@ -59,6 +59,21 @@ public class ExceptionHandlingControllerTest {
         mockMvc.perform(
                 get("/recipe/" + id + "/show"))
                 .andExpect(status().isBadRequest())
-                .andExpect(view().name("error/generic_exception"));
+                .andExpect(view().name("error/generic"));
+    }
+
+    @Test
+    @Ignore // TODO: Figure out how to test this properly
+    public void handleResourceNotFound() throws Exception {
+
+        mockMvc = MockMvcBuilders.standaloneSetup(exceptionHandlingController)
+                .setControllerAdvice(exceptionHandlingController)
+                .build();
+
+        mockMvc.perform(
+                get("/recipe/blub"))
+                .andExpect(status().isNotFound())
+                .andExpect(model().attributeExists("title"))
+                .andExpect(view().name("error/generic"));
     }
 }
