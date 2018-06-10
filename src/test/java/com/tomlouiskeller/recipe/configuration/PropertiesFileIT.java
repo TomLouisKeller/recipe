@@ -24,9 +24,6 @@ public class PropertiesFileIT {
     @Value("${spring.profiles.active}")
     private String profile;
 
-    @Value("${spring.datasource.platform}")
-    private String platform;
-
     // Tests for Environment
 
     @Test
@@ -54,19 +51,4 @@ public class PropertiesFileIT {
         boolean isProduction = profile.matches("(?i:.*production.*)");
         assertTrue(isDevelopment || isProduction);
     }
-
-    // Tests for Platform
-
-    @Test
-    public void platformIsAvailable() {
-        assertNotNull(platform);
-    }
-
-    @Test // Make sure the property profile is set to either development or production
-    public void platformIsDevelopmentOrProduction() {
-        boolean isDevelopment = platform.matches("(?i:.*development.*)");
-        boolean isProduction = platform.matches("(?i:.*production.*)");
-        assertTrue(isDevelopment || isProduction);
-    }
-
 }

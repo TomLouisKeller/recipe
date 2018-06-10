@@ -2,12 +2,13 @@ recipes.quickRecipes.MaxDuration: 30
 
 # Set development or production in "environment" and "spring.profiles.active"
 environment: development
+# Value of database must be either h2 or mysql
+database: h2
 
 spring:
     profiles.active: development # For some reason variables don't work for spring.profiles.active, so we have to set it again.
-    datasource.platform: ${environment}
-    datasource.schema: classpath*:config/${environment}/schema.sql
-    datasource.data: classpath*:config/${environment}/data.sql
+    datasource.schema: classpath*:config/${environment}/${database}/schema.sql
+    datasource.data: classpath*:config/${environment}/${database}/data.sql
     config.additional-location: classpath*:config/${environment}/
 
 logging.level:
