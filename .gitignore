@@ -2,8 +2,8 @@
 !.mvn/wrapper/maven-wrapper.jar
 
 .mvn
-/src/main/resources/config/development/mysql/database.yml
-/src/main/resources/config/production/mysql/database.yml
+/src/main/resources/config/development/mysql/application.yml
+/src/main/resources/config/production/mysql/application.yml
 
 
 
