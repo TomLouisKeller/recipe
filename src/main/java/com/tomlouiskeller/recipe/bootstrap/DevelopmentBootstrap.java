@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Slf4j
-@Profile({"devel-mysql", "devel-h2"})
+@Profile({"default", "devel-mysql", "devel-h2"})
 @Component
 public class DevelopmentBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 

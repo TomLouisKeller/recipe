@@ -1,8 +1,7 @@
 recipes.quickRecipes.MaxDuration: 30
 
 spring:
-# spring.profiles.active possible values are: devel-mysql, devel-h2, prod-mysql
-    profiles.active: devel-mysql
+#    profiles.active: devel-mysql # spring.profiles.active possible values are: devel-mysql, devel-h2, prod-mysql, default
     config.additional-location: classpath*:config/
 
 logging.level:

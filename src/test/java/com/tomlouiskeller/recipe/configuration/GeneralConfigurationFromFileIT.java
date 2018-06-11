@@ -1,7 +1,6 @@
 package com.tomlouiskeller.recipe.configuration;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +19,6 @@ public class GeneralConfigurationFromFileIT {
     @Autowired
     private GeneralConfigurationFromFile generalConfigurationFromFile;
 
-    @Before
-    public void setUp() {
-    }
-
     @Test
     public void getQuickRecipesMaxDurationNotNull() {
         Integer quickRecipesMaxDuration = generalConfigurationFromFile.getQuickRecipesMaxDuration();
@@ -34,6 +29,22 @@ public class GeneralConfigurationFromFileIT {
     public void getQuickRecipesMaxDurationPositive() {
         Integer quickRecipesMaxDuration = generalConfigurationFromFile.getQuickRecipesMaxDuration();
         assertTrue(quickRecipesMaxDuration > 0);
+    }
+
+    @Test
+    public void profileIsAvailable() {
+        String profile = generalConfigurationFromFile.getSpringProfile();
+        assertNotNull(profile);
+    }
+
+    @Test // Make sure the property profile is set to either development or production
+    public void profileIsDevelopmentOrProduction() {
+        String profile = generalConfigurationFromFile.getSpringProfile();
+        boolean isDefault = profile.matches("(?i:default)");
+        boolean isDevelH2 = profile.matches("(?i:devel-h2)");
+        boolean isDevelMySql = profile.matches("(?i:devel-mysql)");
+        boolean isProdMySql = profile.matches("(?i:prod-mysql)");
+        assertTrue(isDefault || isDevelH2 || isDevelMySql || isProdMySql);
     }
 
 }
