@@ -13,33 +13,34 @@ import static org.junit.Assert.assertTrue;
 @Slf4j
 @RunWith(SpringRunner.class)
 @SpringBootTest
-public class GeneralConfigurationFromFileIT {
+public class GeneralConfigurationImplIT {
 
 
     @Autowired
-    private GeneralConfigurationFromFile generalConfigurationFromFile;
+    private GeneralConfigurationImpl generalConfiguration;
 
     @Test
     public void getQuickRecipesMaxDurationNotNull() {
-        Integer quickRecipesMaxDuration = generalConfigurationFromFile.getQuickRecipesMaxDuration();
+        Integer quickRecipesMaxDuration = generalConfiguration.getQuickRecipesMaxDuration();
         assertNotNull(quickRecipesMaxDuration);
     }
 
     @Test
     public void getQuickRecipesMaxDurationPositive() {
-        Integer quickRecipesMaxDuration = generalConfigurationFromFile.getQuickRecipesMaxDuration();
+        Integer quickRecipesMaxDuration = generalConfiguration.getQuickRecipesMaxDuration();
         assertTrue(quickRecipesMaxDuration > 0);
     }
 
     @Test
     public void profileIsAvailable() {
-        String profile = generalConfigurationFromFile.getSpringProfile();
+        String profile = generalConfiguration.getSpringProfile();
         assertNotNull(profile);
     }
 
     @Test // Make sure the property profile is set to either development or production
-    public void profileIsDevelopmentOrProduction() {
-        String profile = generalConfigurationFromFile.getSpringProfile();
+    public void profileIsSetCorrect() {
+        System.out.println("");
+        String profile = generalConfiguration.getSpringProfile();
         boolean isDefault = profile.matches("(?i:default)");
         boolean isDevelH2 = profile.matches("(?i:devel-h2)");
         boolean isDevelMySql = profile.matches("(?i:devel-mysql)");
