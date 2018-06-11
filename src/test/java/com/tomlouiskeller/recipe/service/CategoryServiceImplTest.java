@@ -31,12 +31,12 @@ public class CategoryServiceImplTest {
     @Test
     public void getByNameReturnsUnitOfMeasurement() {
         String find = "Swiss";
-        Category actual = categoryService.getByName(find);
+        Category actual = categoryService.findOrCreate(find);
         assertNotNull(actual);
         assertEquals(Category.class, actual.getClass());
     }
 
-    // TODO: More getByName tests
+    // TODO: More findOrCreate tests
 
     @Test
     public void findAllResultNotNull() {

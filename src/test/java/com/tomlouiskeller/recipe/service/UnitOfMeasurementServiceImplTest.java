@@ -31,6 +31,6 @@ public class UnitOfMeasurementServiceImplTest {
         assertEquals(UnitOfMeasurement.class, actual.getClass());
     }
 
-    // TODO: More getByName tests
+    // TODO: More findOrCreate tests
 
 }

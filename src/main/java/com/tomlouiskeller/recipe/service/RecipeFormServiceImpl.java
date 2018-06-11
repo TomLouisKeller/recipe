@@ -12,7 +12,6 @@ import java.util.SortedSet;
 @Service
 public class RecipeFormServiceImpl implements RecipeFormService{
 
-
     @Override
     public Recipe convert(RecipeForm rF) {
         Recipe recipe = Recipe.builder()
@@ -25,8 +24,9 @@ public class RecipeFormServiceImpl implements RecipeFormService{
                 .url(rF.getRecipeUrl())
                 .image(rF.getRecipeImage()) // TODO: Have to examine this
                 .difficulty(rF.getRecipeDifficulty())
-                .categories(rF.getRecipeCategories())
                 .build();
+
+        recipe.setCategories(rF.getRecipeCategories());
 
         Instruction instruction = new Instruction();
         instruction.setId(rF.getInstructionId());

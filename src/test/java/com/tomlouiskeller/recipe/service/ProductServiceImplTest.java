@@ -31,5 +31,5 @@ public class ProductServiceImplTest {
         assertEquals(Product.class, actual.getClass());
     }
 
-    // TODO: More getByName tests
+    // TODO: More findOrCreate tests
 }

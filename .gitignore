@@ -2,10 +2,7 @@
 !.mvn/wrapper/maven-wrapper.jar
 
 .mvn
-/src/main/resources/config/development/mysql/application.yml
-/src/main/resources/config/production/mysql/application.yml
-
-
+/src/main/resources/config/application-devel-mysql.yml
 
 ### STS ###
 .apt_generated

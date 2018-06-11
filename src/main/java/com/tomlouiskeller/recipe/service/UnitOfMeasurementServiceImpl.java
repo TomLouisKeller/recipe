@@ -4,6 +4,7 @@ import com.tomlouiskeller.recipe.domain.UnitOfMeasurement;
 import com.tomlouiskeller.recipe.repository.UnitOfMeasurementRepository;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -28,5 +29,15 @@ public class UnitOfMeasurementServiceImpl implements UnitOfMeasurementService {
         uom = new UnitOfMeasurement(name);
         unitOfMeasurementRepository.save(uom);
         return uom;
+    }
+
+    @Override
+    public void saveAll(List<UnitOfMeasurement> unitOfMeasurements) {
+        unitOfMeasurementRepository.saveAll(unitOfMeasurements);
+    }
+
+    @Override
+    public Long count() {
+        return unitOfMeasurementRepository.count();
     }
 }

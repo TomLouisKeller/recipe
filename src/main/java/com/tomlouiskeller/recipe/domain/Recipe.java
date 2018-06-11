@@ -39,20 +39,20 @@ public class Recipe implements Comparable<Recipe> {
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe", fetch = FetchType.EAGER)
     @SortComparator(value = Ingredient.class)
-    private SortedSet<Ingredient> ingredients = new TreeSet<>();
+    private final SortedSet<Ingredient> ingredients = new TreeSet<>();
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "recipe", fetch = FetchType.EAGER)
-    private List<Rating> rating = new ArrayList<>();
+    private final List<Rating> rating = new ArrayList<>();
 
     @ManyToMany(fetch = FetchType.LAZY) // Lazy because if we set it to eager and get all recipes of a category, we load the whole database
     @JoinTable(name = "recipe_category", joinColumns = @JoinColumn(name = "recipe_id"), inverseJoinColumns = @JoinColumn(name = "category_id"))
-    private Set<Category> categories = new TreeSet<>();
+    private final Set<Category> categories = new TreeSet<>();
 
     public Recipe() {
     }
 
     @Builder
-    public Recipe(Long id, String title, Integer preparationDuration, Integer cookingDuration, Integer servings, String source, String url, Byte[] image, Difficulty difficulty, Instruction instruction, NutritionalInfo nutritionalInfo, SortedSet<Ingredient> ingredients, List<Rating> rating, Set<Category> categories) {
+    public Recipe(Long id, String title, Integer preparationDuration, Integer cookingDuration, Integer servings, String source, String url, Byte[] image, Difficulty difficulty, Instruction instruction, NutritionalInfo nutritionalInfo) {
         this.id = id;
         this.title = title;
         this.preparationDuration = preparationDuration;
@@ -64,18 +64,17 @@ public class Recipe implements Comparable<Recipe> {
         this.difficulty = difficulty;
         this.instruction = instruction;
         this.nutritionalInfo = nutritionalInfo;
-        this.ingredients = ingredients;
-        this.rating = rating;
-        this.categories = categories;
     }
-
-
-
 
     public Recipe addIngredient(Ingredient ingredient){
         ingredient.setRecipe(this);
         this.getIngredients().add(ingredient);
         return this;
+    }
+
+    public void setCategories(Set<Category> categories) {
+        this.categories.clear();
+        if (categories != null) this.categories.addAll(categories);
     }
 
     public void setInstruction(Instruction instruction) {

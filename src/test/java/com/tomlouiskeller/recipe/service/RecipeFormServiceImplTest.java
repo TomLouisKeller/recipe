@@ -171,9 +171,8 @@ public class RecipeFormServiceImplTest {
         List<Category> categoryList = Arrays.asList(category1, category2);
         Set<Category> categorySet = new HashSet<>(categoryList);
 
-        Recipe recipe = Recipe.builder()
-                .categories(categorySet)
-                .build();
+        Recipe recipe = new Recipe();
+        recipe.setCategories(categorySet);
 
         RecipeForm recipeForm = recipeFormService.convert(recipe, null);
         assertEquals(categorySet, recipeForm.getRecipeCategories());

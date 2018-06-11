@@ -15,28 +15,17 @@ import static org.junit.Assert.assertTrue;
 @SpringBootTest
 public class PropertiesFileIT {
 
-    @Value("${environment}")
-    private String environment;
-
     @Value("${recipes.quickRecipes.MaxDuration}")
     private Integer maxDuration;
 
     @Value("${spring.profiles.active}")
     private String profile;
 
-    // Tests for Environment
+    @Value("${spring.datasource.platform}")
+    private String platform;
 
-    @Test
-    public void environmentIsSet() {
-        assertNotNull(environment);
-    }
-
-    @Test // Make sure the property environment is set to either development or production
-    public void environmentIsDevelopmentOrProduction() {
-        boolean isDevelopment = environment.matches("(?i:.*development.*)");
-        boolean isProduction = environment.matches("(?i:.*production.*)");
-        assertTrue(isDevelopment || isProduction);
-    }
+    @Value("${spring.datasource.url}")
+    private String datasourceUrl;
 
     // Tests for Profile
 
@@ -47,8 +36,35 @@ public class PropertiesFileIT {
 
     @Test // Make sure the property profile is set to either development or production
     public void profileIsDevelopmentOrProduction() {
-        boolean isDevelopment = profile.matches("(?i:.*development.*)");
-        boolean isProduction = profile.matches("(?i:.*production.*)");
-        assertTrue(isDevelopment || isProduction);
+        boolean isH2 = platform.matches("(?i:.*h2.*)");
+        boolean isMysql = platform.matches("(?i:.*mysql.*)");
+        assertTrue(isH2 || isMysql);
     }
+
+    // Tests for Platform
+
+    @Test
+    public void platformIsAvailable() {
+        assertNotNull(platform);
+    }
+
+    @Test // Make sure the property profile is set to either development or production
+    public void platformIsDevelopmentOrProduction() {
+        boolean isH2 = platform.matches("(?i:.*h2.*)");
+        boolean isMysql = platform.matches("(?i:.*mysql.*)");
+        assertTrue(isH2 || isMysql);
+    }
+
+
+    // Tests for datasourceUrl
+
+//    @Test
+//    public void datasourceUrlIsAvailable() {
+//        assertNotNull(datasourceUrl);
+//    }
+//
+//    @Test // Make sure the property profile is set to either development or production
+//    public void datasourceUrlWut() {
+//        System.out.println(datasourceUrl);
+//    }
 }

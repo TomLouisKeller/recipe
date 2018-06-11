@@ -56,4 +56,9 @@ public class RecipeServiceImpl implements RecipeService {
         this.save(recipe);
     }
 
+    @Override
+    public Long count() {
+        return recipeRepository.count();
+    }
+
 }
