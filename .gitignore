@@ -1,7 +1,9 @@
-/target/
-!.mvn/wrapper/maven-wrapper.jar
+# Gradle
+.gradle
+/build/
+!gradle/wrapper/gradle-wrapper.jar
 
-.mvn
+# Project specific
 /src/main/resources/config/application-devel-mysql.yml
 
 ### STS ###
@@ -18,6 +20,8 @@
 *.iws
 *.iml
 *.ipr
+/out/
+
 
 ### NetBeans ###
 /nbproject/private/
