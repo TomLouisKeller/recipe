@@ -9,4 +9,9 @@
     <logger name="org.springframework.web" level="error" />
     <logger name="org.springframework.test" level="error" />
     <logger name="org.hibernate" level="error" />
+
+    <!-- In order to show parameters in sql statements enable: -->
+    <!--<logger name="org.hibernate" level="INFO" />-->
+    <!--<logger name="org.hibernate.type.BasicTypeRegistry" level="INFO" />-->
+    <!--<logger name="org.hibernate.type.descriptor.sql.BasicBinder" level="TRACE" />-->
 </configuration>
