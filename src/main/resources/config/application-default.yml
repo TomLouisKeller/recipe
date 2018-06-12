@@ -3,4 +3,4 @@ spring:
         platform: h2
     jpa:
         ddl-auto: create-drop
-        show-sql: true
+        show-sql: false
