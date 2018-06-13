@@ -22,35 +22,37 @@ public class RecipeServiceImpl implements RecipeService {
         return new TreeSet<Recipe>(recipeRepository.findAllByOrderByTitle());
     }
 
-    public Set<Recipe> findQuickRecipes(Integer maxDuration){
-        Set<Recipe> recipeSet = new HashSet<>();
-        Iterable<Recipe> recipes = recipeRepository.findByPreparationDurationPlusCookingDurationIsLessThanEqual(maxDuration);
-        recipes.iterator().forEachRemaining(recipeSet::add);
-        return recipeSet;
-    }
+//    public Set<Recipe> findQuickRecipes(Integer maxDuration){
+//        Set<Recipe> recipeSet = new HashSet<>();
+//        Iterable<Recipe> recipeIterable = recipeRepository.findRecipesQuickerThan(maxDuration);
+//        recipeIterable.forEach(recipeSet::add);
+//        return recipeSet;
+//    }
 
     public Recipe save(Recipe recipe){
         return recipeRepository.save(recipe);
     }
 
     public Set<Recipe> saveAll(Iterable<Recipe> recipes){
-        List<Recipe> recipesList = recipeRepository.saveAll(recipes);
-        return new HashSet<>(recipesList);
+        Set<Recipe> recipeSet = new HashSet<>();
+        Iterable<Recipe> recipeIterable = recipeRepository.saveAll(recipes);
+        recipeIterable.forEach(recipeSet::add);
+        return recipeSet;
     }
 
     @Override
-    public Recipe findById(Long id) {
+    public Recipe findById(String id) {
         Optional<Recipe> optionalRecipe = recipeRepository.findById(id);
         return optionalRecipe.orElseThrow(() -> new RecipeNotFoundException("Recipe with ID " + id + " was not found."));
     }
 
     @Override
-    public void deleteById(Long id) {
+    public void deleteById(String id) {
         recipeRepository.deleteById(id);
     }
 
     @Override
-    public void saveImage(Long id, Byte[] bytes) {
+    public void saveImage(String id, Byte[] bytes) {
         Recipe recipe = this.findById(id);
         recipe.setImage(bytes);
         this.save(recipe);

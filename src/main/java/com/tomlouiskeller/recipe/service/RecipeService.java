@@ -7,15 +7,15 @@ import java.util.Set;
 public interface RecipeService {
 
     Set<Recipe> findAll();
-    Set<Recipe> findQuickRecipes(Integer maxDuration);
+//    Set<Recipe> findQuickRecipes(Integer maxDuration);
     Recipe save(Recipe recipe);
     Set<Recipe> saveAll(Iterable<Recipe> recipes);
 
-    Recipe findById(Long id);
+    Recipe findById(String id);
 
-    void deleteById(Long recipe);
+    void deleteById(String recipe);
 
-    void saveImage(Long id, Byte[] bytes);
+    void saveImage(String id, Byte[] bytes);
 
     Long count();
 }

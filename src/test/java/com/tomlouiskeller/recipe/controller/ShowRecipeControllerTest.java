@@ -26,24 +26,28 @@ public class ShowRecipeControllerTest {
     private RecipeService mockRecipeService;
     @Mock
     private Model mockModel;
+    private String id;
 
     @Before
     public void setUp() {
+
+        id = Math.random() + "";
         MockitoAnnotations.initMocks(this);
         showRecipeController = new ShowRecipeController(mockRecipeService);
+
     }
 
     // --- showRecipe Tests --- ///
 
     @Test
     public void showRecipeReturnString() {
-        String actual = showRecipeController.showRecipe(1L, mockModel);
+        String actual = showRecipeController.showRecipe(id, mockModel);
         assertNotNull(actual);
     }
 
     @Test
     public void showRecipeReturnSpecificString() {
-        String actual = showRecipeController.showRecipe(1L, mockModel);
+        String actual = showRecipeController.showRecipe(id, mockModel);
         assertEquals("recipe/show", actual);
     }
 
@@ -56,13 +60,12 @@ public class ShowRecipeControllerTest {
 
     @Test
     public void showRecipeUsesRecipeService() {
-        showRecipeController.showRecipe(1L, mockModel);
-        verify(mockRecipeService, times(1)).findById(anyLong());
+        showRecipeController.showRecipe(id, mockModel);
+        verify(mockRecipeService, times(1)).findById(id);
     }
 
     @Test
     public void showRecipeUsesRecipeServiceWithSpecificLong() {
-        Long id = 13456L;
         showRecipeController.showRecipe(id, mockModel);
         verify(mockRecipeService, times(1)).findById(id);
     }
@@ -70,16 +73,15 @@ public class ShowRecipeControllerTest {
     @Test
     public void getQuickRecipesRecipeIsInModel() throws Exception {
         Recipe recipe = Mockito.mock(Recipe.class);
-        when(mockRecipeService.findById(anyLong())).thenReturn(recipe);
+        when(mockRecipeService.findById(id)).thenReturn(recipe);
 
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(showRecipeController).build();
-        mockMvc.perform(get("/recipe/1/show"))
+        mockMvc.perform(get("/recipe/" + id + "/show"))
                 .andExpect(model().attributeExists("recipe"));
     }
 
     @Test
     public void showRecipeSetsRecipeIntoModel() {
-        Long id = 13456L;
         Recipe recipe = Mockito.mock(Recipe.class);
 
         when(mockRecipeService.findById(id)).thenReturn(recipe);

@@ -20,7 +20,6 @@ public class UnitOfMeasurementRepositoryIT {
     private UnitOfMeasurementRepository unitOfMeasurementRepository;
 
     @Test
-    @Transactional
     public void findByName() {
         String expectedName = "Teaspoon";
         Optional<UnitOfMeasurement> uomOptional = unitOfMeasurementRepository.findByName(expectedName);
@@ -29,7 +28,6 @@ public class UnitOfMeasurementRepositoryIT {
     }
 
     @Test
-    @Transactional
     public void findByNameDash() {
         String expectedName = "Dash";
         Optional<UnitOfMeasurement> uomOptional = unitOfMeasurementRepository.findByName(expectedName);

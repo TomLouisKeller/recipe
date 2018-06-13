@@ -28,11 +28,11 @@ public class ListRecipesController {
         return "recipe/list";
     }
 
-    @GetMapping({"/recipe/list/quick"})
-    public String getQuickRecipes(Model model){
-        Set<Recipe> quickRecipes = recipeService.findQuickRecipes(generalConfiguration.getQuickRecipesMaxDuration());
-        model.addAttribute("recipes", quickRecipes);
-        return "recipe/list";
-    }
+//    @GetMapping({"/recipe/list/quick"})
+//    public String getQuickRecipes(Model model){
+//        Set<Recipe> quickRecipes = recipeService.findQuickRecipes(generalConfiguration.getQuickRecipesMaxDuration());
+//        model.addAttribute("recipes", quickRecipes);
+//        return "recipe/list";
+//    }
 
 }

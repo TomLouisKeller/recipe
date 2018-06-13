@@ -27,7 +27,7 @@ public class ImageController {
     }
 
     @GetMapping // TODO: ErrorHandling // TODO: Log exceptions
-    public void showImage(@PathVariable Long id, HttpServletResponse response) throws IOException {
+    public void showImage(@PathVariable String id, HttpServletResponse response) throws IOException {
         Recipe recipe = recipeService.findById(id);
         if (recipe.getImage() != null) {
             response.setContentType("image/jpeg");
@@ -39,7 +39,7 @@ public class ImageController {
     }
 
     @PostMapping // TODO: ErrorHandling // TODO: Log exceptions // TODO: Reject non-image files
-    public String uploadImage(@PathVariable Long id, @RequestParam("image") MultipartFile image) throws IOException {
+    public String uploadImage(@PathVariable String id, @RequestParam("image") MultipartFile image) throws IOException {
         byte[] bytes = image.getBytes();
         Byte[] bytesAsObject = ArrayUtils.toObject(bytes);
         recipeService.saveImage(id, bytesAsObject);

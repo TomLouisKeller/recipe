@@ -20,7 +20,7 @@ import java.util.SortedSet;
 public class RecipeForm {
 
     // From domain.Recipe
-    private Long recipeId;
+    private String recipeId;
 
     @Size(min = 3, max = 255)
     private String recipeTitle;
@@ -46,12 +46,12 @@ public class RecipeForm {
     private Difficulty recipeDifficulty;
 
     // From domain.Instruction
-    private Long instructionId;
+    private String instructionId;
     @NotBlank
     private String instructionText;
 
     // From domain.Instruction
-    private Long nutritionalInfoId;
+    private String nutritionalInfoId;
     @NotBlank
     private String nutritionalInfoText;
 
@@ -67,7 +67,7 @@ public class RecipeForm {
     // This constructor is only used through the builder. Annotating the class with @Builder doesn't work
     // Otherwise NoArgsConstructor is private
     @Builder
-    public RecipeForm(Long recipeId, @Size(min = 3, max = 255) String recipeTitle, @Positive Integer recipePreparationDuration, @PositiveOrZero Integer recipeCookingDuration, @Positive Integer recipeServings, @Size(max = 255) String recipeSource, @Size(max = 255) String recipeUrl, Byte[] recipeImage, Difficulty recipeDifficulty, Long instructionId, @NotBlank String instructionText, Long nutritionalInfoId, @NotBlank String nutritionalInfoText, Set<Ingredient> ingredients, SortedSet<Category> availableCategories, Set<Category> recipeCategories) {
+    public RecipeForm(String recipeId, @Size(min = 3, max = 255) String recipeTitle, @Positive Integer recipePreparationDuration, @PositiveOrZero Integer recipeCookingDuration, @Positive Integer recipeServings, @Size(max = 255) String recipeSource, @Size(max = 255) String recipeUrl, Byte[] recipeImage, Difficulty recipeDifficulty, String instructionId, @NotBlank String instructionText, String nutritionalInfoId, @NotBlank String nutritionalInfoText, Set<Ingredient> ingredients, SortedSet<Category> availableCategories, Set<Category> recipeCategories) {
         this.recipeId = recipeId;
         this.recipeTitle = recipeTitle;
         this.recipePreparationDuration = recipePreparationDuration;

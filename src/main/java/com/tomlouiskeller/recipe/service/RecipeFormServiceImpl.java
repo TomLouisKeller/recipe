@@ -28,16 +28,10 @@ public class RecipeFormServiceImpl implements RecipeFormService{
 
         recipe.setCategories(rF.getRecipeCategories());
 
-        Instruction instruction = new Instruction();
-        instruction.setId(rF.getInstructionId());
-        instruction.setText(rF.getInstructionText());
-        instruction.setRecipe(recipe);
+        Instruction instruction = new Instruction(rF.getInstructionId(), rF.getInstructionText());
         recipe.setInstruction(instruction);
 
-        NutritionalInfo nutritionalInfo= new NutritionalInfo();
-        nutritionalInfo.setId(rF.getNutritionalInfoId());
-        nutritionalInfo.setText(rF.getNutritionalInfoText());
-        nutritionalInfo.setRecipe(recipe);
+        NutritionalInfo nutritionalInfo= new NutritionalInfo(rF.getNutritionalInfoId(), rF.getNutritionalInfoText());
         recipe.setNutritionalInfo(nutritionalInfo);
 
         // TODO: convert ingredients

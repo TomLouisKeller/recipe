@@ -134,9 +134,7 @@ public class RecipeFormServiceImplTest {
 
     @Test
     public void convertEntityToFormInstruction() {
-        Instruction instruction = new Instruction();
-        instruction.setId(333L);
-        instruction.setText("Blub");
+        Instruction instruction = new Instruction("someId", "Blub");
 
         Recipe recipe = Recipe.builder()
                 .instruction(instruction)
@@ -150,9 +148,7 @@ public class RecipeFormServiceImplTest {
 
     @Test
     public void convertEntityToFormNutritionalInfo() {
-        NutritionalInfo nutritionalInfo = new NutritionalInfo();
-        nutritionalInfo.setId(222L);
-        nutritionalInfo.setText("nutritionalInfo");
+        NutritionalInfo nutritionalInfo = new NutritionalInfo("222", "nutritionalInfo");
 
         Recipe recipe = Recipe.builder()
                 .nutritionalInfo(nutritionalInfo)

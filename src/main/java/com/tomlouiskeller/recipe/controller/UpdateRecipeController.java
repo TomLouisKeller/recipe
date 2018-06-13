@@ -32,7 +32,7 @@ public class UpdateRecipeController {
     }
 
     @GetMapping
-    public String initUpdateForm(@PathVariable Long id, Model model) {
+    public String initUpdateForm(@PathVariable String id, Model model) {
         Recipe recipe = recipeService.findById(id);
         RecipeForm recipeForm = recipeFormService.convert(recipe, null);
         model.addAttribute("recipeForm", recipeForm);
@@ -40,7 +40,7 @@ public class UpdateRecipeController {
     }
 
     @PostMapping
-    public String processUpdateForm(@PathVariable Long id, @Valid RecipeForm recipeForm, BindingResult result) {
+    public String processUpdateForm(@PathVariable String id, @Valid RecipeForm recipeForm, BindingResult result) {
         if (result.hasErrors()) {
             log.debug("Recipe has input errors while creating. Errors: " + result.getAllErrors());
             return VIEWS_RECIPE_FORM;

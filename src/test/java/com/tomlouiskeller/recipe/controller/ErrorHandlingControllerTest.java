@@ -43,22 +43,12 @@ public class ErrorHandlingControllerTest {
 
     @Test
     public void handleRecipeNotFoundException() throws Exception {
-        Long id = 789L;
+        String id = "789";
 
         when(recipeService.findById(id)).thenThrow(RecipeNotFoundException.class);
 
         mockMvc.perform(get("/recipe/" + id + "/show"))
                 .andExpect(status().isNotFound())
-                .andExpect(view().name("error/generic"));
-    }
-
-    @Test
-    public void handleNumberFormatException() throws Exception {
-        String id = "asdf";
-
-        mockMvc.perform(
-                get("/recipe/" + id + "/show"))
-                .andExpect(status().isBadRequest())
                 .andExpect(view().name("error/generic"));
     }
 

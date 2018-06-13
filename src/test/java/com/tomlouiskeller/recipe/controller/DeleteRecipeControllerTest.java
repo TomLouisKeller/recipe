@@ -30,7 +30,7 @@ public class DeleteRecipeControllerTest {
 
     @Test
     public void deleteRecipeReturnsSpecificString() {
-        Long id = 234L;
+        String id = "234";
         String actual = deleteRecipeController.deleteRecipe(id);
         assertEquals("redirect:/recipe/list/all", actual);
     }
@@ -44,7 +44,7 @@ public class DeleteRecipeControllerTest {
 
     @Test
     public void deleteRecipeCallsService() {
-        Long id = 567L;
+        String id = "567";
         deleteRecipeController.deleteRecipe(id);
         verify(mockRecipeService, times(1)).deleteById(id);
     }

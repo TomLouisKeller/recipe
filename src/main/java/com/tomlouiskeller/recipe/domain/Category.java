@@ -1,26 +1,18 @@
 package com.tomlouiskeller.recipe.domain;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.ToString;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-import javax.persistence.*;
 import java.util.Comparator;
-import java.util.Set;
 
 @Data
-@EqualsAndHashCode(exclude="recipes")
-@ToString(exclude = "recipes")
-@Entity
+@Document
 public class Category implements Comparable<Category> {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-    private String name;
 
-    // Relations
-    @ManyToMany(fetch = FetchType.LAZY, mappedBy = "categories")
-    private Set<Recipe> recipes;
+    @Id
+    private String id;
+    private String name;
 
     public Category() {
     }

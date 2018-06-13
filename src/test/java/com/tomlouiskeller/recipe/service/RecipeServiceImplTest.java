@@ -24,11 +24,15 @@ import static org.mockito.Mockito.*;
 public class RecipeServiceImplTest {
 
     private RecipeServiceImpl recipeService;
+
     @Mock
     private RecipeRepository recipeRepository;
 
+    private String id;
+
     @Before
     public void setUp() {
+        id = Math.random() + "";
         MockitoAnnotations.initMocks(this);
         recipeService = new RecipeServiceImpl(recipeRepository);
     }
@@ -107,7 +111,6 @@ public class RecipeServiceImplTest {
     @Test
     public void getByIdCallsRepository(){
         // given
-        Long id = 564L;
         Recipe recipe = mock(Recipe.class);
         Optional<Recipe> optionalRecipe = Optional.of(recipe);
         when(recipeRepository.findById(id)).thenReturn(optionalRecipe);
@@ -122,7 +125,6 @@ public class RecipeServiceImplTest {
     @Test
     public void getByIdGetsActualRecipe(){
         // given
-        Long id = 1L;
         Recipe recipe = Mockito.mock(Recipe.class);
         Optional<Recipe> optionalRecipe = Optional.of(recipe);
 
@@ -137,7 +139,7 @@ public class RecipeServiceImplTest {
 
     @Test(expected = RecipeNotFoundException.class)
     public void getByIdNotAvailable(){
-        recipeService.findById(1L);
+        recipeService.findById(id);
     }
 
     // -- Delete -- //
@@ -145,7 +147,6 @@ public class RecipeServiceImplTest {
 
     @Test
     public void deleteById() {
-        Long id = 432L;
         recipeService.deleteById(id);
         verify(recipeRepository, times(1)).deleteById(id);
     }
@@ -154,7 +155,6 @@ public class RecipeServiceImplTest {
 
     @Test
     public void saveImageCallsRepository() {
-        Long id = 134L;
         byte[] bytes = "saveImageCallsRepository".getBytes();
         Recipe recipe = mock(Recipe.class);
         Optional<Recipe> optionalRecipe = Optional.of(recipe);
@@ -168,7 +168,6 @@ public class RecipeServiceImplTest {
 
     @Test
     public void saveImageStoresImageInRecipe() {
-        Long id = 133L;
         byte[] bytes = "saveImageStoresImageInRecipe".getBytes();
         Recipe recipe = new Recipe();
         Optional<Recipe> optionalRecipe = Optional.of(recipe);

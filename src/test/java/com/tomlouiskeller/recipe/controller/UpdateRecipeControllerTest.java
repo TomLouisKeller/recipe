@@ -37,10 +37,11 @@ public class UpdateRecipeControllerTest {
     @Mock
     private RecipeFormService recipeFormService;
 
-    private Long id;
+    private String id;
     
     @Before
     public void setUp() {
+        id = Math.random() + "";
         MockitoAnnotations.initMocks(this);
         updateRecipeController = new UpdateRecipeController(recipeService, recipeFormService);
     }
@@ -62,14 +63,12 @@ public class UpdateRecipeControllerTest {
 
     @Test
     public void initUpdateFormCallsService() {
-        id = 456L;
         updateRecipeController.initUpdateForm(id, model); // recipeService
         verify(recipeService, times(1)).findById(id);
     }
 
     @Test
     public void initUpdateFormIsRecipeFormSet() {
-        id = 555L;
         Recipe recipe = Recipe.builder().id(id).build();
         RecipeForm recipeForm = RecipeForm.builder().recipeId(id).build();
         BindingAwareModelMap bindingAwareModelMap = new BindingAwareModelMap();
@@ -91,7 +90,6 @@ public class UpdateRecipeControllerTest {
     public void processUpdateFormReturnSpecificString() {
         BindingResult result = mock(BindingResult.class);
 
-        Long id = 623L;
         RecipeForm recipeForm = new RecipeForm();
         Recipe recipe = new Recipe();
         recipe.setId(id);
@@ -105,7 +103,6 @@ public class UpdateRecipeControllerTest {
 
     @Test // SpringTeam
     public void processUpdateFormHasErrors() throws Exception {
-        Long id = 445L;
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(updateRecipeController).build();
         mockMvc.perform(post("/recipe/{id}/edit", id)
                 .contentType(MediaType.APPLICATION_FORM_URLENCODED)

@@ -78,7 +78,7 @@ public class NewRecipeControllerTest {
     public void processUpdateFormReturnSpecificString() {
         BindingResult result = mock(BindingResult.class);
 
-        Long id = 666L;
+        String id = "666";
         RecipeForm recipeForm = new RecipeForm();
         Recipe recipe = new Recipe();
         recipe.setId(id);

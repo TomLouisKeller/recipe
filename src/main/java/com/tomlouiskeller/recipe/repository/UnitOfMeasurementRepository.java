@@ -1,11 +1,11 @@
 package com.tomlouiskeller.recipe.repository;
 
 import com.tomlouiskeller.recipe.domain.UnitOfMeasurement;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 
 import java.util.Optional;
 
-public interface UnitOfMeasurementRepository extends JpaRepository<UnitOfMeasurement, Long> {
+public interface UnitOfMeasurementRepository extends CrudRepository<UnitOfMeasurement, String> {
 
     Optional<UnitOfMeasurement> findByName(String name);
 }

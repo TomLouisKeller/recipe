@@ -27,8 +27,11 @@ public class ImageControllerTest {
     @Mock
     RecipeService recipeService;
 
+    String id;
+
     @Before
     public void setUp() {
+        id = Math.random() + "";
         MockitoAnnotations.initMocks(this);
         imageController = new ImageController(recipeService);
     }
@@ -37,7 +40,6 @@ public class ImageControllerTest {
 
     @Test
     public void showImageReturns200() throws Exception{
-        Long id = 123L;
         Recipe recipe = mock(Recipe.class);
         when(recipeService.findById(id)).thenReturn(recipe);
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(imageController).build();
@@ -47,7 +49,6 @@ public class ImageControllerTest {
 
     @Test
     public void showImageReturnsBytes() throws Exception {
-        Long id = 3L;
         Recipe recipe = new Recipe();
         recipe.setId(id);
 
@@ -78,7 +79,6 @@ public class ImageControllerTest {
 
     @Test
     public void uploadImage() throws Exception {
-        Long id = 323L;
 
         MockMvc mockMvc = MockMvcBuilders.standaloneSetup(imageController)
 //                .setControllerAdvice(new ControllerExceptionHandler())

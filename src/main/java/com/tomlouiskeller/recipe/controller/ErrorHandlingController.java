@@ -41,6 +41,7 @@ public class ErrorHandlingController implements ErrorController {
         return modelAndView;
     }
 
+// TODO: Remove this?
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(NumberFormatException.class)
     public ModelAndView handleNumberFormatException(Exception exception){

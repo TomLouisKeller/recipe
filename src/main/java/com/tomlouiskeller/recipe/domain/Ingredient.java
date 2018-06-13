@@ -1,30 +1,23 @@
 package com.tomlouiskeller.recipe.domain;
 
 import lombok.Data;
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.annotation.Id;
+import org.springframework.data.mongodb.core.mapping.DBRef;
 
-import javax.persistence.*;
 import java.util.Comparator;
 
 @Data
-@Entity
-@Slf4j
 public class Ingredient implements Comparable<Ingredient>, Comparator<Ingredient> {
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    private String id;
     private Double amount;
 
     // Relations
-    @ManyToOne(fetch = FetchType.EAGER) // TODO: Is fetch=EAGER necessary
+    @DBRef
     private UnitOfMeasurement unitOfMeasurement;
-    @ManyToOne(fetch = FetchType.EAGER) // TODO: Is fetch=EAGER necessary
+    @DBRef
     private Product product;
-    @ManyToOne(fetch = FetchType.EAGER) // TODO: Is fetch=EAGER necessary
-    private Recipe recipe;
-
-    public Ingredient() {
-    }
 
     public Ingredient(Double amount, UnitOfMeasurement unitOfMeasurement, Product product) {
         this.amount = amount;

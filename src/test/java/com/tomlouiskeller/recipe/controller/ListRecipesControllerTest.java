@@ -120,86 +120,86 @@ public class ListRecipesControllerTest {
 
     // --- getQuickRecipes Tests --- ///
 
-    @Test
-    public void getQuickRecipesMockMvcQuickRecipesPath() throws Exception{
-        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(listRecipesController).build();
-        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/list/quick"))
-                .andExpect(MockMvcResultMatchers.status().isOk())
-                .andExpect(MockMvcResultMatchers.view().name("recipe/list"));
-    }
-
-    @Test
-    public void getQuickRecipesReturnString() {
-        String actual = listRecipesController.getQuickRecipes(mockModel);
-        assertNotNull(actual);
-    }
-
-    @Test
-    public void getQuickRecipesReturnSpecificString() {
-        String actual = listRecipesController.getQuickRecipes(mockModel);
-        assertEquals("recipe/list", actual);
-    }
-
-    @Test
-    public void getQuickRecipesCallsGeneralProperties() {
-        listRecipesController.getQuickRecipes(mockModel);
-        verify(mockGeneralConfiguration, times(1)).getQuickRecipesMaxDuration();
-    }
-
-    @Test
-    public void getQuickRecipesCallsRecipeService() {
-        when(mockGeneralConfiguration.getQuickRecipesMaxDuration()).thenReturn(expectedQuickRecipesMaxDuration);
-        listRecipesController.getQuickRecipes(mockModel);
-        verify(mockRecipeService, times(1)).findQuickRecipes(expectedQuickRecipesMaxDuration);
-    }
-
-    @Test
-    public void getQuickRecipesCallsAddAttribute() {
-        Set<Recipe> allRecipes = new HashSet<>();
-        allRecipes.add(Mockito.mock(Recipe.class));
-
-        when(mockGeneralConfiguration.getQuickRecipesMaxDuration()).thenReturn(expectedQuickRecipesMaxDuration);
-        when(mockRecipeService.findQuickRecipes(expectedQuickRecipesMaxDuration)).thenReturn(allRecipes);
-
-        listRecipesController.getQuickRecipes(mockModel);
-        verify(mockModel).addAttribute("recipes", allRecipes);
-    }
-
-    @Test // Showing off ArgumentCaptor
-    public void getQuickRecipesModelReceivesSet() {
-        // given
-        Set<Recipe> allRecipes = new HashSet<>();
-        allRecipes.add(Mockito.mock(Recipe.class));
-        allRecipes.add(Mockito.mock(Recipe.class));
-
-        when(mockGeneralConfiguration.getQuickRecipesMaxDuration()).thenReturn(expectedQuickRecipesMaxDuration);
-        when(mockRecipeService.findQuickRecipes(expectedQuickRecipesMaxDuration)).thenReturn(allRecipes);
-        ArgumentCaptor<Set<Recipe>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
-
-        // when
-        listRecipesController.getQuickRecipes(mockModel);
-
-        // then
-        verify(mockModel, times(1)).addAttribute(eq("recipes"), argumentCaptor.capture());
-        Set<Recipe> setInController = argumentCaptor.getValue();
-        assertEquals(2, setInController.size());
-        assertEquals(allRecipes, setInController);
-    }
-
-    @Test
-    public void getQuickRecipesHasModelVariableAvailable() {
-        BindingAwareModelMap bindingAwareModelMap = new BindingAwareModelMap();
-
-        Recipe recipe = Mockito.mock(Recipe.class);
-        Set<Recipe> allRecipes = new HashSet<>();
-        allRecipes.add(recipe);
-
-        when(mockGeneralConfiguration.getQuickRecipesMaxDuration()).thenReturn(expectedQuickRecipesMaxDuration);
-        when(mockRecipeService.findQuickRecipes(expectedQuickRecipesMaxDuration)).thenReturn(allRecipes);
-
-        listRecipesController.getQuickRecipes(bindingAwareModelMap);
-
-        assertEquals(allRecipes, bindingAwareModelMap.asMap().get("recipes"));
-    }
+//    @Test
+//    public void getQuickRecipesMockMvcQuickRecipesPath() throws Exception{
+//        MockMvc mockMvc = MockMvcBuilders.standaloneSetup(listRecipesController).build();
+//        mockMvc.perform(MockMvcRequestBuilders.get("/recipe/list/quick"))
+//                .andExpect(MockMvcResultMatchers.status().isOk())
+//                .andExpect(MockMvcResultMatchers.view().name("recipe/list"));
+//    }
+//
+//    @Test
+//    public void getQuickRecipesReturnString() {
+//        String actual = listRecipesController.getQuickRecipes(mockModel);
+//        assertNotNull(actual);
+//    }
+//
+//    @Test
+//    public void getQuickRecipesReturnSpecificString() {
+//        String actual = listRecipesController.getQuickRecipes(mockModel);
+//        assertEquals("recipe/list", actual);
+//    }
+//
+//    @Test
+//    public void getQuickRecipesCallsGeneralProperties() {
+//        listRecipesController.getQuickRecipes(mockModel);
+//        verify(mockGeneralConfiguration, times(1)).getQuickRecipesMaxDuration();
+//    }
+//
+//    @Test
+//    public void getQuickRecipesCallsRecipeService() {
+//        when(mockGeneralConfiguration.getQuickRecipesMaxDuration()).thenReturn(expectedQuickRecipesMaxDuration);
+//        listRecipesController.getQuickRecipes(mockModel);
+//        verify(mockRecipeService, times(1)).findQuickRecipes(expectedQuickRecipesMaxDuration);
+//    }
+//
+//    @Test
+//    public void getQuickRecipesCallsAddAttribute() {
+//        Set<Recipe> allRecipes = new HashSet<>();
+//        allRecipes.add(Mockito.mock(Recipe.class));
+//
+//        when(mockGeneralConfiguration.getQuickRecipesMaxDuration()).thenReturn(expectedQuickRecipesMaxDuration);
+//        when(mockRecipeService.findQuickRecipes(expectedQuickRecipesMaxDuration)).thenReturn(allRecipes);
+//
+//        listRecipesController.getQuickRecipes(mockModel);
+//        verify(mockModel).addAttribute("recipes", allRecipes);
+//    }
+//
+//    @Test // Showing off ArgumentCaptor
+//    public void getQuickRecipesModelReceivesSet() {
+//        // given
+//        Set<Recipe> allRecipes = new HashSet<>();
+//        allRecipes.add(Mockito.mock(Recipe.class));
+//        allRecipes.add(Mockito.mock(Recipe.class));
+//
+//        when(mockGeneralConfiguration.getQuickRecipesMaxDuration()).thenReturn(expectedQuickRecipesMaxDuration);
+//        when(mockRecipeService.findQuickRecipes(expectedQuickRecipesMaxDuration)).thenReturn(allRecipes);
+//        ArgumentCaptor<Set<Recipe>> argumentCaptor = ArgumentCaptor.forClass(Set.class);
+//
+//        // when
+//        listRecipesController.getQuickRecipes(mockModel);
+//
+//        // then
+//        verify(mockModel, times(1)).addAttribute(eq("recipes"), argumentCaptor.capture());
+//        Set<Recipe> setInController = argumentCaptor.getValue();
+//        assertEquals(2, setInController.size());
+//        assertEquals(allRecipes, setInController);
+//    }
+//
+//    @Test
+//    public void getQuickRecipesHasModelVariableAvailable() {
+//        BindingAwareModelMap bindingAwareModelMap = new BindingAwareModelMap();
+//
+//        Recipe recipe = Mockito.mock(Recipe.class);
+//        Set<Recipe> allRecipes = new HashSet<>();
+//        allRecipes.add(recipe);
+//
+//        when(mockGeneralConfiguration.getQuickRecipesMaxDuration()).thenReturn(expectedQuickRecipesMaxDuration);
+//        when(mockRecipeService.findQuickRecipes(expectedQuickRecipesMaxDuration)).thenReturn(allRecipes);
+//
+//        listRecipesController.getQuickRecipes(bindingAwareModelMap);
+//
+//        assertEquals(allRecipes, bindingAwareModelMap.asMap().get("recipes"));
+//    }
 
 }
