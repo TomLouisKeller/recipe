@@ -64,6 +64,7 @@ dependencies {
 //}
 
 // export test coverage
+// export test coverage
 jacoco {
     toolVersion = "0.8.1"
     reportsDir = file("$buildDir/reports/jacoco")
@@ -71,8 +72,10 @@ jacoco {
 
 jacocoTestReport {
     reports {
-        xml.enabled false
+        xml.enabled true
+        xml.destination file("${buildDir}/reports/jacoco/report.xml")
         csv.enabled false
+        html.enabled true
         html.destination file("${buildDir}/jacocoHtml")
     }
 }
