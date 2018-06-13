@@ -41,21 +41,6 @@ public class ErrorHandlingController implements ErrorController {
         return modelAndView;
     }
 
-// TODO: Remove this?
-    @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(NumberFormatException.class)
-    public ModelAndView handleNumberFormatException(Exception exception){
-        String title = "NumberFormatException";
-        String text = "Couldn't convert letters into numbers. Who would have guessed?";
-        String exceptionMessage = getExceptionMessage(exception);
-
-        logException(exception);
-
-        ModelAndView modelAndView = createModelAndView(genericErrorView, title, text, exceptionMessage);
-
-        return modelAndView;
-    }
-
     @RequestMapping(errorRequestMapping)
     public ModelAndView renderErrorPage(HttpServletRequest httpRequest) {
         String title;
