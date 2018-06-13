@@ -33,7 +33,7 @@ public class ListRecipesControllerTest {
     @Mock
     private GeneralConfiguration mockGeneralConfiguration;
 
-    private final Integer expectedQuickRecipesMaxDuration = 30;
+//    private final Integer expectedQuickRecipesMaxDuration = 30;
 
     @Before
     public void setUp() {

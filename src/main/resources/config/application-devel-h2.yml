@@ -1,8 +1,0 @@
-spring:
-    datasource:
-        platform: h2
-#        schema: classpath*:config/schema-devel-h2.sql
-#        data: classpath*:config/data-devel-h2.sql
-    jpa:
-        ddl-auto: create-drop
-        show-sql: false

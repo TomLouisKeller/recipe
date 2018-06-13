@@ -16,20 +16,13 @@ import static org.junit.Assert.assertTrue;
 @SpringBootTest
 public class PropertiesFileIT {
 
-    @Value("${spring.datasource.platform}")
-    private String platform;
+    @Value("${spring.config.additional-location}")
+    private String additionalLocation;
 
-    // Tests for Platform //
+    // Testing additional-location is just here to make sure we have the standard application configuration file //
 
     @Test
-    public void platformIsAvailable() {
-        assertNotNull(platform);
-    }
-
-    @Test // Make sure the property profile is set to either development or production
-    public void platformIsDevelopmentOrProduction() {
-        boolean isH2 = platform.matches("(?i:h2)");
-        boolean isMysql = platform.matches("(?i:mysql)");
-        assertTrue(isH2 || isMysql);
+    public void additionalLocationIsNotNull() {
+        assertNotNull(additionalLocation);
     }
 }
