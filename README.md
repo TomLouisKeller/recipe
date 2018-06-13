@@ -1,5 +1,6 @@
 # recipe
-[![CircleCI](https://circleci.com/bb/tomlouiskeller/recipe.svg?style=svg)](https://circleci.com/bb/tomlouiskeller/recipe) [![codecov](https://codecov.io/gh/TomLouisKeller/recipe/branch/master/graph/badge.svg)](https://codecov.io/gh/TomLouisKeller/recipe)
+[![CircleCI](https://circleci.com/gh/TomLouisKeller/recipe.svg?style=svg)](https://circleci.com/gh/TomLouisKeller/recipe) 
+[![codecov](https://codecov.io/gh/TomLouisKeller/recipe/branch/master/graph/badge.svg)](https://codecov.io/gh/TomLouisKeller/recipe)
 
 
 Demo Project with Spring Boot 2.0
