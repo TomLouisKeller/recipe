@@ -14,9 +14,6 @@ public class Category implements Comparable<Category> {
     private String id;
     private String name;
 
-    public Category() {
-    }
-
     public Category(String name) {
         this.name = name;
     }

@@ -14,7 +14,7 @@ public class CategoryTest {
 
     @Before
     public void setUp(){
-        category = new Category();
+        category = new Category("some");
     }
 
     @Test
