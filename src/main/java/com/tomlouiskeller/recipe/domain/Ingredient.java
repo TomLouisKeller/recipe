@@ -1,12 +1,14 @@
 package com.tomlouiskeller.recipe.domain;
 
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 
 import java.util.Comparator;
 
-@Data
+@Setter
+@Getter
 public class Ingredient implements Comparable<Ingredient>, Comparator<Ingredient> {
 
     @Id

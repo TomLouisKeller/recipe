@@ -1,7 +1,8 @@
 package com.tomlouiskeller.recipe.domain;
 
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
 import org.springframework.data.mongodb.core.mapping.Document;
@@ -11,7 +12,8 @@ import java.util.Set;
 import java.util.SortedSet;
 import java.util.TreeSet;
 
-@Data
+@Setter
+@Getter
 @Document
 public class Recipe implements Comparable<Recipe> {
 
@@ -34,8 +36,7 @@ public class Recipe implements Comparable<Recipe> {
     @DBRef
     private final Set<Category> categories = new TreeSet<>();
 
-    public Recipe() {
-    }
+    public Recipe() {}
 
     @Builder
     public Recipe(String id, String title, Integer preparationDuration, Integer cookingDuration, Integer servings, String source, String url, Byte[] image, Difficulty difficulty, Instruction instruction, NutritionalInfo nutritionalInfo) {
