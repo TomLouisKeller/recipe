@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Slf4j
-@Profile({"prod-mysql"})
+@Profile({"production"})
 @Component
 public class ProductionBootstrap implements ApplicationListener<ContextRefreshedEvent> {
 

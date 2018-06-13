@@ -39,13 +39,11 @@ public class GeneralConfigurationImplIT {
 
     @Test // Make sure the property profile is set to either development or production
     public void profileIsSetCorrect() {
-        System.out.println("");
         String profile = generalConfiguration.getSpringProfile();
         boolean isDefault = profile.matches("(?i:default)");
-        boolean isDevelH2 = profile.matches("(?i:devel-h2)");
-        boolean isDevelMySql = profile.matches("(?i:devel-mysql)");
-        boolean isProdMySql = profile.matches("(?i:prod-mysql)");
-        assertTrue(isDefault || isDevelH2 || isDevelMySql || isProdMySql);
+        boolean isDevelopment = profile.matches("(?i:development)");
+        boolean isProduction = profile.matches("(?i:production)");
+        assertTrue(isDefault || isDevelopment || isProduction);
     }
 
 }
