@@ -69,27 +69,6 @@ public class Recipe implements Comparable<Recipe> {
     }
 
     // Comparators
-
     public static Comparator<Recipe> LambdaIdComparator = Comparator.comparing(Recipe::getId);
-
-    public static Comparator<Recipe> TitleComparator = (Recipe r1, Recipe r2) -> {
-        // This is so stupid
-        if (r1 == null && r2 == null){
-            return 0;
-        } else if (r1 == null){
-            return 1;
-        } else if (r2 == null){
-            return -1;
-        } else if (r1.getTitle() == null && r2.getTitle() == null){
-            return 0;
-        } else if (r1.getTitle() == null){
-            return 1;
-        } else if (r2.getTitle() == null){
-            return -1;
-        } else {
-            return r1.getTitle().compareTo(r2.getTitle());
-        }
-    };
-
     public static Comparator<Recipe> LambdaTitleComparator = Comparator.comparing(Recipe::getTitle);
 }
