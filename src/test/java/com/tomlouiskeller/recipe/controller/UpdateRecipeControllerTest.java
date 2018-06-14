@@ -3,6 +3,7 @@ package com.tomlouiskeller.recipe.controller;
 
 import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.form.RecipeForm;
+import com.tomlouiskeller.recipe.service.CategoryService;
 import com.tomlouiskeller.recipe.service.RecipeFormService;
 import com.tomlouiskeller.recipe.service.RecipeService;
 import lombok.extern.slf4j.Slf4j;
@@ -37,13 +38,16 @@ public class UpdateRecipeControllerTest {
     @Mock
     private RecipeFormService recipeFormService;
 
+    @Mock
+    private CategoryService categoryService;
+
     private String id;
     
     @Before
     public void setUp() {
         id = Math.random() + "";
         MockitoAnnotations.initMocks(this);
-        updateRecipeController = new UpdateRecipeController(recipeService, recipeFormService);
+        updateRecipeController = new UpdateRecipeController(recipeService, recipeFormService, categoryService);
     }
 
     // --- GET --- //
@@ -74,7 +78,7 @@ public class UpdateRecipeControllerTest {
         BindingAwareModelMap bindingAwareModelMap = new BindingAwareModelMap();
 
         when(recipeService.findById(id)).thenReturn(recipe);
-        when(recipeFormService.convert(recipe, null)).thenReturn(recipeForm);
+        when(recipeFormService.convert(recipe, categoryService.findAll())).thenReturn(recipeForm);
 
         updateRecipeController.initUpdateForm(id, bindingAwareModelMap);
 

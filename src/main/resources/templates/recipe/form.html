@@ -63,8 +63,13 @@
                             <div class="col-md-12 form-group">
                                 <label th:text="#{recipeForm.recipeCategories}">Categories:</label>
                                 <div class="row">
-                                    <div class="col-md-4 form-group" th:each="category : *{availableCategories}" >
-                                        <input type="checkbox" name="recipeCategories" th:value="${category.getId()}" th:text="' ' + ${category.getName()}" />
+                                    <div class="col-md-4 form-group"
+                                         th:each="category : ${recipeForm.availableCategories}" >
+                                        <input type="checkbox"
+                                               name="recipeCategories"
+                                               th:value="${category.getId()}"
+                                               th:text="' ' + ${category.getName()}"
+                                               th:checked="${recipeForm.recipeCategories.contains(category)}" />
                                     </div>
                                 </div>
                             </div>

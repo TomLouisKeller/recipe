@@ -1,5 +1,6 @@
 package com.tomlouiskeller.recipe.domain;
 
+import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
@@ -9,6 +10,7 @@ import java.util.Comparator;
 
 @Setter
 @Getter
+@EqualsAndHashCode
 @Document
 public class Category implements Comparable<Category> {
 

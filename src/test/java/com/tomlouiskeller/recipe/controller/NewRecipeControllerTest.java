@@ -1,6 +1,7 @@
 package com.tomlouiskeller.recipe.controller;
 
 
+import com.tomlouiskeller.recipe.domain.Category;
 import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.form.RecipeForm;
 import com.tomlouiskeller.recipe.service.CategoryService;
@@ -17,11 +18,10 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.support.BindingAwareModelMap;
 
-import java.util.TreeSet;
+import java.util.SortedSet;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -64,13 +64,28 @@ public class NewRecipeControllerTest {
     }
 
     @Test
+    public void initCreationFormAvailableCategoriesLoaded() {
+        Model model = mock(Model.class);
+        newRecipeController.initCreationForm(model);
+        verify(categoryService, times(1)).findAll();
+    }
+
+    @Test
     public void initCreationFormRecipeForm() {
         BindingAwareModelMap bindingAwareModelMap = new BindingAwareModelMap();
-        newRecipeController.initCreationForm(bindingAwareModelMap);
+
         RecipeForm expected = new RecipeForm();
-        expected.setAvailableCategories(new TreeSet<>());
+
+        SortedSet<Category> availableCategories = mock(SortedSet.class);
+        expected.setAvailableCategories(availableCategories);
+
+        when(categoryService.findAll()).thenReturn(availableCategories);
+
+        newRecipeController.initCreationForm(bindingAwareModelMap);
+
         assertEquals(expected, bindingAwareModelMap.asMap().get("recipeForm"));
     }
+
 
     // --- POST --- //
 

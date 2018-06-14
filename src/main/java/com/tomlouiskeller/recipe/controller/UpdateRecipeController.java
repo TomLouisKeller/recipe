@@ -2,6 +2,7 @@ package com.tomlouiskeller.recipe.controller;
 
 import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.form.RecipeForm;
+import com.tomlouiskeller.recipe.service.CategoryService;
 import com.tomlouiskeller.recipe.service.RecipeFormService;
 import com.tomlouiskeller.recipe.service.RecipeService;
 import lombok.extern.slf4j.Slf4j;
@@ -25,16 +26,18 @@ public class UpdateRecipeController {
     private RecipeService recipeService;
 
     private RecipeFormService recipeFormService;
+    private CategoryService categoryService;
 
-    public UpdateRecipeController(RecipeService recipeService, RecipeFormService recipeFormService) {
+    public UpdateRecipeController(RecipeService recipeService, RecipeFormService recipeFormService, CategoryService categoryService) {
         this.recipeService = recipeService;
         this.recipeFormService = recipeFormService;
+        this.categoryService = categoryService;
     }
 
     @GetMapping
     public String initUpdateForm(@PathVariable String id, Model model) {
         Recipe recipe = recipeService.findById(id);
-        RecipeForm recipeForm = recipeFormService.convert(recipe, null);
+        RecipeForm recipeForm = recipeFormService.convert(recipe, categoryService.findAll());
         model.addAttribute("recipeForm", recipeForm);
         return VIEWS_RECIPE_FORM;
     }
