@@ -4,7 +4,7 @@
 !gradle/wrapper/gradle-wrapper.jar
 
 # Project specific
-/src/main/resources/config/application-devel-mysql.yml
+/src/main/resources/config/application-default.yml
 
 ### STS ###
 .apt_generated
