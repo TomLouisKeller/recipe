@@ -106,7 +106,7 @@ public class DevelopmentBootstrap implements ApplicationListener<ContextRefreshe
                 .build();
 
         roesti.addIngredient(ingredientService.ingredientFactory(1d, "Kilogram", "Potatoes"));
-        roesti.addIngredient(ingredientService.ingredientFactory(1d, "Teaspoon", "Kilogram"));
+        roesti.addIngredient(ingredientService.ingredientFactory(1d, "Teaspoon", "Salt"));
         roesti.addIngredient(ingredientService.ingredientFactory(null, "Some", "Margarine"));
 
         roesti.getCategories().add(categoryService.findOrCreate("Vegan"));
