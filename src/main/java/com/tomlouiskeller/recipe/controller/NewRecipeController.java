@@ -1,6 +1,7 @@
 package com.tomlouiskeller.recipe.controller;
 
 
+import com.tomlouiskeller.recipe.domain.Category;
 import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.form.RecipeForm;
 import com.tomlouiskeller.recipe.service.CategoryService;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
+import java.util.SortedSet;
 
 @Slf4j
 @Controller
@@ -35,8 +37,9 @@ public class NewRecipeController {
 
     @GetMapping
     public String initCreationForm(Model model) {
-        RecipeForm recipeForm = new RecipeForm();
-        recipeForm.setAvailableCategories(categoryService.findAll());
+        Recipe recipe = new Recipe();
+        SortedSet<Category> availableRecipes = categoryService.findAll();
+        RecipeForm recipeForm = recipeFormService.convert(recipe, availableRecipes);
         model.addAttribute("recipeForm", recipeForm);
         return VIEWS_RECIPE_FORM;
     }

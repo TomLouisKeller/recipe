@@ -19,6 +19,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.validation.support.BindingAwareModelMap;
 
 import java.util.SortedSet;
+import java.util.TreeSet;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -76,10 +77,14 @@ public class NewRecipeControllerTest {
 
         RecipeForm expected = new RecipeForm();
 
-        SortedSet<Category> availableCategories = mock(SortedSet.class);
+        SortedSet<Category> availableCategories = new TreeSet<>();
+        availableCategories.add(new Category("American"));
+        availableCategories.add(new Category("Beef"));
+
         expected.setAvailableCategories(availableCategories);
 
         when(categoryService.findAll()).thenReturn(availableCategories);
+        when(recipeFormService.convert(any(), eq(availableCategories))).thenReturn(expected);
 
         newRecipeController.initCreationForm(bindingAwareModelMap);
 
