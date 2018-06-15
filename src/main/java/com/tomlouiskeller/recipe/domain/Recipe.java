@@ -30,7 +30,6 @@ public class Recipe implements Comparable<Recipe> {
     // Relations
     private Difficulty difficulty;
     private Instruction instruction;
-    private NutritionalInfo nutritionalInfo;
     private final SortedSet<Ingredient> ingredients = new TreeSet<>();
 
     @DBRef
@@ -39,7 +38,7 @@ public class Recipe implements Comparable<Recipe> {
     public Recipe() {}
 
     @Builder
-    public Recipe(String id, String title, Integer preparationDuration, Integer cookingDuration, Integer servings, String source, String url, Byte[] image, Difficulty difficulty, Instruction instruction, NutritionalInfo nutritionalInfo) {
+    public Recipe(String id, String title, Integer preparationDuration, Integer cookingDuration, Integer servings, String source, String url, Byte[] image, Difficulty difficulty, Instruction instruction) {
         this.id = id;
         this.title = title;
         this.preparationDuration = preparationDuration;
@@ -50,7 +49,6 @@ public class Recipe implements Comparable<Recipe> {
         this.image = image;
         this.difficulty = difficulty;
         this.instruction = instruction;
-        this.nutritionalInfo = nutritionalInfo;
     }
 
     public Recipe addIngredient(Ingredient ingredient){

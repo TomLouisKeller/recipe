@@ -50,11 +50,6 @@ public class RecipeForm {
     @NotBlank
     private String instructionText;
 
-    // From domain.Instruction
-    private String nutritionalInfoId;
-    @NotBlank
-    private String nutritionalInfoText;
-
     // TODO: Do these afterwards.
     private Set<Ingredient> ingredients = new HashSet<>();
 
@@ -79,8 +74,6 @@ public class RecipeForm {
         this.recipeDifficulty = recipeDifficulty;
         this.instructionId = instructionId;
         this.instructionText = instructionText;
-        this.nutritionalInfoId = nutritionalInfoId;
-        this.nutritionalInfoText = nutritionalInfoText;
         this.ingredients = ingredients;
         this.availableCategories = availableCategories;
         this.recipeCategories = recipeCategories;

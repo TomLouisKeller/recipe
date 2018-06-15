@@ -190,22 +190,6 @@
                             </div>
                         </div>
                     </div>
-
-                    <div class="panel panel-primary">
-                        <div class="panel-heading">
-                            <h1 class="panel-title" th:text="#{recipeForm.nutritionalInfoText}">Nutritional Info</h1>
-                        </div>
-                        <div class="panel-body" th:class="${#fields.hasErrors('nutritionalInfoText')} ? 'panel-body has-error' : 'panel-body'">
-                            <span class="help-block" th:if="${#fields.hasErrors('nutritionalInfoText')}">
-                                <ul>
-                                    <li th:each="err : ${#fields.errors('nutritionalInfoText')}" th:text="${err}"/>
-                                </ul>
-                            </span>
-                            <div class="col-md-12 form-group" th:class="${#fields.hasErrors('nutritionalInfoText')} ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
-                                <textarea class="form-control" rows="3" th:field="*{nutritionalInfoText}"></textarea>
-                            </div>
-                        </div>
-                    </div>
                     <button type="submit" class="btn btn-primary">Submit</button>
                 </div>
             </form>

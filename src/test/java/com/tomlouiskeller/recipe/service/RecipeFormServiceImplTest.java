@@ -1,6 +1,9 @@
 package com.tomlouiskeller.recipe.service;
 
-import com.tomlouiskeller.recipe.domain.*;
+import com.tomlouiskeller.recipe.domain.Category;
+import com.tomlouiskeller.recipe.domain.Difficulty;
+import com.tomlouiskeller.recipe.domain.Instruction;
+import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.form.RecipeForm;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,7 +50,6 @@ public class RecipeFormServiceImplTest {
         String recipeUrl = "yaaa.com/pizza";
         Difficulty recipeDifficulty = Difficulty.EASY;
         String instructionText = "instructionText";
-        String nutritionalInfoText = "nutritionalInfoText";
         RecipeForm recipeForm = RecipeForm.builder()
                                 .recipeTitle(recipeTitle)
                                 .recipePreparationDuration(recipePreparationDuration)
@@ -57,7 +59,6 @@ public class RecipeFormServiceImplTest {
                                 .recipeUrl(recipeUrl)
                                 .recipeDifficulty(recipeDifficulty)
                                 .instructionText(instructionText)
-                                .nutritionalInfoText(nutritionalInfoText)
                                 .build();
 
         Recipe recipe = recipeFormService.convert(recipeForm);
@@ -70,7 +71,6 @@ public class RecipeFormServiceImplTest {
         assertEquals(recipeUrl, recipe.getUrl());
         assertEquals(recipeDifficulty, recipe.getDifficulty());
         assertEquals(instructionText, recipe.getInstruction().getText());
-        assertEquals(nutritionalInfoText, recipe.getNutritionalInfo().getText());
     }
 
     @Test
@@ -107,7 +107,6 @@ public class RecipeFormServiceImplTest {
         Difficulty recipeDifficulty = Difficulty.EASY;
 
         Instruction instruction = mock(Instruction.class);
-        NutritionalInfo nutritionalInfo = mock(NutritionalInfo.class);
 
         Recipe recipe = Recipe.builder()
                 .title(recipeTitle)
@@ -118,7 +117,6 @@ public class RecipeFormServiceImplTest {
                 .url(recipeUrl)
                 .difficulty(recipeDifficulty)
                 .instruction(instruction)
-                .nutritionalInfo(nutritionalInfo)
                 .build();
 
         RecipeForm recipeForm = recipeFormService.convert(recipe, null);
@@ -144,19 +142,6 @@ public class RecipeFormServiceImplTest {
 
         assertEquals(instruction.getId(), recipeForm.getInstructionId());
         assertEquals(instruction.getText(), recipeForm.getInstructionText());
-    }
-
-    @Test
-    public void convertEntityToFormNutritionalInfo() {
-        NutritionalInfo nutritionalInfo = new NutritionalInfo("222", "nutritionalInfo");
-
-        Recipe recipe = Recipe.builder()
-                .nutritionalInfo(nutritionalInfo)
-                .build();
-
-        RecipeForm recipeForm = recipeFormService.convert(recipe, null);
-        assertEquals(nutritionalInfo.getId(), recipeForm.getNutritionalInfoId());
-        assertEquals(nutritionalInfo.getText(), recipeForm.getNutritionalInfoText());
     }
 
     @Test

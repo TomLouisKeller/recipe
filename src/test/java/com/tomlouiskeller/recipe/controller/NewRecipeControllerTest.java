@@ -127,7 +127,6 @@ public class NewRecipeControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("recipeForm"))
                 .andExpect(model().attributeHasErrors("recipeForm"))
-                .andExpect(model().attributeHasFieldErrors("recipeForm", "nutritionalInfoText"))
                 .andExpect(model().attributeHasFieldErrors("recipeForm", "recipeCookingDuration"))
                 .andExpect(view().name("recipe/form"));
     }

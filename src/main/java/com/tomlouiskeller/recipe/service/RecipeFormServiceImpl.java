@@ -2,7 +2,6 @@ package com.tomlouiskeller.recipe.service;
 
 import com.tomlouiskeller.recipe.domain.Category;
 import com.tomlouiskeller.recipe.domain.Instruction;
-import com.tomlouiskeller.recipe.domain.NutritionalInfo;
 import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.form.RecipeForm;
 import org.springframework.stereotype.Service;
@@ -31,9 +30,6 @@ public class RecipeFormServiceImpl implements RecipeFormService{
         Instruction instruction = new Instruction(rF.getInstructionId(), rF.getInstructionText());
         recipe.setInstruction(instruction);
 
-        NutritionalInfo nutritionalInfo= new NutritionalInfo(rF.getNutritionalInfoId(), rF.getNutritionalInfoText());
-        recipe.setNutritionalInfo(nutritionalInfo);
-
         // TODO: convert ingredients
 
         return recipe;
@@ -60,12 +56,6 @@ public class RecipeFormServiceImpl implements RecipeFormService{
         if(instruction != null){
             recipeForm.setInstructionId(instruction.getId());
             recipeForm.setInstructionText(instruction.getText());
-        }
-
-        NutritionalInfo nutritionalInfo = recipe.getNutritionalInfo();
-        if(nutritionalInfo != null){
-            recipeForm.setNutritionalInfoId(nutritionalInfo.getId());
-            recipeForm.setNutritionalInfoText(nutritionalInfo.getText());
         }
 
         return recipeForm;
