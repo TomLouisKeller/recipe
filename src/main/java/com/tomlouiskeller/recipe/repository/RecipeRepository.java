@@ -17,6 +17,12 @@ public interface RecipeRepository extends MongoRepository<Recipe, String> {
 
 //    @Query("select r from Recipe r where (r.preparationDuration + r.cookingDuration) <= ?1")
 //    Iterable<Recipe> findRecipesQuickerThan(Integer duration);
-
-//    Iterable<Recipe> findAllByTotalDurationLessThanEqual(Integer duration);
+//
+//    @Query("select r from Recipe r where (r.preparationDuration + r.cookingDuration) <= ?1")
+//            db.getCollection('recipe').aggregate(
+//   [
+//    { $project: { _id:1, item: 1, totalDuration: { $add: [ "$preparationDuration", "$cookingDuration" ] } } }
+//   ]
+//           )
+//    Iterable<Recipe> findRecipesQuickerThan(Integer duration);
 }
