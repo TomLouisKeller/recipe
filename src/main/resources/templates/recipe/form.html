@@ -67,8 +67,8 @@
                                          th:each="category : ${recipeForm.availableCategories}" >
                                         <input type="checkbox"
                                                name="recipeCategories"
-                                               th:value="${category.getId()}"
-                                               th:text="' ' + ${category.getName()}"
+                                               th:value="${category.id}"
+                                               th:text="' ' + ${category.name}"
                                                th:checked="${recipeForm.recipeCategories.contains(category)}" />
                                     </div>
                                 </div>

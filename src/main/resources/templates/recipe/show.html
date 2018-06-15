@@ -44,12 +44,12 @@
                     <div class="panel-heading">
                         <div class="row">
                             <div class="col-md-5">
-                                <h1 class="panel-title" th:text="${recipe.getTitle()}">Rösti</h1>
+                                <h1 class="panel-title" th:text="${recipe.title}">Rösti</h1>
                             </div>
                             <div class="col-md-1">
                                 <a class="btn btn-default" href="#" th:href="@{'/recipe/list/all'}" role="button" th:text="#{showView.list}">List</a>
-                                <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/edit'}" role="button" th:text="#{showView.edit}">Edit</a>
-                                <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.getId()} + '/delete'}" role="button" th:text="#{showView.delete}">Delete</a>
+                                <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/edit'}" role="button" th:text="#{showView.edit}">Edit</a>
+                                <a class="btn btn-default" href="#" th:href="@{'/recipe/' + ${recipe.id} + '/delete'}" role="button" th:text="#{showView.delete}">Delete</a>
                             </div>
                         </div>
                     </div>
@@ -70,15 +70,15 @@
                                 <ul>
                                     <li th:remove="all">Swiss</li>
                                     <li th:each="category : ${recipe.getCategories()}"
-                                        th:text="${category.getName()}">
+                                        th:text="${category.name}">
                                         Vegetarian
                                     </li>
                                 </ul>
                             </div>
                             <div class="col-md-6">
                                 <img src="../../static/image/guacamole400x400WithX.jpg"
-                                     th:if="${recipe.getImage() != null}"
-                                     th:src="@{'/recipe/' + ${recipe.getId()} + '/image'}"
+                                     th:if="${recipe.image != null}"
+                                     th:src="@{'/recipe/' + ${recipe.id} + '/image'}"
                                      width="200" height="200">
                             </div>
                         </div>
@@ -87,13 +87,13 @@
                                 <h5 th:text="#{recipeForm.recipePreparationDuration}">Preparation Duration:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${(recipe.getPreparationDuration()) +  '  minutes'}">5 minutes</p>
+                                <p th:text="${(recipe.preparationDuration) +  '  minutes'}">5 minutes</p>
                             </div>
                             <div class="col-md-3">
                                 <h5 th:text="#{recipeForm.recipeDifficulty}">Difficulty:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recipe.getDifficulty().getReadable()}">Amateur</p>
+                                <p th:text="${recipe.difficulty.readable}">Amateur</p>
                             </div>
                         </div>
                         <div class="row">
@@ -101,13 +101,13 @@
                                 <h5 th:text="#{recipeForm.recipeCookingDuration}">Cooking Duration:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${(recipe.getCookingDuration()) +  '  minutes'}">30 minutes</p>
+                                <p th:text="${(recipe.cookingDuration) +  '  minutes'}">30 minutes</p>
                             </div>
                             <div class="col-md-3">
                                 <h5 th:text="#{recipeForm.recipeSource}">Source:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recipe.getSource()}">https://www.bettybossi.ch/</p>
+                                <p th:text="${recipe.source}">https://www.bettybossi.ch/</p>
                             </div>
                         </div>
                         <div class="row">
@@ -115,14 +115,14 @@
                                 <h5 th:text="#{recipeForm.recipeServings}">Servings:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p th:text="${recipe.getServings()}">4</p>
+                                <p th:text="${recipe.servings}">4</p>
                             </div>
 
                             <div class="col-md-3">
                                 <h5 th:text="#{recipeForm.recipeUrl}">URL:</h5>
                             </div>
                             <div class="col-md-3">
-                                <p><a href="#" th:href="${recipe.getUrl()}" th:text="${recipe.getUrl()}">https://www.bettybossi.ch/de/Rezept/ShowRezept/BB_CHCH090801_0107A-40-de</a></p>
+                                <p><a href="#" th:href="${recipe.url}" th:text="${recipe.url}">https://www.bettybossi.ch/de/Rezept/ShowRezept/BB_CHCH090801_0107A-40-de</a></p>
                             </div>
                         </div>
                     </div>
@@ -145,10 +145,10 @@
                                 <ul>
                                     <li th:remove="all">1 kg Potatoes</li>
                                     <li th:remove="all">1 Teaspoon Salt</li>
-                                    <li th:each="ingredient : ${recipe.getIngredients()}">
-                                        <span th:if="${ingredient.getAmount() != null}" th:text="${ingredient.getAmount()}"> </span>
-                                        <span th:text="${ingredient.getUnitOfMeasurement().getName()}"> Some </span>
-                                        <span th:text="${ingredient.getProduct().getName()}"> Margarine </span>
+                                    <li th:each="ingredient : ${recipe.ingredients}">
+                                        <span th:if="${ingredient.amount != null}" th:text="${ingredient.amount}"> </span>
+                                        <span th:text="${ingredient.unitOfMeasurement.name}"> Some </span>
+                                        <span th:text="${ingredient.product.name}"> Margarine </span>
                                     </li>
                                 </ul>
                             </div>
@@ -162,7 +162,7 @@
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <p th:text="${recipe.getInstruction()}">
+                                <p th:text="${recipe.instruction}">
                                     1. Grate potatoes on the raffle in a bowl.
                                     2. Add salt to grated potatoes.
                                     3. Melt margarine in a frying pan. Add potatoes, fry with occasional turning for about 5 minutes.
@@ -180,7 +180,7 @@
     </div>
 </div>
 <div style="display: none;">
-    <form id="uploadImageForm" method="post" th:action="@{'/recipe/' + ${recipe.getId()} + '/image'}" enctype="multipart/form-data">
+    <form id="uploadImageForm" method="post" th:action="@{'/recipe/' + ${recipe.id} + '/image'}" enctype="multipart/form-data">
         <input id="uploadImageInput" type="file" name="image" onchange="doUploadImage();" />
     </form>
 </div>
