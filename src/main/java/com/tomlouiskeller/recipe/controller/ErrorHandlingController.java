@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.web.multipart.MaxUploadSizeExceededException;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
@@ -27,11 +28,27 @@ public class ErrorHandlingController implements ErrorController {
         this.generalConfiguration = generalConfiguration;
     }
 
-    @ResponseStatus(HttpStatus.NOT_FOUND) // TODO: use variables like in handleNumberFormatException
+    @ResponseStatus(HttpStatus.NOT_FOUND)
     @ExceptionHandler(RecipeNotFoundException.class)
     public ModelAndView handleRecipeNotFoundException(Exception exception){
         String title = "Recipe has not been found.";
         String text = "Oops, we couldn't find the recipe, you were looking for.";
+        String exceptionMessage = getExceptionMessage(exception);
+
+        logException(exception);
+
+        ModelAndView modelAndView = createModelAndView(genericErrorView, title, text, exceptionMessage);
+
+        return modelAndView;
+    }
+
+    // MaxUploadSizeExceededException
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(MaxUploadSizeExceededException.class)
+    public ModelAndView handleMaxUploadSizeExceededException(Exception exception){
+        String title = "Maximum upload size exceeded";
+        String text = "Sorry, the file you tried to upload is to big.";
         String exceptionMessage = getExceptionMessage(exception);
 
         logException(exception);
