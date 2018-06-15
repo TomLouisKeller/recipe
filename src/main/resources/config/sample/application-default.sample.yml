@@ -1,1 +1,5 @@
-spring.data.mongodb.uri=mongodb://user:password@ipaddress:27017/recipe
+# MongoDB connection
+spring.data.mongodb.uri: mongodb://user:password@ipaddress:27017/recipe
+
+# Hint: Comment out "de.flapdoodle.embed:de.flapdoodle.embed.mongo" in gradle to disable embedded
+# database and enable external database.
