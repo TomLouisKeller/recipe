@@ -1,7 +1,6 @@
 package com.tomlouiskeller.recipe.service;
 
 import com.tomlouiskeller.recipe.domain.Category;
-import com.tomlouiskeller.recipe.domain.Instruction;
 import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.form.RecipeForm;
 import org.springframework.stereotype.Service;
@@ -23,13 +22,10 @@ public class RecipeFormServiceImpl implements RecipeFormService{
                 .url(rF.getRecipeUrl())
                 .image(rF.getRecipeImage()) // TODO: Have to examine this
                 .difficulty(rF.getRecipeDifficulty())
+                .instruction(rF.getRecipeInstruction())
                 .build();
 
         recipe.setCategories(rF.getRecipeCategories());
-
-        Instruction instruction = new Instruction(rF.getInstructionId(), rF.getInstructionText());
-        recipe.setInstruction(instruction);
-
         // TODO: convert ingredients
 
         return recipe;
@@ -48,15 +44,10 @@ public class RecipeFormServiceImpl implements RecipeFormService{
                 .recipeUrl(recipe.getUrl())
                 .recipeImage(recipe.getImage())
                 .recipeDifficulty(recipe.getDifficulty())
+                .recipeInstruction(recipe.getInstruction())
                 .recipeCategories(recipe.getCategories())
                 .availableCategories(availableCategories)
                 .build();
-
-        Instruction instruction = recipe.getInstruction();
-        if(instruction != null){
-            recipeForm.setInstructionId(instruction.getId());
-            recipeForm.setInstructionText(instruction.getText());
-        }
 
         return recipeForm;
     }

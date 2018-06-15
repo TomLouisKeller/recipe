@@ -122,7 +122,7 @@ public class NewRecipeControllerTest {
                 .param("recipeServings", "4")
                 .param("recipeUrl", "yaaa")
                 .param("recipeDifficulty", "EASY")
-                .param("instructionText", "instructionText")
+                .param("recipeInstruction", "recipeInstruction")
         )
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("recipeForm"))

@@ -50,7 +50,7 @@ public class NewRecipeControllerIT {
                 .param("recipeSource", "yaaa")
                 .param("recipeUrl", "yaaa")
                 .param("recipeDifficulty", "EASY")
-                .param("instructionText", "instructionText")
+                .param("recipeInstruction", "recipeInstruction")
                 .param("nutritionalInfoText", "nutritionalInfoText")
         )
                 .andExpect(status().is3xxRedirection());
@@ -66,7 +66,7 @@ public class NewRecipeControllerIT {
                 .param("recipeServings", "4")
                 .param("recipeUrl", "yaaa")
                 .param("recipeDifficulty", "EASY")
-                .param("instructionText", "instructionText")
+                .param("recipeInstruction", "recipeInstruction")
         )
                 .andExpect(status().isOk())
                 .andExpect(model().attributeExists("recipeForm"))

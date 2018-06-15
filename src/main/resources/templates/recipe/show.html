@@ -157,12 +157,12 @@
                 </div>
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h1 class="panel-title" th:text="#{recipeForm.instructionText}">Instructions</h1>
+                        <h1 class="panel-title" th:text="#{recipeForm.recipeInstruction}">Instructions</h1>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
-                                <p th:text="${recipe.getInstruction().getText()}">
+                                <p th:text="${recipe.getInstruction()}">
                                     1. Grate potatoes on the raffle in a bowl.
                                     2. Add salt to grated potatoes.
                                     3. Melt margarine in a frying pan. Add potatoes, fry with occasional turning for about 5 minutes.

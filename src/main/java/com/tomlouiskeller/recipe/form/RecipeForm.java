@@ -45,10 +45,8 @@ public class RecipeForm {
 
     private Difficulty recipeDifficulty;
 
-    // From domain.Instruction
-    private String instructionId;
     @NotBlank
-    private String instructionText;
+    private String recipeInstruction;
 
     // TODO: Do these afterwards.
     private Set<Ingredient> ingredients = new HashSet<>();
@@ -62,7 +60,7 @@ public class RecipeForm {
     // This constructor is only used through the builder. Annotating the class with @Builder doesn't work
     // Otherwise NoArgsConstructor is private
     @Builder
-    public RecipeForm(String recipeId, @Size(min = 3, max = 255) String recipeTitle, @Positive Integer recipePreparationDuration, @PositiveOrZero Integer recipeCookingDuration, @Positive Integer recipeServings, @Size(max = 255) String recipeSource, @Size(max = 255) String recipeUrl, Byte[] recipeImage, Difficulty recipeDifficulty, String instructionId, @NotBlank String instructionText, String nutritionalInfoId, @NotBlank String nutritionalInfoText, Set<Ingredient> ingredients, SortedSet<Category> availableCategories, Set<Category> recipeCategories) {
+    public RecipeForm(String recipeId, @Size(min = 3, max = 255) String recipeTitle, @PositiveOrZero Integer recipePreparationDuration, @PositiveOrZero Integer recipeCookingDuration, @Positive Integer recipeServings, @Size(max = 255) String recipeSource, @Size(max = 255) String recipeUrl, Byte[] recipeImage, Difficulty recipeDifficulty, @NotBlank String recipeInstruction, Set<Ingredient> ingredients, SortedSet<Category> availableCategories, Set<Category> recipeCategories) {
         this.recipeId = recipeId;
         this.recipeTitle = recipeTitle;
         this.recipePreparationDuration = recipePreparationDuration;
@@ -72,8 +70,7 @@ public class RecipeForm {
         this.recipeUrl = recipeUrl;
         this.recipeImage = recipeImage;
         this.recipeDifficulty = recipeDifficulty;
-        this.instructionId = instructionId;
-        this.instructionText = instructionText;
+        this.recipeInstruction = recipeInstruction;
         this.ingredients = ingredients;
         this.availableCategories = availableCategories;
         this.recipeCategories = recipeCategories;

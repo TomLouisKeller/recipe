@@ -2,7 +2,6 @@ package com.tomlouiskeller.recipe.service;
 
 import com.tomlouiskeller.recipe.domain.Category;
 import com.tomlouiskeller.recipe.domain.Difficulty;
-import com.tomlouiskeller.recipe.domain.Instruction;
 import com.tomlouiskeller.recipe.domain.Recipe;
 import com.tomlouiskeller.recipe.form.RecipeForm;
 import org.junit.Before;
@@ -37,7 +36,7 @@ public class RecipeFormServiceImplTest {
 
 
     // TODO: Check id
-    // TODO: Move instructionText and nutritionalInfoText out
+    // TODO: Move recipeInstruction and nutritionalInfoText out
     // TODO: Test instructionId and nutritionalId
     // TODO: Rename convertFormToEntityStandardFields to convertFormToEntityRecipeFields
     @Test
@@ -49,7 +48,7 @@ public class RecipeFormServiceImplTest {
         String recipeSource = "yaaa";
         String recipeUrl = "yaaa.com/pizza";
         Difficulty recipeDifficulty = Difficulty.EASY;
-        String instructionText = "instructionText";
+        String instruction = "recipeInstruction";
         RecipeForm recipeForm = RecipeForm.builder()
                                 .recipeTitle(recipeTitle)
                                 .recipePreparationDuration(recipePreparationDuration)
@@ -58,7 +57,7 @@ public class RecipeFormServiceImplTest {
                                 .recipeSource(recipeSource)
                                 .recipeUrl(recipeUrl)
                                 .recipeDifficulty(recipeDifficulty)
-                                .instructionText(instructionText)
+                                .recipeInstruction(instruction)
                                 .build();
 
         Recipe recipe = recipeFormService.convert(recipeForm);
@@ -70,7 +69,7 @@ public class RecipeFormServiceImplTest {
         assertEquals(recipeSource, recipe.getSource());
         assertEquals(recipeUrl, recipe.getUrl());
         assertEquals(recipeDifficulty, recipe.getDifficulty());
-        assertEquals(instructionText, recipe.getInstruction().getText());
+        assertEquals(instruction, recipe.getInstruction());
     }
 
     @Test
@@ -104,9 +103,8 @@ public class RecipeFormServiceImplTest {
         Integer recipeServings = 4;
         String recipeSource = "yaaa";
         String recipeUrl = "yaaa.com/pizza";
+        String instruction = "instruction";
         Difficulty recipeDifficulty = Difficulty.EASY;
-
-        Instruction instruction = mock(Instruction.class);
 
         Recipe recipe = Recipe.builder()
                 .title(recipeTitle)
@@ -128,20 +126,6 @@ public class RecipeFormServiceImplTest {
         assertEquals(recipeSource, recipeForm.getRecipeSource());
         assertEquals(recipeUrl, recipeForm.getRecipeUrl());
         assertEquals(recipeDifficulty, recipeForm.getRecipeDifficulty());
-    }
-
-    @Test
-    public void convertEntityToFormInstruction() {
-        Instruction instruction = new Instruction("someId", "Blub");
-
-        Recipe recipe = Recipe.builder()
-                .instruction(instruction)
-                .build();
-
-        RecipeForm recipeForm = recipeFormService.convert(recipe, null);
-
-        assertEquals(instruction.getId(), recipeForm.getInstructionId());
-        assertEquals(instruction.getText(), recipeForm.getInstructionText());
     }
 
     @Test

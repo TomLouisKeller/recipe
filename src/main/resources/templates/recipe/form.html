@@ -173,20 +173,20 @@
                     </div>
                     -->
 
-                    <!-- TODO: Figure out input errors with textareas -->
+                    <!-- TODO: Figure out input errors with textarea -->
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <h1 class="panel-title" th:text="#{recipeForm.instructionText}">Instructions</h1>
+                            <h1 class="panel-title" th:text="#{recipeForm.recipeInstruction}">Instructions</h1>
                         </div>
-                        <div class="panel-body" th:class="${#fields.hasErrors('instructionText')} ? 'panel-body has-error' : 'panel-body'">
-                            <span class="help-block" th:if="${#fields.hasErrors('instructionText')}">
+                        <div class="panel-body" th:class="${#fields.hasErrors('recipeInstruction')} ? 'panel-body has-error' : 'panel-body'">
+                            <span class="help-block" th:if="${#fields.hasErrors('recipeInstruction')}">
                                 <ul>
-                                    <li th:each="err : ${#fields.errors('instructionText')}" th:text="${err}"/>
+                                    <li th:each="err : ${#fields.errors('recipeInstruction')}" th:text="${err}"/>
                                 </ul>
                             </span>
                             <div class="row">
-                                <div class="col-md-12 form-group" th:class="${#fields.hasErrors('instructionText')} ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
-                                    <textarea class="form-control" rows="3" th:field="*{instructionText}" th:errorclass="has-error"></textarea></div>
+                                <div class="col-md-12 form-group" th:class="${#fields.hasErrors('recipeInstruction')} ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
+                                    <textarea class="form-control" rows="3" th:field="*{recipeInstruction}" th:errorclass="has-error"></textarea></div>
                             </div>
                         </div>
                     </div>
