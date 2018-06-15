@@ -3,6 +3,9 @@ recipes.quickRecipes.MaxDuration: 30
 spring:
 #    profiles.active: development # spring.profiles.active possible values are: development, production
     config.additional-location: classpath*:config/
+    servlet.multipart:
+        max-file-size: 10MB
+        max-request-size: 10MB
 
 logging.level:
     root: WARN
