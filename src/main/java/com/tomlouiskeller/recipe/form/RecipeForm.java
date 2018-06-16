@@ -10,12 +10,9 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.PositiveOrZero;
 import javax.validation.constraints.Size;
-import java.util.HashSet;
-import java.util.Set;
-import java.util.SortedSet;
+import java.util.*;
 
-// TODO: Create tests for all the validation
-
+// TODO: Remove the "recipe" prefix
 @Data
 public class RecipeForm {
 
@@ -48,8 +45,7 @@ public class RecipeForm {
     @NotBlank
     private String recipeInstruction;
 
-    // TODO: Do these afterwards.
-    private Set<Ingredient> ingredients = new HashSet<>();
+    private List<Ingredient> recipeIngredients = new ArrayList<>();
 
     private SortedSet<Category> availableCategories;
     private Set<Category> recipeCategories = new HashSet<>();
@@ -60,7 +56,7 @@ public class RecipeForm {
     // This constructor is only used through the builder. Annotating the class with @Builder doesn't work
     // Otherwise NoArgsConstructor is private
     @Builder
-    public RecipeForm(String recipeId, @Size(min = 3, max = 255) String recipeTitle, @PositiveOrZero Integer recipePreparationDuration, @PositiveOrZero Integer recipeCookingDuration, @Positive Integer recipeServings, @Size(max = 255) String recipeSource, @Size(max = 255) String recipeUrl, Byte[] recipeImage, Difficulty recipeDifficulty, @NotBlank String recipeInstruction, Set<Ingredient> ingredients, SortedSet<Category> availableCategories, Set<Category> recipeCategories) {
+    public RecipeForm(String recipeId, @Size(min = 3, max = 255) String recipeTitle, @PositiveOrZero Integer recipePreparationDuration, @PositiveOrZero Integer recipeCookingDuration, @Positive Integer recipeServings, @Size(max = 255) String recipeSource, @Size(max = 255) String recipeUrl, Byte[] recipeImage, Difficulty recipeDifficulty, @NotBlank String recipeInstruction, List<Ingredient> recipeIngredients, SortedSet<Category> availableCategories, Set<Category> recipeCategories) {
         this.recipeId = recipeId;
         this.recipeTitle = recipeTitle;
         this.recipePreparationDuration = recipePreparationDuration;
@@ -71,7 +67,7 @@ public class RecipeForm {
         this.recipeImage = recipeImage;
         this.recipeDifficulty = recipeDifficulty;
         this.recipeInstruction = recipeInstruction;
-        this.ingredients = ingredients;
+        this.recipeIngredients = recipeIngredients;
         this.availableCategories = availableCategories;
         this.recipeCategories = recipeCategories;
     }

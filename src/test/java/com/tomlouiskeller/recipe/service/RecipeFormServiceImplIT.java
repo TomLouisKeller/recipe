@@ -1,28 +1,36 @@
 package com.tomlouiskeller.recipe.service;
 
-import com.tomlouiskeller.recipe.domain.Category;
-import com.tomlouiskeller.recipe.domain.Difficulty;
-import com.tomlouiskeller.recipe.domain.Recipe;
+import com.tomlouiskeller.recipe.domain.*;
 import com.tomlouiskeller.recipe.form.RecipeForm;
 import org.junit.Before;
 import org.junit.Test;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
 
 import java.util.*;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.when;
 
 
 // TODO: convert image both ways
-public class RecipeFormServiceImplTest {
+
+// These tests also test Recipe and RecipeForm and are therefore not pure Unit-Tests
+// This is wanted.
+// We do mock IngredientServiceImpl
+public class RecipeFormServiceImplIT {
 
     private RecipeFormServiceImpl recipeFormService;
+
+    @Mock
+    private IngredientServiceImpl ingredientService;
 
 
     @Before
     public void setUp() {
-        recipeFormService = new RecipeFormServiceImpl();
+        MockitoAnnotations.initMocks(this);
+        recipeFormService = new RecipeFormServiceImpl(ingredientService);
     }
 
     // --- Convert RecipeForm to Recipe --- //
@@ -49,6 +57,7 @@ public class RecipeFormServiceImplTest {
         String recipeUrl = "yaaa.com/pizza";
         Difficulty recipeDifficulty = Difficulty.EASY;
         String instruction = "recipeInstruction";
+        List<Ingredient> recipeIngredients = Collections.emptyList();
         RecipeForm recipeForm = RecipeForm.builder()
                                 .recipeTitle(recipeTitle)
                                 .recipePreparationDuration(recipePreparationDuration)
@@ -58,6 +67,7 @@ public class RecipeFormServiceImplTest {
                                 .recipeUrl(recipeUrl)
                                 .recipeDifficulty(recipeDifficulty)
                                 .recipeInstruction(instruction)
+                                .recipeIngredients(recipeIngredients)
                                 .build();
 
         Recipe recipe = recipeFormService.convert(recipeForm);
@@ -73,13 +83,44 @@ public class RecipeFormServiceImplTest {
     }
 
     @Test
-    public void convertFormToEntityCategories() {
+    public void convertToRecipeTestIngredients() {
+        List<Ingredient> ingredients = new ArrayList<>();
+
+        double potatoAmount = 1d;
+        String potatoUom ="Kilogram";
+        String potatoProduct = "Potatoes";
+        Ingredient potatoes = new Ingredient(potatoAmount,  new UnitOfMeasurement(potatoUom), new Product(potatoProduct));
+
+        double saltAmount = 3d;
+        String saltUom = "Teaspoon";
+        String saltProduct = "Salt";
+        Ingredient salt = new Ingredient(saltAmount, new UnitOfMeasurement(saltUom), new Product(saltProduct));
+
+        ingredients.add(potatoes);
+        ingredients.add(salt);
+
+        RecipeForm recipeForm = RecipeForm.builder()
+                .recipeIngredients(ingredients)
+                .build();
+
+        when(ingredientService.ingredientFactory(potatoAmount, potatoUom, potatoProduct)).thenReturn(potatoes);
+        when(ingredientService.ingredientFactory(saltAmount, saltUom, saltProduct)).thenReturn(salt);
+
+        Recipe recipe = recipeFormService.convert(recipeForm);
+
+        SortedSet<Ingredient> actual = recipe.getIngredients();
+        assertArrayEquals(ingredients.toArray(), actual.toArray());
+    }
+
+    @Test
+    public void convertToRecipeTestCategories() {
 
         Category american = new Category("American");
         Category swiss = new Category("Swiss");
         Set<Category> recipeCategories = new HashSet<>(Arrays.asList(american, swiss));
         RecipeForm recipeForm = RecipeForm.builder()
                 .recipeCategories(recipeCategories)
+                .recipeIngredients(Collections.emptyList())
                 .build();
         Recipe recipe = recipeFormService.convert(recipeForm);
         assertEquals(recipeCategories, recipe.getCategories());
@@ -129,6 +170,21 @@ public class RecipeFormServiceImplTest {
     }
 
     @Test
+    public void convertToRecipeFormTestIngredients() {
+        SortedSet<Ingredient> ingredients = new TreeSet<>();
+        ingredients.add(mock(Ingredient.class));
+        ingredients.add(mock(Ingredient.class));
+
+        Recipe recipe = new Recipe();
+        recipe.setIngredients(ingredients);
+        RecipeForm recipeForm = recipeFormService.convert(recipe, null);
+
+        List<Ingredient> actual = recipeForm.getRecipeIngredients();
+
+        assertArrayEquals(ingredients.toArray(), actual.toArray());
+    }
+
+    @Test
     public void convertEntityToFormRecipeCategories() {
 
         Category category1 = mock(Category.class);
@@ -145,14 +201,14 @@ public class RecipeFormServiceImplTest {
 
     @Test
     public void convertEntityToFormAvailableCategories() {
-        Category category1 = mock(Category.class);
-        Category category2 = mock(Category.class);
-        List<Category> categoryList = Arrays.asList(category1, category2);
-        SortedSet<Category> categorySet = new TreeSet<>(categoryList);
+        SortedSet<Category> categorySet = new TreeSet<>();
+        categorySet.add(mock(Category.class));
+        categorySet.add(mock(Category.class));
 
         Recipe recipe = Recipe.builder().build();
 
         RecipeForm recipeForm = recipeFormService.convert(recipe, categorySet);
-        assertEquals(categorySet, recipeForm.getAvailableCategories());
+        SortedSet<Category> actual = recipeForm.getAvailableCategories();
+        assertArrayEquals(categorySet.toArray(), actual.toArray());
     }
 }

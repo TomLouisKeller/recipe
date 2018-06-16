@@ -35,12 +35,12 @@ public class Recipe implements Comparable<Recipe> {
     private final SortedSet<Ingredient> ingredients = new TreeSet<>();
 
     @DBRef
-    private final Set<Category> categories = new TreeSet<>();
+    private final Set<Category> categories = new TreeSet<>(); // TODO: Refactor to SortedSet
 
     public Recipe() {}
 
     @Builder
-    public Recipe(String id, String title, Integer preparationDuration, Integer cookingDuration, Integer servings, String source, String url, Byte[] image, Difficulty difficulty, String instruction) {
+    public Recipe(String id, String title, Integer preparationDuration, Integer cookingDuration, Integer servings, String source, String url, Byte[] image, String instruction, Difficulty difficulty, SortedSet<Ingredient> ingredients, Set<Category> categories) {
         this.id = id;
         this.title = title;
         this.preparationDuration = preparationDuration;
@@ -49,13 +49,23 @@ public class Recipe implements Comparable<Recipe> {
         this.source = source;
         this.url = url;
         this.image = image;
-        this.difficulty = difficulty;
         this.instruction = instruction;
+        this.difficulty = difficulty;
+
+        if (ingredients != null)
+            this.setIngredients(ingredients);
+        if (categories != null)
+            this.setCategories(categories);
     }
 
     public Recipe addIngredient(Ingredient ingredient){
         this.getIngredients().add(ingredient);
         return this;
+    }
+
+    public void setIngredients(SortedSet<Ingredient> ingredients) {
+        this.ingredients.clear();
+        if (ingredients != null) this.ingredients.addAll(ingredients);
     }
 
     public void setCategories(Set<Category> categories) {

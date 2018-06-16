@@ -143,35 +143,42 @@
                         </div>
                     </div>
 
-                    <!--
+
                     <div class="panel panel-primary">
                         <div class="panel-heading">
-                            <div class="row">
-                                <div class="col-md-11 ">
-                                    <h1 class="panel-title">Ingredients</h1>
-                                </div>
-                                <div class="col-md-1">
-                                    <a class="btn btn-default" href="#" role="button">Edit</a>
-                                </div>
-                            </div>
+                            <h1 class="panel-title" th:text="#{recipeForm.recipeIngredients}">Ingredients</h1>
                         </div>
-                        <div class="panel-body">
+
+                        <div class="panel-body" th:class="${#fields.hasErrors('recipeIngredients')} ? 'panel-body has-error' : 'panel-body'">
+                            <span class="help-block" th:if="${#fields.hasErrors('recipeIngredients')}">
+                                <ul>
+                                    <li th:each="err : ${#fields.errors('recipeIngredients')}" th:text="${err}"/>
+                                </ul>
+                            </span>
+                            <!-- TODO: Add error reporting for ingredients-->
                             <div class="row">
-                                <div class="col-md-12">
+                                <div class="col-md-12 form-group"
+                                     th:class="${#fields.hasErrors('recipeIngredients')} ? 'col-md-12 form-group has-error' : 'col-md-12 form-group'">
                                     <ul>
-                                        <li th:remove="all">1 Cup of milk</li>
-                                        <li th:remove="all">1 Teaspoon of chocolate</li>
-                                        <li th:each="ingredient : ${recipe.ingredients}"
-                                            th:text="${(ingredient.getAmount() +
-                                        ' ' + ingredient.uom.getDescription() +
-                                        ' - ' + ingredient.getDescription())}">1 Teaspoon of Sugar
+                                        <li th:each="ingredient,iterStat : ${recipeForm.recipeIngredients}">
+                                            <!--<input type="text" class="form-control" th:field="${ingredient.amount}" th:errorclass="has-error" />-->
+                                            <!--<input type="text" class="form-control" th:field="${ingredient.unitOfMeasurement.name}" th:errorclass="has-error" />-->
+                                            <!--<input type="text" class="form-control" th:field="${ingredient.product.name}" th:errorclass="has-error" />-->
+                                            <input th:field="*{recipeIngredients[__${iterStat.index}__].amount}"
+                                                   th:errorclass="has-error" />
+
+                                            <input th:field="*{recipeIngredients[__${iterStat.index}__].unitOfMeasurement.name}"
+                                                   th:errorclass="has-error" />
+
+                                            <input th:field="*{recipeIngredients[__${iterStat.index}__].product.name}"
+                                                   th:errorclass="has-error"/>
                                         </li>
+
                                     </ul>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    -->
 
                     <!-- TODO: Figure out input errors with textarea -->
                     <div class="panel panel-primary">

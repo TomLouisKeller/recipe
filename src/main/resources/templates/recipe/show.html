@@ -133,18 +133,12 @@
                             <div class="col-md-11 ">
                                 <h1 class="panel-title" th:text="#{recipeForm.ingredients}">Ingredients</h1>
                             </div>
-                            <!--<div class="col-md-1">-->
-                                <!--<a class="btn btn-default" href="#"-->
-                                   <!--th:href="@{'/recipe/' + ${recipe.getId()} + '/ingredients'}" role="button">View</a>-->
-                            <!--</div>-->
                         </div>
                     </div>
                     <div class="panel-body">
                         <div class="row">
                             <div class="col-md-12">
                                 <ul>
-                                    <li th:remove="all">1 kg Potatoes</li>
-                                    <li th:remove="all">1 Teaspoon Salt</li>
                                     <li th:each="ingredient : ${recipe.ingredients}">
                                         <span th:if="${ingredient.amount != null}" th:text="${ingredient.amount}"> </span>
                                         <span th:text="${ingredient.unitOfMeasurement.name}"> Some </span>

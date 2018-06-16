@@ -1,6 +1,7 @@
 package com.tomlouiskeller.recipe.domain;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.DBRef;
@@ -9,6 +10,7 @@ import java.util.Comparator;
 
 @Setter
 @Getter
+@NoArgsConstructor
 public class Ingredient implements Comparable<Ingredient>, Comparator<Ingredient> {
 
     @Id
@@ -30,6 +32,7 @@ public class Ingredient implements Comparable<Ingredient>, Comparator<Ingredient
     public String getProductName() {
         return product.getName();
     }
+    public String getUnitOfMeasurementName() {return unitOfMeasurement.getName();}
 
     @Override // TODO: For now we sort by Product.name. Later we will sort by a dedicated sort field.
     public int compareTo(Ingredient ingredient) {
