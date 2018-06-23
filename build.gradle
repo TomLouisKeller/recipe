@@ -46,6 +46,7 @@ dependencies {
 
     // Test
     testCompile group: 'org.springframework.boot', name: 'spring-boot-starter-test'
+    testCompile group: 'de.flapdoodle.embed', name: 'de.flapdoodle.embed.mongo', version: '2.0.3'
 }
 
 idea {
