@@ -9,3 +9,13 @@ function prepareUploadImage () {
 function doUploadImage() {
     document.getElementById("uploadImageForm").submit();
 }
+
+// --
+
+function addIngredient(id) {
+    alert("Add ingredient after id: " + id);
+}
+
+function removeIngredient(id) {
+    alert("Remove ingredient id: " + id);
+}
